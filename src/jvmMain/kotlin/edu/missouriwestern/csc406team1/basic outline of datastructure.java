@@ -33,12 +33,8 @@ class CheckingAccount extends Account {
 class TMBAccount extends CheckingAccount {
 }
 
-// Represents a gold checking account in the bank system.
-class GoldAccount extends CheckingAccount {
-}
-
-// Represents a diamond checking account in the bank system.
-class DiamondAccount extends CheckingAccount {
+// Represents a gold/Diamond checking account in the bank system.
+class GoldDiamondAccount extends CheckingAccount {
 }
 
 // Represents a loan offered by the bank.
