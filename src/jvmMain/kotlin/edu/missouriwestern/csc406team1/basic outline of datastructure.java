@@ -3,10 +3,20 @@ package edu.missouriwestern.csc406team1;
 
 // Represents a user of the system.
 abstract class User {
+   
 }
 
 // Represents a customer user of the system.
 class Customer extends User {
+   private ArrayList<Account> linkedAccounts = new ArrayList<>();
+
+   public void linkAccount(Account account) {
+       linkedAccounts.add(account);
+   }
+
+   public ArrayList<Account> getLinkedAccounts() {
+       return linkedAccounts;
+   }
 }
 
 // Represents a bank teller user of the system.
