@@ -1,4 +1,4 @@
-
+package edu.missouriwestern.csc406team1;
 
 import java.io.*;
 import java.util.ArrayList;
