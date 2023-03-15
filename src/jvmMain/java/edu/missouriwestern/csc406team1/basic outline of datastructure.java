@@ -38,9 +38,9 @@ class BankManager extends User {
 
 // Represents an account in the bank system.
 abstract class Account {
-   private double balance;
-   private Date dateOpened;
-   private double interestRate;
+   private double balance;//current balance of the account
+   private Date dateOpened;//date the account was opened with the bank
+   private double interestRate;//current interest rate of the account
 
    public double getBalance() { return balance; }
    public void setBalance(double balance) { this.balance = balance; }
@@ -54,15 +54,15 @@ abstract class Account {
 
 // Represents a savings account in the bank system.
 class SavingsAccount extends Account {
-   private double interestRate;
+   
 }
 
 /**
- * Represents a certificate of deposit (CD) savings account in the bank system.
+ * Represents a certificate of deposit (CD) savings account in the bank system. 
  */
 class CD extends SavingsAccount {
    
-   private Date dueDate;   //
+   private Date dueDate;   //Date CD is due to complete
    private int rolloverTimeframe;//how long until a CD will roll over after due date
 
    public Date getDueDate() { return dueDate; }
@@ -76,8 +76,8 @@ class CD extends SavingsAccount {
 class CheckingAccount extends Account {
    private double transactionFee;//cost of fee per transaction
    private boolean hasBackupAccount;//flag to indicate if a savings account is linked as a backup
-   private Account backupAccount;
-
+   private Account backupAccount;//pointer to the account designated as the backup account if setup
+   
    public double getTransactionFee() { return transactionFee; }
    public void setTransactionFee(double transactionFee) { this.transactionFee = transactionFee; }
 
@@ -86,17 +86,20 @@ class CheckingAccount extends Account {
 
 // Represents a "That's My Bank" (TMB) checking account in the bank system.
 class TMBAccount extends CheckingAccount {
+   
+   //constructor
    public TMBAccount() {
-      setTransactionFee(1.25);
+      setTransactionFee(1.25); //sets transaction fee to $1.25
    }
 }
 
 // Represents a gold checking account in the bank system.
 class GoldDiamondAccount extends CheckingAccount {
-   private double minimumBalance;
+   private double minimumBalance;//minimum balanced required to not pay transaction fees
 
+   //constructor
    public GoldDiamondAccount() {
-       minimumBalance = 5000;
+       minimumBalance = 5000; //sets minimum balance to $5,000
    }
 
    public double getMinimumBalance() { return minimumBalance; }
@@ -105,11 +108,18 @@ class GoldDiamondAccount extends CheckingAccount {
 
 // Represents a loan offered by the bank.
 abstract class Loan {
-   private Date paymentDue;
-   private Date paymentNotified;
-   private double currentPaymentDue;
-   private Date dateSinceLastPayment;
-   private boolean missedPayment;
+   private Date paymentDue; //date next payment is due
+   private Date paymentNotified; //date notification is sent for next payment
+   private double currentPaymentDue; //amount due for next payment
+   private Date dateSinceLastPayment; //date last payment was recieved
+   private boolean missedPayment; //flag if a payment was missed
+   
+   //Should Loan and account be a single object that the other types of accounts extend from? 
+   //The below attributes are also in account. 
+   private double interestRate; 
+   private double balance;//current balance of the account
+   private Date dateOpened;//date the account was opened with the bank
+
 
    public Date getPaymentDue() { return paymentDue; }
    public void setPaymentDue(Date paymentDue) { this.paymentDue = paymentDue; }
@@ -141,4 +151,5 @@ class CreditCardLoan extends Loan {
 
 // Represents an ATM card linked to an account.
 class ATMCard {
+   private String pinNumber; //access PIN to use card
 }
