@@ -1,30 +1,39 @@
 package edu.missouriwestern.csc406team1;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Date;
+
 //datastructure basic outline for Banking System
 
 // Represents a user of the system.
 abstract class User {
    
+   private String firstName;
+   private String lastName;
+   
 }
 
 // Represents a customer user of the system.
 class Customer extends User {
-   private ArrayList<Account> linkedAccounts = new ArrayList<>();
-
-   public void linkAccount(Account account) {
-       linkedAccounts.add(account);
-   }
-
-   public ArrayList<Account> getLinkedAccounts() {
-       return linkedAccounts;
-   }
+   private String SSN;
+   private String streetAdress;
+   private String city;
+   private String state;
+   private String zipCode;
+   private String accountNumber; //could be used in interface to "login" and pull up a customers accounts
+     
+   
 }
 
 // Represents a bank teller user of the system.
 class BankTeller extends User {
+   private String employeeID; //could be used in interface to "login" to bank teller menu
 }
 
 // Represents a bank manager user of the system.
 class BankManager extends User {
+   private String managerCode; //"access code" of sorts for the manager to login to system
 }
 
 // Represents an account in the bank system.
@@ -53,8 +62,8 @@ class SavingsAccount extends Account {
  */
 class CD extends SavingsAccount {
    
-   private Date dueDate;
-   private int rolloverTimeframe;
+   private Date dueDate;   //
+   private int rolloverTimeframe;//how long until a CD will roll over after due date
 
    public Date getDueDate() { return dueDate; }
    public void setDueDate(Date dueDate) { this.dueDate = dueDate; }
@@ -65,15 +74,14 @@ class CD extends SavingsAccount {
 
 // Represents a checking account in the bank system.
 class CheckingAccount extends Account {
-   private double transactionFee;
-   private boolean backupAccount;
+   private double transactionFee;//cost of fee per transaction
+   private boolean hasBackupAccount;//flag to indicate if a savings account is linked as a backup
+   private Account backupAccount;
 
    public double getTransactionFee() { return transactionFee; }
    public void setTransactionFee(double transactionFee) { this.transactionFee = transactionFee; }
 
-   public boolean hasBackupAccount() { return backupAccount; }
-   public void setBackupAccount(boolean backupAccount) { this.backupAccount = backupAccount; }
-    
+       
 }
 
 // Represents a "That's My Bank" (TMB) checking account in the bank system.
