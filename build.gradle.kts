@@ -3,6 +3,7 @@ import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 plugins {
     kotlin("multiplatform")
     id("org.jetbrains.compose")
+    id("java")
 }
 
 group = "edu.missouriwestern"
@@ -23,6 +24,10 @@ kotlin {
         val jvmMain by getting {
             dependencies {
                 implementation(compose.desktop.currentOs)
+                implementation(compose.materialIconsExtended)
+                implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.0")
+                implementation("com.arkivanov.decompose:decompose:1.0.0")
+                implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0")
             }
         }
         val jvmTest by getting
