@@ -1,33 +1,13 @@
-package edu.missouriwestern.csc406team1
-
-import androidx.compose.material.MaterialTheme
-import androidx.compose.desktop.ui.tooling.preview.Preview
-import androidx.compose.material.Button
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.window.Window
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.window.application
+import edu.missouriwestern.csc406team1.common.LocalAppResources
+import edu.missouriwestern.csc406team1.common.rememberAppResources
 
-@Composable
-@Preview
-fun App() {
-    var text by remember { mutableStateOf("Hello, World!") }
-
-    MaterialTheme {
-        Button(onClick = {
-            text = "Hello, Desktop!"
-        }) {
-            Text(text)
-        }
-    }
-}
-
+/**
+ * This is our main function for entry into our app
+ */
 fun main() = application {
-    Window(onCloseRequest = ::exitApplication) {
-        App()
+    CompositionLocalProvider(LocalAppResources provides rememberAppResources()) {
+        BankApplication(rememberApplicationState())
     }
 }
