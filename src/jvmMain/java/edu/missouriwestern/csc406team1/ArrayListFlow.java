@@ -6,22 +6,34 @@ import kotlinx.coroutines.flow.MutableStateFlow;
 import kotlinx.coroutines.flow.StateFlow;
 import kotlinx.coroutines.flow.StateFlowKt;
 import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 
+/**
+ * This is a custom List that integrates with compose by being stateful
+ * @param <T> The type of object to be stored
+ */
 public class ArrayListFlow<T> implements Iterable<T>, Collection<T>, List<T> {
 
+    @NotNull
     private final MutableStateFlow<List<T>> _list = StateFlowKt.MutableStateFlow(CollectionsKt.listOf());
 
     public ArrayListFlow() {}
 
-    public ArrayListFlow(Collection<? extends T> c) {
+    public ArrayListFlow(@NotNull Collection<? extends T> c) {
         List<T> old_list = CollectionsKt.toMutableList(_list.getValue());
         old_list.addAll(c);
         _list.setValue(old_list);
     }
 
-    public StateFlow<T> getFlow() {
-        return (StateFlow<T>) FlowKt.asStateFlow(_list);
+    @NotNull
+    public List<T> getList() {
+        return _list.getValue();
+    }
+
+    @NotNull
+    public StateFlow<List<T>> getFlow() {
+        return FlowKt.asStateFlow(_list);
     }
 
     @Override
