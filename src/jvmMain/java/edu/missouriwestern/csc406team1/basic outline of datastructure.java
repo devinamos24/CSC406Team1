@@ -25,6 +25,8 @@ class Customer extends User {
    private String state;
    private String zipCode;
    private String accountNumber; //could be used in interface to "login" and pull up a customers accounts
+   ArrayListFlow<Account> accounts_flow = new ArrayListFlow<>();
+   ArrayListFlow<Loan> loans_flow = new ArrayListFlow<>();
      
    
 }
