@@ -167,6 +167,7 @@ fun MainContent(
             is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerSelection) }, onClickBankTeller = {}, onClickBankManager = {})
             is Screen.CustomerSelection -> CustomerSelectionScreen(customerRepository = customerRepository, onBack = navigation::pop, onClickCustomer = { navigation.push(Screen.CustomerDetails(customer = it))})
             is Screen.CustomerDetails -> CustomerDetailsScreen(customer = screen.customer, customerRepository = customerRepository, onBack = navigation::pop)
+            else -> {}
         }
     }
 }

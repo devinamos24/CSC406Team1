@@ -5,8 +5,7 @@ import ProvideComponentContext
 import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.foundation.defaultScrollbarStyle
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
@@ -17,6 +16,7 @@ import androidx.compose.ui.window.Window
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
 import edu.missouriwestern.csc406team1.common.LocalAppResources
+import edu.missouriwestern.csc406team1.theme.AppTheme
 import kotlinx.coroutines.launch
 import edu.missouriwestern.csc406team1.util.YesNoCancelDialog
 
@@ -48,7 +48,7 @@ fun BankWindow(state: BankWindowState) {
 
         // This section represents the core of the app, see the Screens.Kt file to learn more
         Surface(modifier = Modifier.fillMaxSize()) {
-            MaterialTheme {
+            AppTheme {
                 CompositionLocalProvider(LocalScrollbarStyle provides defaultScrollbarStyle()) {
                     ProvideComponentContext(state.rootComponentContext) {
                         MainContent(customerRepository = state.customerRepository)
