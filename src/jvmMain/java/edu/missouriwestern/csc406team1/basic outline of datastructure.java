@@ -25,6 +25,8 @@ class Customer extends User {
    private String state;
    private String zipCode;
    private String accountNumber; //could be used in interface to "login" and pull up a customers accounts
+   ArrayListFlow<Account> accounts_flow = new ArrayListFlow<>();
+   ArrayListFlow<Loan> loans_flow = new ArrayListFlow<>();
      
    
 }
@@ -47,7 +49,10 @@ abstract class Account {
    private Date dateOpened;//date the account was opened with the bank
    @Nullable // The interest rate can be null if it is a basic checking account
    private Double interestRate;//current interest rate of the account
-
+   @NotNull
+   private String primaryKey;//unique value to identify the account in the database
+   @NotNull
+   private String foreignKey;//unique value(SSN) to identify the customer owning the account
    public Account(@NotNull Double balance, @NotNull Date dateOpened, @Nullable Double interestRate) {
       this.balance = balance;
       this.dateOpened = dateOpened;
