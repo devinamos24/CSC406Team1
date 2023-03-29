@@ -137,6 +137,7 @@ class SavingsAccount extends Account {
       double interest = getBalance() * (getInterestRate() / 100);
       double newBalance = getBalance() + interest;
       setBalance(newBalance);
+      System.out.printf("Interest of %.2f added. New balance: %.2f%n", interest, newBalance);
    }
 }
 
