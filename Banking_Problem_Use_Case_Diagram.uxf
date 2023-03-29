@@ -1,0 +1,75 @@
+<diagram program="umletino" version="15.1"><zoom_level>8</zoom_level><element><id>UMLActor</id><coordinates><x>696</x><y>48</y><w>48</w><h>88</h></coordinates><panel_attributes>User</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>624</x><y>176</y><w>96</w><h>32</h></coordinates><panel_attributes>Customer</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>872</x><y>160</y><w>96</w><h>32</h></coordinates><panel_attributes>Bank Teller</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>1000</x><y>160</y><w>96</w><h>32</h></coordinates><panel_attributes>Bank Manager</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLNote</id><coordinates><x>784</x><y>0</y><w>160</w><h>56</h></coordinates><panel_attributes>Notes:
+The user is given three options:
+ customer, bank teller, 
+and bank manager.
+bg=blue</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>744</x><y>64</y><w>320</w><h>112</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;380;120</additional_attributes></element><element><id>Relation</id><coordinates><x>672</x><y>104</y><w>32</w><h>88</h></coordinates><panel_attributes></panel_attributes><additional_attributes>20;10;10;90</additional_attributes></element><element><id>Relation</id><coordinates><x>736</x><y>88</y><w>192</w><h>88</h></coordinates><panel_attributes></panel_attributes><additional_attributes>10;10;220;90</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>840</x><y>248</y><w>104</w><h>32</h></coordinates><panel_attributes>Prompt the 
+user to login</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>928</x><y>184</y><w>112</w><h>88</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;90;120;10</additional_attributes></element><element><id>Relation</id><coordinates><x>888</x><y>184</y><w>80</w><h>80</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;80;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>712</x><y>184</y><w>144</w><h>88</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>160;90;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>336</x><y>144</y><w>208</w><h>104</h></coordinates><panel_attributes>If the user does not have an account
+--
+The user can create an account by 
+clicking the add customer button and input
+their information.
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>536</x><y>176</y><w>104</w><h>32</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;20;110;20</additional_attributes></element><element><id>UMLGeneric</id><coordinates><x>920</x><y>480</y><w>104</w><h>32</h></coordinates><panel_attributes>Database
+valign=center</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>344</x><y>192</y><w>304</w><h>136</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>360;10;10;150</additional_attributes></element><element><id>Relation</id><coordinates><x>648</x><y>200</y><w>32</w><h>56</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>20;10;10;50</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>288</x><y>312</y><w>96</w><h>32</h></coordinates><panel_attributes>Saving account</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>624</x><y>240</y><w>64</w><h>32</h></coordinates><panel_attributes>Loans</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>248</x><y>336</y><w>96</w><h>96</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;100;80;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>184</x><y>416</y><w>96</w><h>32</h></coordinates><panel_attributes>Add money</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>320</x><y>416</y><w>96</w><h>32</h></coordinates><panel_attributes>Withdraw money</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>352</x><y>336</y><w>72</w><h>96</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>20;100;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>456</x><y>328</y><w>128</w><h>64</h></coordinates><panel_attributes>Long-term morgage
+--
+This loan is of either 
+the 15 / 30 year type
+valign=top
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>608</x><y>328</y><w>128</w><h>64</h></coordinates><panel_attributes>Short-term morgage
+--
+This loan of 
+approx. 5 years
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>768</x><y>328</y><w>72</w><h>32</h></coordinates><panel_attributes>Credit card</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>520</x><y>256</y><w>120</w><h>88</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;90;130;10</additional_attributes></element><element><id>Relation</id><coordinates><x>648</x><y>264</y><w>72</w><h>80</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>20;80;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>680</x><y>256</y><w>120</w><h>88</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>130;90;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>200</x><y>592</y><w>96</w><h>32</h></coordinates><panel_attributes>Checking account</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>256</x><y>200</y><w>408</w><h>408</h></coordinates><panel_attributes>lt=-&gt;&gt;</panel_attributes><additional_attributes>490;10;230;150;200;350;10;490</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>120</x><y>680</y><w>152</w><h>72</h></coordinates><panel_attributes>That's My Bank (TMB)
+--
+Customers charged with $0.75 
+per transation
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>344</x><y>672</y><w>104</w><h>32</h></coordinates><panel_attributes>Gold / Diamond</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>280</x><y>736</y><w>200</w><h>80</h></coordinates><panel_attributes>Minimum balance 
+of $5000.00
+--
+There is no charge for transactions 
+agains the account, if the minimum
+balance is maintained
+valign=top
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>480</x><y>728</y><w>200</w><h>64</h></coordinates><panel_attributes>The rate is flexible in that 
+it changes on a daily basis
+--
+0.5 * (the rate on the savings account)
+valign=top
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>384</x><y>696</y><w>72</w><h>56</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;includes&gt;&gt;</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>432</x><y>688</y><w>160</w><h>56</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;includes&gt;&gt;</panel_attributes><additional_attributes>180;50;10;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>0</x><y>784</y><w>152</w><h>72</h></coordinates><panel_attributes>Monthly transfers
+--
+Customers charged with $1.25 
+per transation
+valign=top</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>64</x><y>728</y><w>80</w><h>72</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes><additional_attributes>80;10;10;70</additional_attributes></element><element><id>Relation</id><coordinates><x>192</x><y>616</y><w>80</w><h>80</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;80;40;10</additional_attributes></element><element><id>Relation</id><coordinates><x>264</x><y>616</y><w>120</w><h>72</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>130;70;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>288</x><y>600</y><w>192</w><h>80</h></coordinates><panel_attributes>lt=&lt;.
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;10;220;72</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>464</x><y>632</y><w>200</w><h>56</h></coordinates><panel_attributes>Overdrafts
+--
+The bank returns the check unpaid
+and charges the account with $25 
+over draft fee.
+valign=top
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>488</x><y>384</y><w>80</w><h>64</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>40;60;10;10</additional_attributes></element><element><id>Relation</id><coordinates><x>592</x><y>376</y><w>80</w><h>64</h></coordinates><panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes><additional_attributes>10;60;40;10</additional_attributes></element><element><id>UMLUseCase</id><coordinates><x>464</x><y>424</y><w>216</w><h>184</h></coordinates><panel_attributes>The bank receives these 
+loans on a monthly basis. 
+--
+If a payment is missed, the account 
+is flagged as a problem account
+--
+If the loan payment is late, the bank adds
+a $75 late fee to that month's payment.
+--
+Extra payments may be made on
+ loans at any time, however no 
+amount maybe added to the loan.</panel_attributes><additional_attributes></additional_attributes></element></diagram>
