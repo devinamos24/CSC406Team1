@@ -51,7 +51,7 @@ fun BankWindow(state: BankWindowState) {
             AppTheme {
                 CompositionLocalProvider(LocalScrollbarStyle provides defaultScrollbarStyle()) {
                     ProvideComponentContext(state.rootComponentContext) {
-                        MainContent(customerRepository = state.customerRepository)
+                        MainContent(customerRepository = state.customerRepository, accountRepository = state.accountRepository)
                     }
                 }
             }

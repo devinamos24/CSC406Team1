@@ -3,6 +3,8 @@ import androidx.compose.ui.window.Notification
 import androidx.compose.ui.window.TrayState
 import edu.missouriwestern.csc406team1.CustomerRepository
 import edu.missouriwestern.csc406team1.CustomerRepositoryImpl
+import edu.missouriwestern.csc406team1.database.AccountRepository
+import edu.missouriwestern.csc406team1.database.AccountRepositoryImpl
 import kotlinx.coroutines.*
 import edu.missouriwestern.csc406team1.util.AlertDialogResult
 import edu.missouriwestern.csc406team1.window.BankWindowState
@@ -35,8 +37,10 @@ class BankApplicationState {
     private val exitDialog = DialogState<AlertDialogResult>()
 
     // A repository to pull and push customers to
-    val customerRepository: CustomerRepository =
-        CustomerRepositoryImpl()
+    val customerRepository: CustomerRepository = CustomerRepositoryImpl()
+
+    // A repository to pull and push accounts to
+    val accountRepository: AccountRepository = AccountRepositoryImpl()
 
     // A function to create a window state and add it to _windows
     fun newWindow() {
