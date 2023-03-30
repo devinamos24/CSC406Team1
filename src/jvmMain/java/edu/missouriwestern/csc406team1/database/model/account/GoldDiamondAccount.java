@@ -1,12 +1,12 @@
 package edu.missouriwestern.csc406team1.database.model.account;
 
-import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+import java.util.List;
 
 public class GoldDiamondAccount extends CheckingAccount{
 
@@ -16,12 +16,12 @@ public class GoldDiamondAccount extends CheckingAccount{
     private Double minimumBalance;
 
     //constructor
-    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @NotNull Double interestRate , @Nullable SavingsAccount backupAccount, @NotNull Double minimumBalance, @NotNull Integer overdraftsThisMonth) {
+    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate , @Nullable SavingsAccount backupAccount, @NotNull Double minimumBalance, @NotNull Integer overdraftsThisMonth) {
         super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= minimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth);
         this.minimumBalance = minimumBalance;
     }
 
-    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
+    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
         super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth);
         this.minimumBalance = defaultMinimumBalance;
     }
@@ -42,11 +42,14 @@ public class GoldDiamondAccount extends CheckingAccount{
         }
 
         String[] base = super.convertToCSV();
-        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        List<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add("GD");
         returnValue.add(String.valueOf(getInterestRate()));
         returnValue.add(backupID);
         returnValue.add(String.valueOf(overdraftsThisMonth));
 
-        return (String[]) returnValue.toArray();
+
+
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }

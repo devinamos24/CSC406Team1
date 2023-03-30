@@ -1,15 +1,19 @@
 package edu.missouriwestern.csc406team1.util;
 
+import javax.swing.text.DateFormatter;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateConverter {
-    public static String convertDateToString(Date date) {
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+    public static String convertDateToString(LocalDate date) {
         // TODO: implement date convert to string
-        return "";
+        return formatter.format(date);
     }
 
-    public static Date convertStringToDate(String date) {
+    public static LocalDate convertStringToDate(String date) {
         // TODO: implement date convert to string
-        return new Date();
+        return LocalDate.parse(date, formatter);
     }
 }

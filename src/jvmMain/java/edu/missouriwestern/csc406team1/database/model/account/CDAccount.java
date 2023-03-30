@@ -3,9 +3,9 @@ package edu.missouriwestern.csc406team1.database.model.account;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 /**
  * Represents a certificate of deposit (CD) savings account in the bank system.
@@ -13,24 +13,28 @@ import java.util.Date;
 public class CDAccount extends SavingsAccount {
 
     @NotNull
-    private Date dueDate;   //Date CD is due to complete
+    private LocalDate dueDate;   //Date CD is due to complete
 
-    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @NotNull Double interestRate, @NotNull Date dueDate) {
+    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @NotNull LocalDate dueDate) {
         super(accountNumber, customerSSN, balance, dateOpened, interestRate);
         this.dueDate = dueDate;
     }
 
     @NotNull
-    public Date getDueDate() { return dueDate; }
-    public void setDueDate(@NotNull Date dueDate) { this.dueDate = dueDate; }
+    public LocalDate getDueDate() { return dueDate; }
+    public void setDueDate(@NotNull LocalDate dueDate) { this.dueDate = dueDate; }
 
     @Override
     public String[] convertToCSV() {
-        String[] base = super.convertToCSV();
-        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        ArrayList<String> returnValue = new ArrayList<>();
+        returnValue.add(getAccountNumber());
+        returnValue.add(getCustomerSSN());
+        returnValue.add(String.valueOf(getBalance()));
+        returnValue.add(DateConverter.convertDateToString(getDateOpened()));
+        returnValue.add("CD");
         returnValue.add(String.valueOf(getInterestRate()));
         returnValue.add(DateConverter.convertDateToString(getDueDate()));
 
-        return (String[]) returnValue.toArray();
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }

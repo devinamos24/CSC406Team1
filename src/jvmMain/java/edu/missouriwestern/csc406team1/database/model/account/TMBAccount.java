@@ -1,11 +1,10 @@
 package edu.missouriwestern.csc406team1.database.model.account;
 
-import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 
 public class TMBAccount extends CheckingAccount {
 
@@ -13,11 +12,11 @@ public class TMBAccount extends CheckingAccount {
     private static final Double defaultTransactionFee = 0.75;
 
     //constructor
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @NotNull SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
         super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, backupAccount, overdraftsThisMonth);
     }
 
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @NotNull Integer overdraftsThisMonth) {
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Integer overdraftsThisMonth) {
         super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, null, overdraftsThisMonth);
     }
 
@@ -32,9 +31,10 @@ public class TMBAccount extends CheckingAccount {
 
         String[] base = super.convertToCSV();
         ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add("TMB");
         returnValue.add(backupID);
         returnValue.add(String.valueOf(overdraftsThisMonth));
 
-        return (String[]) returnValue.toArray();
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }
