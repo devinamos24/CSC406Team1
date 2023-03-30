@@ -24,6 +24,7 @@ import com.arkivanov.decompose.router.stack.pop
 import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
+import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.Customer
 import edu.missouriwestern.csc406team1.util.collectAsState
 
@@ -154,7 +155,8 @@ fun CustomerDetailsScreen(customer: Customer, customerRepository: CustomerReposi
  */
 @Composable
 fun MainContent(
-    customerRepository: CustomerRepository
+    customerRepository: CustomerRepository,
+    accountRepository: AccountRepository
 ) {
     val navigation = remember { StackNavigation<Screen>() }
 
@@ -167,7 +169,6 @@ fun MainContent(
             is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerSelection) }, onClickBankTeller = {}, onClickBankManager = {})
             is Screen.CustomerSelection -> CustomerSelectionScreen(customerRepository = customerRepository, onBack = navigation::pop, onClickCustomer = { navigation.push(Screen.CustomerDetails(customer = it))})
             is Screen.CustomerDetails -> CustomerDetailsScreen(customer = screen.customer, customerRepository = customerRepository, onBack = navigation::pop)
-            else -> {}
         }
     }
 }
