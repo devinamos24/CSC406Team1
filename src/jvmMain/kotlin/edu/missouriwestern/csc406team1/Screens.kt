@@ -26,7 +26,16 @@ import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.Customer
+import edu.missouriwestern.csc406team1.database.model.account.Account
+import edu.missouriwestern.csc406team1.database.model.account.CDAccount
+import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount
+import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
+import edu.missouriwestern.csc406team1.database.model.account.TMBAccount
+import edu.missouriwestern.csc406team1.util.DateConverter
+import edu.missouriwestern.csc406team1.util.DateConverter.convertDateToString
 import edu.missouriwestern.csc406team1.util.collectAsState
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 /**
  * This screen is where the user will select who they are
@@ -86,11 +95,11 @@ fun CustomerButton(customer: Customer, onClick: () -> Unit) {
 @Composable
 fun CustomerSelectionScreen(customerRepository: CustomerRepository, onBack: () -> Unit, onClickCustomer: (customer: Customer) -> Unit) {
     val customers by customerRepository.customers.collectAsState()
-    Box(modifier = Modifier.fillMaxSize()) {
+    Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Row {
+            Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                 Button(
                     onClick = onBack,
                 ) {
@@ -137,13 +146,87 @@ fun CustomerSelectionScreen(customerRepository: CustomerRepository, onBack: () -
  * This screen will be where the customer sees their different accounts and such
  */
 @Composable
-fun CustomerDetailsScreen(customer: Customer, customerRepository: CustomerRepository, onBack: () -> Unit) {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun CustomerDetailsScreen(customer: Customer, customerRepository: CustomerRepository, accountRepository: AccountRepository, onClickAccount: (account: Account) -> Unit, onBack: () -> Unit) {
+    val customers by customerRepository.customers.collectAsState()
+    val accounts by accountRepository.accounts.collectAsState()
+    Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Button(
             onClick = onBack,
             modifier = Modifier.align(Alignment.TopStart)
         ) {
             Text("Back")
+        }
+        Column(modifier = Modifier.align(Alignment.Center)) {
+            val selectedCustomer = customers.find { it.ssn == customer.ssn }
+            if (selectedCustomer != null) {
+                Text(text = "First Name: ${selectedCustomer.firstname}")
+                Text(text = "Last Name: ${selectedCustomer.lastname}")
+                Text(text = "Address: ${selectedCustomer.address}")
+                Text(text = "City: ${selectedCustomer.city}")
+                Text(text = "State: ${selectedCustomer.state}")
+                Text(text = "Zip: ${selectedCustomer.zipcode}")
+
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    accounts.filter { it.customerSSN == selectedCustomer.ssn }.forEachIndexed { i, account ->
+                        Button(onClick = { onClickAccount(account) }) {
+                            Text("Account $i")
+                        }
+                    }
+                }
+
+            } else {
+                Text("This account no longer exists.")
+            }
+        }
+    }
+}
+
+@Composable
+fun AccountDetailsScreen(
+    account: Account,
+    customerRepository: CustomerRepository,
+    accountRepository: AccountRepository,
+    onBack: () -> Unit
+) {
+    val customers by customerRepository.customers.collectAsState()
+    val accounts by accountRepository.accounts.collectAsState()
+    val df = remember { DecimalFormat("#.##") }
+    val selectedAccount = accounts.find { it.accountNumber == account.accountNumber }
+    Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
+        Button(
+            onClick = onBack,
+            modifier = Modifier.align(Alignment.TopStart)
+        ) {
+            Text("Back")
+        }
+        Column(modifier = Modifier.align(Alignment.Center)) {
+            if (selectedAccount != null) {
+                Text("Date Opened: ${convertDateToString(account.dateOpened)}")
+                Text("Current Balance: \$${df.format(account.balance)}")
+                when (account) {
+                    is TMBAccount -> {
+                        Text("Overdrafts This Month: ${account.overdraftsThisMonth}")
+                        account.backupAccount?.let {
+                            Text("Backup Account Balance: \$${df.format(it.balance)}")
+                        } ?: run {
+                            Text("Backup Account Not Selected")
+                        }
+                    }
+                    is GoldDiamondAccount -> {
+                        Text("Overdrafts This Month: ${account.overdraftsThisMonth}")
+                        Text("Daily Interest Rate: ${account.interestRate?.times(100)}%")
+                    }
+                    is CDAccount -> {
+                        Text("Fixed Rate Of Return: ${account.interestRate?.times(100)}%")
+                        Text("Date Complete: ${convertDateToString(account.dueDate)}")
+                    }
+                    is SavingsAccount -> {
+                        Text("Daily Interest Rate: ${account.interestRate?.times(100)}%")
+                    }
+                }
+            } else {
+                Text("This account no longer exists.")
+            }
         }
     }
 }
@@ -168,7 +251,8 @@ fun MainContent(
         when (screen) {
             is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerSelection) }, onClickBankTeller = {}, onClickBankManager = {})
             is Screen.CustomerSelection -> CustomerSelectionScreen(customerRepository = customerRepository, onBack = navigation::pop, onClickCustomer = { navigation.push(Screen.CustomerDetails(customer = it))})
-            is Screen.CustomerDetails -> CustomerDetailsScreen(customer = screen.customer, customerRepository = customerRepository, onBack = navigation::pop)
+            is Screen.CustomerDetails -> CustomerDetailsScreen(customer = screen.customer, customerRepository = customerRepository, accountRepository = accountRepository, onClickAccount = { navigation.push(Screen.AccountDetails(it)) },onBack = navigation::pop)
+            is Screen.AccountDetails -> AccountDetailsScreen(account = screen.account, customerRepository = customerRepository, accountRepository = accountRepository, onBack = navigation::pop)
         }
     }
 }
@@ -187,4 +271,7 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     data class CustomerDetails(val customer: Customer) : Screen()
+
+    @Parcelize
+    data class AccountDetails(val account: Account) : Screen()
 }

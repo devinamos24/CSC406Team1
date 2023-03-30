@@ -79,7 +79,7 @@ class BankApplicationState {
     private suspend fun save(): Boolean {
 
         saveJob?.cancel()
-        saveJob = launchSaving(customerRepository)
+        saveJob = launchSaving(customerRepository, accountRepository)
 
         return try {
             saveJob?.join()
@@ -155,6 +155,7 @@ class DialogState<T> {
  * Function to launch a coroutine that attempts to save our data to disk
  */
 @OptIn(DelicateCoroutinesApi::class)
-private fun launchSaving(customerRepository: CustomerRepository) = GlobalScope.launch {
+private fun launchSaving(customerRepository: CustomerRepository, accountRepository: AccountRepository) = GlobalScope.launch {
     customerRepository.save()
+    accountRepository.save()
 }

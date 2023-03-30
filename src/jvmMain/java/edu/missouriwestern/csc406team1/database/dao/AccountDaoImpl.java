@@ -11,8 +11,11 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -59,47 +62,56 @@ public class AccountDaoImpl implements AccountDao{
             }
         }
         // This number keeps track of what line we are on for logging purposes
-        int linenumber = 0;
+        int linenumber = 1;
 
         // For each list of arguments, create and add a customer from them
-        ArrayList<CheckingAccount> checkingAccounts = new ArrayList<>();
+        Map<CheckingAccount, String> checkingAccounts = new HashMap<>();
+        Map<String, SavingsAccount> savingsAccounts = new HashMap<>();
         for (String[] args : collect) {
             try {
                 CheckingAccount account;
+                SavingsAccount savingsAccount;
                 switch (args[4]) {
-                    case "TMB" -> {
+                    case "TMB":
                         account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Integer.parseInt(args[6]));
-                        checkingAccounts.add(account);
+                        if (!args[5].equals("null")) {
+                            checkingAccounts.put(account, args[5]);
+                        }
                         accounts.add(account);
-                    }
-                    case "GD" -> {
-                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[6]), null, Integer.parseInt(args[7]));
-                        checkingAccounts.add(account);
+                        break;
+                    case "GD":
+                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Integer.parseInt(args[7]));
+                        if (!args[6].equals("null")) {
+                            checkingAccounts.put(account, args[5]);
+                        }
                         accounts.add(account);
-                    }
-                    case "S" -> {
-                        accounts.add(new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5])));
-                    }
-                    case "CD" -> {
+                        break;
+                    case "S":
+                        savingsAccount = new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]));
+                        accounts.add(savingsAccount);
+                        savingsAccounts.put(args[0], savingsAccount);
+                        break;
+                    case "CD":
                         accounts.add(new CDAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), DateConverter.convertStringToDate(args[6])));
-                    }
-                    default -> {
+                        break;
+                    default:
                         throw new IllegalArgumentException("Type: "+ args[2] + " not supported!");
-                    }
                 }
 
                 // If the params are malformed, skip the line and log it
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                System.err.println("Parse error on line: " + linenumber + " in customer base.database");
+                System.err.println("Parse error on line: " + linenumber + " in account database");
+                e.printStackTrace();
                 //TODO put the problem line in an error file to be fixed by bank later
+            } catch (DateTimeParseException e) {
+                System.err.println("Date parse error on line: " + linenumber + " in account database");
             }
             // Increase line number
             linenumber++;
         }
-        for (CheckingAccount account : checkingAccounts) {
-            // TODO: Assign each checking account their savings overdraft
+        for (CheckingAccount key : checkingAccounts.keySet()) {
+                key.setBackupAccount(savingsAccounts.get(checkingAccounts.get(key)));
         }
-
     }
 
     @Override

@@ -5,7 +5,7 @@ import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public abstract class Account implements CSV {
     @NotNull
@@ -14,10 +14,10 @@ public abstract class Account implements CSV {
     @NotNull
     private Double balance;//current balance of the account
     @NotNull
-    private Date dateOpened;//date the account was opened with the bank
+    private LocalDate dateOpened;//date the account was opened with the bank
     @Nullable // The interest rate can be null if it is a basic checking account
     private Double interestRate;//current interest rate of the account
-    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull Date dateOpened, @Nullable Double interestRate) {
+    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @Nullable Double interestRate) {
         this.accountNumber = accountNumber;
         this.customerSSN = customerSSN;
         this.balance = balance;
@@ -83,10 +83,10 @@ public abstract class Account implements CSV {
     }
 
     @NotNull
-    public Date getDateOpened() {
+    public LocalDate getDateOpened() {
         return dateOpened;
     }
-    public void setDateOpened(@NotNull Date dateOpened) {
+    public void setDateOpened(@NotNull LocalDate dateOpened) {
         this.dateOpened = dateOpened;
     }
 
