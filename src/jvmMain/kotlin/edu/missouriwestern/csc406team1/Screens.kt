@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.CustomerRepository
+import edu.missouriwestern.csc406team1.database.CustomerRepository
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
@@ -25,16 +25,14 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.Customer
+import edu.missouriwestern.csc406team1.database.model.Customer
 import edu.missouriwestern.csc406team1.database.model.account.Account
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
 import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount
 import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
 import edu.missouriwestern.csc406team1.database.model.account.TMBAccount
-import edu.missouriwestern.csc406team1.util.DateConverter
 import edu.missouriwestern.csc406team1.util.DateConverter.convertDateToString
 import edu.missouriwestern.csc406team1.util.collectAsState
-import java.math.RoundingMode
 import java.text.DecimalFormat
 
 /**
