@@ -1,9 +1,9 @@
 package edu.missouriwestern.csc406team1.theme
 
+import androidx.compose.desktop.ui.tooling.preview.Preview
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.lightColorScheme
-import androidx.compose.material3.darkColorScheme
+import androidx.compose.foundation.layout.Column
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
 
@@ -87,4 +87,19 @@ fun AppTheme(
     colorScheme = colors,
     content = content
   )
+}
+
+@Composable
+@Preview
+fun ButtonSample() {
+    Column {
+        AppTheme {
+            Button(onClick = {}) {
+                Text("Stuff")
+            }
+        }
+        Button(onClick = {}) {
+            Text("Stuff")
+        }
+    }
 }

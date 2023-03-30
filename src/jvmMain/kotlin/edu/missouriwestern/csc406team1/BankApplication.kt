@@ -3,6 +3,7 @@ import androidx.compose.runtime.key
 import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Tray
 import edu.missouriwestern.csc406team1.common.LocalAppResources
+import edu.missouriwestern.csc406team1.theme.AppTheme
 import edu.missouriwestern.csc406team1.window.BankWindow
 
 /**
@@ -10,14 +11,17 @@ import edu.missouriwestern.csc406team1.window.BankWindow
  */
 @Composable
 fun ApplicationScope.BankApplication(state: BankApplicationState) {
-    for (window in state.windows) {
-        key(window) {
-            BankWindow(window)
+    AppTheme {
+        for (window in state.windows) {
+            key(window) {
+                BankWindow(window)
+            }
         }
-    }
 
-    if (state.windows.isNotEmpty()) {
-        ApplicationTray(state)
+
+        if (state.windows.isNotEmpty()) {
+            ApplicationTray(state)
+        }
     }
 }
 
