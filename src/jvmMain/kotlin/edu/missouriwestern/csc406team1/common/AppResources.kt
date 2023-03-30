@@ -1,7 +1,7 @@
 package edu.missouriwestern.csc406team1.common
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountBox
+import androidx.compose.material.icons.filled.AccountBalance
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -24,7 +24,7 @@ val LocalAppResources = staticCompositionLocalOf<AppResources> {
  */
 @Composable
 fun rememberAppResources(): AppResources {
-    val icon = rememberVectorPainter(Icons.Default.AccountBox, tintColor = Color(0xFF2CA4E1))
+    val icon = rememberVectorPainter(Icons.Default.AccountBalance, tintColor = Color(0xFF2CA4E1))
     return remember { AppResources(icon) }
 }
 
