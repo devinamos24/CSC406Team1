@@ -25,6 +25,7 @@ kotlin {
             dependencies {
                 implementation(compose.desktop.currentOs)
                 implementation(compose.materialIconsExtended)
+                implementation(compose.material3)
                 implementation("org.jetbrains.kotlinx:kotlinx-coroutines-swing:1.6.0")
                 implementation("com.arkivanov.decompose:decompose:1.0.0")
                 implementation("com.arkivanov.decompose:extensions-compose-jetbrains:1.0.0")

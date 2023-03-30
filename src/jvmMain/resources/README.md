@@ -1,6 +1,6 @@
 # This is where the production resources will be stored
 
-## Customer csv records
+## Customer csv columns
 
 - ssn
 - address
@@ -10,20 +10,47 @@
 - first name
 - last name
 
-## Savings csv records
+## Savings csv columns
 
 - id number
 - ssn
 - balance
-- interest rate
 - date opened
-- cd due date (null if none)
+- account type
+- interest rate
 
-## Checking csv records
+## CD Savings csv columns
 
--
+- id number
+- ssn
+- balance
+- date opened
+- account type
+- interest rate
+- cd due date
 
-## Loan csv records
+## TMB Checking csv columns
+
+- id number
+- ssn
+- balance
+- date opened
+- account type
+- id of overdraft account
+- number of overdrafts this month
+
+## GD Checking csv columns
+
+- id number
+- ssn
+- balance
+- date opened
+- account type
+- interest rate
+- id of overdraft account
+- number of overdrafts this month
+
+## Loan csv columns (tentative)
 
 - id number
 - ssn

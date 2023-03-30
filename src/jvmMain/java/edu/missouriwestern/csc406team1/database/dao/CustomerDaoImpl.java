@@ -1,6 +1,7 @@
-package edu.missouriwestern.csc406team1.database;
+package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
+import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -54,7 +55,7 @@ public class CustomerDaoImpl implements CustomerDao {
             }
         }
         // This number keeps track of what line we are on for logging purposes
-        int linenumber = 0;
+        int linenumber = 1;
 
         // For each list of arguments, create and add a customer from them
         for (String[] args : collect) {
@@ -63,7 +64,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
                 // If the params are malformed, skip the line and log it
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
-                System.err.println("Parse error on line: " + linenumber + " in customer base.database");
+                System.err.println("Parse error on line: " + linenumber + " in customer database");
                 //TODO put the problem line in an error file to be fixed by bank later
             }
             // Increase line number
