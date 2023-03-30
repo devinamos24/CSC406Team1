@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.database;
+package edu.missouriwestern.csc406team1.database.model;
 
 import edu.missouriwestern.csc406team1.util.CSV;
 import org.jetbrains.annotations.NotNull;

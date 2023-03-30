@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.database;
+package edu.missouriwestern.csc406team1.database.model.account;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -12,8 +12,8 @@ public abstract class CheckingAccount extends Account{
     @Nullable
     private SavingsAccount backupAccount;//pointer to the account designated as the backup account if setup (must be savings account)
 
-    public CheckingAccount(@NotNull Double balance, @NotNull Date dateOpened, @Nullable Double interestRate, @NotNull Double transactionFee, @Nullable SavingsAccount backupAccount) {
-        super(balance, dateOpened, interestRate);
+    public CheckingAccount(@NotNull String accountNumber, @NotNull String customerSSN,@NotNull Double balance, @NotNull Date dateOpened, @Nullable Double interestRate, @NotNull Double transactionFee, @Nullable SavingsAccount backupAccount) {
+        super(accountNumber, customerSSN, balance, dateOpened, interestRate);
         this.transactionFee = transactionFee;
         this.backupAccount = backupAccount;
     }

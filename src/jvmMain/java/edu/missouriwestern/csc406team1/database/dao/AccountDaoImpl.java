@@ -1,17 +1,12 @@
-package edu.missouriwestern.csc406team1.database;
+package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.util.CSVWriter;
+import edu.missouriwestern.csc406team1.database.model.account.Account;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class AccountDaoImpl implements AccountDao{
 
@@ -35,4 +30,35 @@ public class AccountDaoImpl implements AccountDao{
         //TODO finish the rest of this DaoImpl
     }
 
+    @Override
+    public void addAccount(Account account) {
+
+    }
+
+    @NotNull
+    @Override
+    public ArrayListFlow<Account> getAccounts() {
+        return null;
+    }
+
+    @Nullable
+    @Override
+    public Account getAccount(String accountNumber) {
+        return null;
+    }
+
+    @Override
+    public void updateAccount(Account account) {
+
+    }
+
+    @Override
+    public void deleteAccount(String accountNumber) {
+
+    }
+
+    @Override
+    public boolean save() {
+        return false;
+    }
 }
