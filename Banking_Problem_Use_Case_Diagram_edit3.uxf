@@ -1,0 +1,2527 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.0.0">
+  <zoom_level>5</zoom_level>
+  <element>
+    <id>UMLActor</id>
+    <coordinates>
+      <x>1010</x>
+      <y>540</y>
+      <w>30</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>User</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>950</x>
+      <y>620</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Customer</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>915</x>
+      <y>395</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Bank Teller</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1160</x>
+      <y>520</y>
+      <w>60</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Bank Manager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1030</x>
+      <y>505</y>
+      <w>100</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Notes:
+The user is given three options:
+ customer, bank teller,
+and bank manager.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1035</x>
+      <y>535</y>
+      <w>145</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>10.0;80.0;270.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>585</y>
+      <w>45</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>70.0;10.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>950</x>
+      <y>410</y>
+      <w>65</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes/>
+    <additional_attributes>110.0;210.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>950</x>
+      <y>670</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Prompt the user to
+login (SSN)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>635</y>
+      <w>50</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;15.0;10.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>735</x>
+      <y>650</y>
+      <w>170</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>If the user does not have an account
+--
+Displays error message that no
+customer account exists.
+Provide message directing user
+they can create an account by
+clicking the add customer button
+and input their information.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>900</x>
+      <y>670</y>
+      <w>60</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;30.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLGeneric</id>
+    <coordinates>
+      <x>940</x>
+      <y>1500</y>
+      <w>65</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>Database
+valign=center</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1055</x>
+      <y>1015</y>
+      <w>130</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>saving menu for type of savings
+is displayed to user
+--
+If savings account is selected</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1325</x>
+      <y>750</y>
+      <w>125</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Loan menu for type of loan
+is displayed to user
+--
+If loan account is selected</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1230</x>
+      <y>885</y>
+      <w>120</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Long-term morgage selected
+--
+Displays long-term loan info
+and options available
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1405</x>
+      <y>830</y>
+      <w>110</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Short-term loan selected
+--
+displays short term loan info
+and options available
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>355</x>
+      <y>935</y>
+      <w>110</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Customers charged with $0.75
+per transation
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>725</x>
+      <y>920</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Displays the Gold/Diamond
+account along with options
+available to the customer.
+--
+Gold/Diamond checking selected
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>520</x>
+      <y>1130</y>
+      <w>130</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>no transaction fee
+--
+if balance is $5000.00 or greater
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>875</x>
+      <y>975</y>
+      <w>150</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Has interested rate that is
+flexible in that it changes on a daily basis
+(0.5 * the rate on the savings account)
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>840</x>
+      <y>955</y>
+      <w>105</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>190.0;40.0;15.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>480</x>
+      <y>1020</y>
+      <w>110</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Customers charged with $1.25
+per transfer transaction
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>795</x>
+      <y>860</y>
+      <w>125</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Overdrafts
+The bank returns the check unpaid
+and charges the account with $25
+over draft fee.
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>980</x>
+      <y>695</y>
+      <w>45</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>920</x>
+      <y>725</y>
+      <w>135</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Displays customers accounts
+to select from
+--
+If SSN is a valid account holder
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1045</x>
+      <y>745</y>
+      <w>310</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;592.0;25.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1430</x>
+      <y>760</y>
+      <w>220</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>420.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1640</x>
+      <y>740</y>
+      <w>110</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>displays credit card loan info
+and options available
+--
+if user clicks a credit card
+account
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>725</x>
+      <y>735</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>checking menu for type of checking
+is displayed to user
+--
+If checking account is selected</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>815</x>
+      <y>775</y>
+      <w>70</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;170.0;15.0;12.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>680</x>
+      <y>780</y>
+      <w>85</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>18.0;70.0;155.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>765</x>
+      <y>785</y>
+      <w>50</w>
+      <h>145</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;270.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>610</x>
+      <y>815</y>
+      <w>105</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Displays the TMB account
+along with options available
+to the customer.
+--
+TMB checking selected
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>885</x>
+      <y>610</y>
+      <w>75</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>130.0;40.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>775</x>
+      <y>590</y>
+      <w>115</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>User can input their information
+to create a customer account
+--
+add customer button clicked
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>850</x>
+      <y>745</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>140.0;20.0;12.0;32.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>995</x>
+      <y>760</y>
+      <w>100</w>
+      <h>270</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>180.0;520.0;15.0;15.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1520</x>
+      <y>260</y>
+      <w>240</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>Note..
+Bank manager TODO list
+1. Has access to all information on all accounts
+2. can credit or debit any account
+3. can manage loan accounts
+	a. initiates process that sends bills out to credit card and mortage accounts
+	b. initiate process that sends out roll over notices for CD's
+	c. set interest rates paid monthly on checking and savings
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>420</x>
+      <y>840</y>
+      <w>115</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Add money to account
+--
+customer clicks to
+add money</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>490</x>
+      <y>885</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Withdraw money from account
+--
+customer clicks to withdraw</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>540</x>
+      <y>935</y>
+      <w>140</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>Transfer money from TMB checking,
+shows other accounts to choose
+destination of transfer
+--
+customer clicks to transfer money</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>835</y>
+      <w>90</w>
+      <h>20</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;160.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>570</x>
+      <y>865</y>
+      <w>70</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;50.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>425</x>
+      <y>870</y>
+      <w>65</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>460</x>
+      <y>915</y>
+      <w>55</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>630</x>
+      <y>870</y>
+      <w>65</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;130.0;80.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>555</x>
+      <y>990</y>
+      <w>55</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>30.0;10.0;15.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>655</x>
+      <y>1025</y>
+      <w>115</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Add money to account
+--
+customer clicks to
+add money</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>765</x>
+      <y>1040</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Withdraw money from account
+--
+customer clicks to withdraw</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>715</x>
+      <y>965</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>795</x>
+      <y>970</y>
+      <w>45</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;140.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>885</x>
+      <y>1030</y>
+      <w>140</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>Transfer money from Gold/Diamond,
+shows other accounts to choose
+destination of transfer
+--
+customer clicks to transfer money</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>820</x>
+      <y>965</y>
+      <w>85</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>150.0;150.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>710</x>
+      <y>1055</y>
+      <w>50</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>760</x>
+      <y>1075</y>
+      <w>45</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>655</x>
+      <y>1095</y>
+      <w>110</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Asses if transaction fee
+needed from minimum balance</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>680</x>
+      <y>1155</y>
+      <w>135</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>charged $0.75 fee per transaction
+--
+if balance is less than $5000.00
+valign=top
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>625</x>
+      <y>1120</y>
+      <w>60</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;30.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>720</x>
+      <y>1125</y>
+      <w>50</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>30.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1020</x>
+      <y>1090</y>
+      <w>105</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>Displays the savings account
+along with options available
+to the customer.
+--
+savings selected
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1055</x>
+      <y>1050</y>
+      <w>75</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;130.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1145</x>
+      <y>1080</y>
+      <w>115</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Displays CD the savings account
+along with options available
+to the customer.
+--
+CD savings selected
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>905</x>
+      <y>1175</y>
+      <w>115</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Add money to account
+--
+customer clicks to
+add money</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1015</x>
+      <y>1195</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Withdraw money from account
+--
+customer clicks to withdraw</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>1135</y>
+      <w>70</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;120.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1055</x>
+      <y>1145</y>
+      <w>50</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1160</x>
+      <y>1045</y>
+      <w>55</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>50.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1280</x>
+      <y>1205</y>
+      <w>65</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>Displays due date
+for rollover</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1295</x>
+      <y>1150</y>
+      <w>105</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>displays fixed intereste rate
+(compounded daily)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1130</x>
+      <y>1180</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Confirms withdraw, with warning
+about penalty fee to do so
+--
+customer clicks to withdraw</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1135</x>
+      <y>1270</y>
+      <w>130</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>withdraws money from account
+--
+customer agrees to confirmation
+and warning message to withdraw</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1195</x>
+      <y>1145</y>
+      <w>45</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1190</x>
+      <y>1225</y>
+      <w>45</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;90.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1235</x>
+      <y>1140</y>
+      <w>75</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;122.0;135.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1255</x>
+      <y>1115</y>
+      <w>90</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;160.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>870</x>
+      <y>1130</y>
+      <w>105</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>displays fixed intereste rate
+(compounded daily)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>970</x>
+      <y>1120</y>
+      <w>60</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>295</x>
+      <y>1175</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>account updated to
+reflect deposit to
+the account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>205</x>
+      <y>850</y>
+      <w>225</w>
+      <h>345</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>430.0;10.0;20.0;270.0;188.0;670.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>370</x>
+      <y>1210</y>
+      <w>580</w>
+      <h>305</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;400.0;260.0;1140.0;590.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>300</x>
+      <y>960</y>
+      <w>80</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>140.0;10.0;10.0;60.0;18.0;440.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>315</x>
+      <y>1030</y>
+      <w>175</w>
+      <h>155</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>330.0;10.0;130.0;50.0;18.0;290.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>770</x>
+      <y>1290</y>
+      <w>115</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>account updated to
+reflect actions taken on account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>575</x>
+      <y>1155</y>
+      <w>235</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;80.0;447.0;278.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>685</x>
+      <y>1190</y>
+      <w>55</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;12.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1325</x>
+      <y>790</y>
+      <w>55</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;200.0;40.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1375</x>
+      <y>795</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>170.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1305</x>
+      <y>965</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>clicks make payment
+--
+Goes to confirmation
+page for payment to be
+made.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1125</x>
+      <y>835</y>
+      <w>80</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if payment is missed
+--
+account is flagged
+as behind
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1190</x>
+      <y>865</y>
+      <w>55</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;90.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1290</x>
+      <y>935</y>
+      <w>70</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>120.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1240</x>
+      <y>825</y>
+      <w>60</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>60.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1205</x>
+      <y>795</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Displays if a 15 or 30
+year mortage type</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1110</x>
+      <y>930</y>
+      <w>100</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Display fixed interest
+rate, payment amount,
+and next due date, and
+number of remaining
+payments. </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1185</x>
+      <y>920</y>
+      <w>60</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;10.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1310</x>
+      <y>1005</y>
+      <w>50</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;78.0;30.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1295</x>
+      <y>1040</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>if account is flagged as behind
+--
+adds $75 late payment fee to
+amount due.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>815</x>
+      <y>1325</y>
+      <w>145</w>
+      <h>185</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;130.0;270.0;350.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1390</x>
+      <y>1000</y>
+      <w>70</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>825</x>
+      <y>1205</y>
+      <w>120</w>
+      <h>95</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>220.0;10.0;18.0;170.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>875</x>
+      <y>1230</y>
+      <w>190</w>
+      <h>85</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>360.0;10.0;15.0;150.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1245</x>
+      <y>1305</y>
+      <w>80</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;140.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1315</x>
+      <y>1305</y>
+      <w>110</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>account updated to
+reflect actions taken on account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1400</x>
+      <y>1100</y>
+      <w>130</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>if CD is within time
+frame for roll over
+--
+Buttons displayed to
+let customer withdraw
+or to reinvest into another
+CD
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1255</x>
+      <y>1105</y>
+      <w>155</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>290.0;50.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1375</x>
+      <y>1245</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>90.0;10.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1400</x>
+      <y>1200</y>
+      <w>105</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>if customer selects
+to withdraw before
+rollover date
+--
+account is withdrawn
+without penalty
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1455</x>
+      <y>1160</y>
+      <w>50</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;80.0;20.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1525</x>
+      <y>1175</y>
+      <w>115</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>if customer selects
+to re-invest into new CD
+--
+balance of account is
+transferred into a new
+CD with new starting
+due dates for selected
+length
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1505</x>
+      <y>1150</y>
+      <w>60</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>92.0;66.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1420</x>
+      <y>1245</y>
+      <w>160</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>300.0;10.0;10.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>995</x>
+      <y>1345</y>
+      <w>370</w>
+      <h>165</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>720.0;10.0;18.0;310.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1450</x>
+      <y>1025</y>
+      <w>95</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>User enters amount to
+be paid, and from which
+account to pay.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1770</x>
+      <y>1005</y>
+      <w>110</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>account updated to
+reflect actions taken on account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1530</x>
+      <y>1020</y>
+      <w>250</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;230.0;130.0;480.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1535</x>
+      <y>865</y>
+      <w>100</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>Display fixed interest
+rate, payment amount,
+and next due date, and
+number of remaining
+payments. </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1360</x>
+      <y>890</y>
+      <w>80</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if payment is missed
+--
+account is flagged
+as behind
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1560</x>
+      <y>810</y>
+      <w>75</w>
+      <h>35</h>
+    </coordinates>
+    <panel_attributes>Displays length
+of loan</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1475</x>
+      <y>930</y>
+      <w>100</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>clicks make payment
+--
+Goes to confirmation
+page for payment to be
+made.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1415</x>
+      <y>865</y>
+      <w>55</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>30.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1510</x>
+      <y>830</y>
+      <w>65</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;40.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1500</x>
+      <y>860</y>
+      <w>45</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;70.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1470</x>
+      <y>870</y>
+      <w>60</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1615</x>
+      <y>920</y>
+      <w>120</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>if account is flagged as behind
+--
+adds $75 late payment fee to
+amount due.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1570</x>
+      <y>940</y>
+      <w>60</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;18.0;10.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1570</x>
+      <y>990</y>
+      <w>95</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>User enters amount to
+be paid, and from which
+account to pay.</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1525</x>
+      <y>975</y>
+      <w>70</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;120.0;40.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1660</x>
+      <y>1000</y>
+      <w>130</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;240.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1670</x>
+      <y>820</y>
+      <w>100</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if purchase is made
+--
+validate not above limit
+on credit available
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1700</x>
+      <y>785</y>
+      <w>50</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>20.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1780</x>
+      <y>895</y>
+      <w>80</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if not over limit
+--
+debit made against loan
+to cover the purchase
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1730</x>
+      <y>860</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>100.0;120.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1805</x>
+      <y>935</y>
+      <w>50</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1810</x>
+      <y>730</y>
+      <w>90</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>Displays account balance,
+credit limit, balance
+remaining</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1745</x>
+      <y>755</y>
+      <w>85</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;30.0;150.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1725</x>
+      <y>775</y>
+      <w>100</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>180.0;78.0;15.0;18.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1815</x>
+      <y>795</y>
+      <w>100</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>user selects to display
+charges history
+--
+displays purchases
+and finance charges
+from last 30 days
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1875</x>
+      <y>870</y>
+      <w>85</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>customer clicks to
+make a payment
+--
+payment credited to
+loan balance
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1710</x>
+      <y>780</y>
+      <w>175</w>
+      <h>115</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>330.0;218.0;15.0;18.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1890</x>
+      <y>945</y>
+      <w>115</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>Customer enters payment
+amount, selects which
+account it will come from
+and submits the payment. </panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1920</x>
+      <y>915</y>
+      <w>50</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;20.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1875</x>
+      <y>990</y>
+      <w>70</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>120.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1000</x>
+      <y>1040</y>
+      <w>830</w>
+      <h>485</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>1640.0;10.0;1330.0;560.0;10.0;950.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>500</x>
+      <y>345</y>
+      <w>120</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>if teller selects
+an account to view
+--
+displays details of that
+account and options
+available for that account
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>785</x>
+      <y>440</y>
+      <w>80</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if teller selects
+a customer to view
+--
+validates customer
+ID input
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>370</x>
+      <y>410</y>
+      <w>110</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>if account selected
+is a checking account
+--
+displays checking account
+details and options available
+for that checking
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>860</x>
+      <y>400</y>
+      <w>70</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;120.0;110.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>695</x>
+      <y>360</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>if customer
+is valid
+--
+displays list of accounts
+owned by customer
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>780</x>
+      <y>385</y>
+      <w>45</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>615</x>
+      <y>365</y>
+      <w>90</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;20.0;160.0;30.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>350</x>
+      <y>300</y>
+      <w>125</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>if account selected
+is a savings account
+--
+displays savings account details
+and options available for that
+savings.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>510</x>
+      <y>255</y>
+      <w>115</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>if account selected
+is a loan account
+--
+displays loan account details
+and options available for that
+loan
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>390</y>
+      <w>60</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>330</y>
+      <w>45</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;15.0;70.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>545</x>
+      <y>300</y>
+      <w>55</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;40.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>115</x>
+      <y>295</y>
+      <w>115</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Displays account balance, recent
+debits and account status</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>545</x>
+      <y>190</y>
+      <w>50</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;130.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>225</x>
+      <y>305</y>
+      <w>135</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>250.0;30.0;10.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>285</x>
+      <y>450</y>
+      <w>110</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>200.0;10.0;100.0;60.0;10.0;120.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>325</x>
+      <y>510</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>teller selects deposit
+--
+deposit made for selected
+checking account
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>385</x>
+      <y>460</y>
+      <w>55</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;100.0;50.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>105</x>
+      <y>355</y>
+      <w>145</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>teller selects deposit
+for non CD Savings
+--
+deposit made for selected
+savings account. (CD's cannot
+credited by a bank teller)
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>505</x>
+      <y>155</y>
+      <w>115</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Displays account balance, recent
+debits and account status</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>195</x>
+      <y>505</y>
+      <w>115</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>Displays account balance, recent
+debits and account status</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>245</x>
+      <y>340</y>
+      <w>130</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>13.0;88.0;240.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>655</x>
+      <y>175</y>
+      <w>125</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>if teller selects to make
+a payment to selected account
+--
+displays payment entry form
+to input amount of payment
+and submit payment
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>610</x>
+      <y>225</y>
+      <w>85</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>150.0;10.0;10.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>740</x>
+      <y>260</y>
+      <w>115</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>if loan is a long term
+or short term loan
+--
+there is a $75 late payment
+fee also due if the account
+is flagged as behind
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>740</x>
+      <y>225</y>
+      <w>60</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>70.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1110</x>
+      <y>365</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>Has access to all
+information on all accounts</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1260</x>
+      <y>340</y>
+      <w>105</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>can credit or debit any account</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1350</x>
+      <y>540</y>
+      <w>120</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if bank manager selects
+a loan account for the customer
+--
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1410</x>
+      <y>505</y>
+      <w>55</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;45.0;70.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1205</x>
+      <y>605</y>
+      <w>115</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>initiates process that sends bills out
+to credit card and mortgage accounts</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1325</x>
+      <y>630</y>
+      <w>110</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>initiate process that sends
+out roll over notices for CD's</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1480</x>
+      <y>630</y>
+      <w>110</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>set interest rates paid
+monthly on checking and savings</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1465</x>
+      <y>565</y>
+      <w>70</w>
+      <h>75</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;18.0;100.0;130.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1380</x>
+      <y>580</y>
+      <w>55</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>40.0;10.0;10.0;100.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1265</x>
+      <y>575</y>
+      <w>95</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;includes&gt;&gt;</panel_attributes>
+    <additional_attributes>170.0;10.0;10.0;60.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>445</x>
+      <y>455</y>
+      <w>60</w>
+      <h>65</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>60.0;110.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>435</x>
+      <y>510</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>teller selects withdraw
+--
+withdraw made for selected
+checking account
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>320</x>
+      <y>265</y>
+      <w>65</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;110.0;80.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>250</x>
+      <y>230</y>
+      <w>95</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>teller selects withdraw
+--
+withdraw made for selected
+savings account
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>360</x>
+      <y>200</y>
+      <w>110</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>teller selects transfer
+--
+transfer amount from 
+selected savings account
+to another checking or
+savings.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>415</x>
+      <y>255</y>
+      <w>45</w>
+      <h>55</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>170</x>
+      <y>425</y>
+      <w>110</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>teller selects transfer
+--
+transfer amount from 
+selected checking account
+to another checking or
+savings.
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>275</x>
+      <y>435</y>
+      <w>105</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>13.0;38.0;190.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1260</x>
+      <y>480</y>
+      <w>80</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>if teller selects
+a customer to view
+--
+validates customer
+ID input
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1215</x>
+      <y>505</y>
+      <w>55</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;40.0;90.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1335</x>
+      <y>485</y>
+      <w>60</w>
+      <h>25</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;30.0;100.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLUseCase</id>
+    <coordinates>
+      <x>1385</x>
+      <y>460</y>
+      <w>90</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>if customer
+is valid
+--
+displays list of accounts
+owned by customer
+valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
