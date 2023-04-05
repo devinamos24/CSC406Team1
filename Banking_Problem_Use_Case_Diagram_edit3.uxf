@@ -4,8 +4,8 @@
   <element>
     <id>UMLActor</id>
     <coordinates>
-      <x>1010</x>
-      <y>540</y>
+      <x>905</x>
+      <y>405</y>
       <w>30</w>
       <h>55</h>
     </coordinates>
@@ -15,8 +15,8 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>950</x>
-      <y>620</y>
+      <x>845</x>
+      <y>485</y>
       <w>60</w>
       <h>20</h>
     </coordinates>
@@ -26,8 +26,8 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>915</x>
-      <y>395</y>
+      <x>810</x>
+      <y>260</y>
       <w>60</w>
       <h>20</h>
     </coordinates>
@@ -37,8 +37,8 @@
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1160</x>
-      <y>520</y>
+      <x>1055</x>
+      <y>385</y>
       <w>60</w>
       <h>20</h>
     </coordinates>
@@ -48,8 +48,8 @@
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1030</x>
-      <y>505</y>
+      <x>925</x>
+      <y>370</y>
       <w>100</w>
       <h>35</h>
     </coordinates>
@@ -63,8 +63,8 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1035</x>
-      <y>535</y>
+      <x>930</x>
+      <y>400</y>
       <w>145</w>
       <h>50</h>
     </coordinates>
@@ -74,8 +74,8 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>585</y>
+      <x>875</x>
+      <y>450</y>
       <w>45</w>
       <h>45</h>
     </coordinates>
@@ -85,8 +85,8 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>950</x>
-      <y>410</y>
+      <x>845</x>
+      <y>275</y>
       <w>65</w>
       <h>115</h>
     </coordinates>
@@ -96,8 +96,8 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>950</x>
-      <y>670</y>
+      <x>845</x>
+      <y>535</y>
       <w>70</w>
       <h>30</h>
     </coordinates>
@@ -108,8 +108,8 @@ login (SSN)</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>635</y>
+      <x>875</x>
+      <y>500</y>
       <w>50</w>
       <h>45</h>
     </coordinates>
@@ -120,8 +120,8 @@ login (SSN)</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>735</x>
-      <y>650</y>
+      <x>630</x>
+      <y>515</y>
       <w>170</w>
       <h>75</h>
     </coordinates>
@@ -139,8 +139,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>900</x>
-      <y>670</y>
+      <x>795</x>
+      <y>535</y>
       <w>60</w>
       <h>25</h>
     </coordinates>
@@ -151,8 +151,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLGeneric</id>
     <coordinates>
-      <x>940</x>
-      <y>1500</y>
+      <x>835</x>
+      <y>1365</y>
       <w>65</w>
       <h>20</h>
     </coordinates>
@@ -163,8 +163,8 @@ valign=center</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1055</x>
-      <y>1015</y>
+      <x>950</x>
+      <y>880</y>
       <w>130</w>
       <h>40</h>
     </coordinates>
@@ -177,8 +177,8 @@ If savings account is selected</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1325</x>
-      <y>750</y>
+      <x>1220</x>
+      <y>615</y>
       <w>125</w>
       <h>50</h>
     </coordinates>
@@ -191,8 +191,8 @@ If loan account is selected</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1230</x>
-      <y>885</y>
+      <x>1125</x>
+      <y>750</y>
       <w>120</w>
       <h>55</h>
     </coordinates>
@@ -207,8 +207,8 @@ valign=top
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1405</x>
-      <y>830</y>
+      <x>1300</x>
+      <y>695</y>
       <w>110</w>
       <h>45</h>
     </coordinates>
@@ -222,8 +222,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>355</x>
-      <y>935</y>
+      <x>250</x>
+      <y>800</y>
       <w>110</w>
       <h>35</h>
     </coordinates>
@@ -235,8 +235,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>725</x>
-      <y>920</y>
+      <x>620</x>
+      <y>785</y>
       <w>130</w>
       <h>55</h>
     </coordinates>
@@ -251,8 +251,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>520</x>
-      <y>1130</y>
+      <x>415</x>
+      <y>995</y>
       <w>130</w>
       <h>30</h>
     </coordinates>
@@ -266,8 +266,8 @@ valign=top
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>875</x>
-      <y>975</y>
+      <x>770</x>
+      <y>840</y>
       <w>150</w>
       <h>35</h>
     </coordinates>
@@ -281,8 +281,8 @@ flexible in that it changes on a daily basis
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>840</x>
-      <y>955</y>
+      <x>735</x>
+      <y>820</y>
       <w>105</w>
       <h>30</h>
     </coordinates>
@@ -293,8 +293,8 @@ flexible in that it changes on a daily basis
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>480</x>
-      <y>1020</y>
+      <x>375</x>
+      <y>885</y>
       <w>110</w>
       <h>35</h>
     </coordinates>
@@ -306,8 +306,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>795</x>
-      <y>860</y>
+      <x>690</x>
+      <y>725</y>
       <w>125</w>
       <h>35</h>
     </coordinates>
@@ -322,8 +322,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>980</x>
-      <y>695</y>
+      <x>875</x>
+      <y>560</y>
       <w>45</w>
       <h>40</h>
     </coordinates>
@@ -334,8 +334,8 @@ valign=top
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>920</x>
-      <y>725</y>
+      <x>815</x>
+      <y>590</y>
       <w>135</w>
       <h>45</h>
     </coordinates>
@@ -349,8 +349,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1045</x>
-      <y>745</y>
+      <x>940</x>
+      <y>610</y>
       <w>310</w>
       <h>25</h>
     </coordinates>
@@ -361,8 +361,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1430</x>
-      <y>760</y>
+      <x>1325</x>
+      <y>625</y>
       <w>220</w>
       <h>40</h>
     </coordinates>
@@ -373,8 +373,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1640</x>
-      <y>740</y>
+      <x>1535</x>
+      <y>605</y>
       <w>110</w>
       <h>50</h>
     </coordinates>
@@ -389,8 +389,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>725</x>
-      <y>735</y>
+      <x>620</x>
+      <y>600</y>
       <w>130</w>
       <h>55</h>
     </coordinates>
@@ -403,8 +403,8 @@ If checking account is selected</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>815</x>
-      <y>775</y>
+      <x>710</x>
+      <y>640</y>
       <w>70</w>
       <h>95</h>
     </coordinates>
@@ -415,8 +415,8 @@ If checking account is selected</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>680</x>
-      <y>780</y>
+      <x>575</x>
+      <y>645</y>
       <w>85</w>
       <h>45</h>
     </coordinates>
@@ -427,8 +427,8 @@ If checking account is selected</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>765</x>
-      <y>785</y>
+      <x>660</x>
+      <y>650</y>
       <w>50</w>
       <h>145</h>
     </coordinates>
@@ -439,8 +439,8 @@ If checking account is selected</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>610</x>
-      <y>815</y>
+      <x>505</x>
+      <y>680</y>
       <w>105</w>
       <h>60</h>
     </coordinates>
@@ -455,8 +455,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>885</x>
-      <y>610</y>
+      <x>780</x>
+      <y>475</y>
       <w>75</w>
       <h>30</h>
     </coordinates>
@@ -467,8 +467,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>775</x>
-      <y>590</y>
+      <x>670</x>
+      <y>455</y>
       <w>115</w>
       <h>55</h>
     </coordinates>
@@ -482,8 +482,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>850</x>
-      <y>745</y>
+      <x>745</x>
+      <y>610</y>
       <w>80</w>
       <h>30</h>
     </coordinates>
@@ -494,8 +494,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>995</x>
-      <y>760</y>
+      <x>890</x>
+      <y>625</y>
       <w>100</w>
       <h>270</h>
     </coordinates>
@@ -506,8 +506,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLNote</id>
     <coordinates>
-      <x>1520</x>
-      <y>260</y>
+      <x>950</x>
+      <y>270</y>
       <w>240</w>
       <h>75</h>
     </coordinates>
@@ -525,8 +525,8 @@ bg=blue</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>420</x>
-      <y>840</y>
+      <x>315</x>
+      <y>705</y>
       <w>115</w>
       <h>35</h>
     </coordinates>
@@ -539,8 +539,8 @@ add money</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>490</x>
-      <y>885</y>
+      <x>385</x>
+      <y>750</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -552,8 +552,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>540</x>
-      <y>935</y>
+      <x>435</x>
+      <y>800</y>
       <w>140</w>
       <h>65</h>
     </coordinates>
@@ -567,8 +567,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>530</x>
-      <y>835</y>
+      <x>425</x>
+      <y>700</y>
       <w>90</w>
       <h>20</h>
     </coordinates>
@@ -579,8 +579,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>570</x>
-      <y>865</y>
+      <x>465</x>
+      <y>730</y>
       <w>70</w>
       <h>35</h>
     </coordinates>
@@ -591,8 +591,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>425</x>
-      <y>870</y>
+      <x>320</x>
+      <y>735</y>
       <w>65</w>
       <h>75</h>
     </coordinates>
@@ -603,8 +603,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>460</x>
-      <y>915</y>
+      <x>355</x>
+      <y>780</y>
       <w>55</w>
       <h>50</h>
     </coordinates>
@@ -615,8 +615,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>630</x>
-      <y>870</y>
+      <x>525</x>
+      <y>735</y>
       <w>65</w>
       <h>75</h>
     </coordinates>
@@ -627,8 +627,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>555</x>
-      <y>990</y>
+      <x>450</x>
+      <y>855</y>
       <w>55</w>
       <h>45</h>
     </coordinates>
@@ -639,8 +639,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>655</x>
-      <y>1025</y>
+      <x>550</x>
+      <y>890</y>
       <w>115</w>
       <h>35</h>
     </coordinates>
@@ -653,8 +653,8 @@ add money</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>765</x>
-      <y>1040</y>
+      <x>660</x>
+      <y>905</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -666,8 +666,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>715</x>
-      <y>965</y>
+      <x>610</x>
+      <y>830</y>
       <w>70</w>
       <h>70</h>
     </coordinates>
@@ -678,8 +678,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>795</x>
-      <y>970</y>
+      <x>690</x>
+      <y>835</y>
       <w>45</w>
       <h>80</h>
     </coordinates>
@@ -690,8 +690,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>885</x>
-      <y>1030</y>
+      <x>780</x>
+      <y>895</y>
       <w>140</w>
       <h>65</h>
     </coordinates>
@@ -705,8 +705,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>820</x>
-      <y>965</y>
+      <x>715</x>
+      <y>830</y>
       <w>85</w>
       <h>85</h>
     </coordinates>
@@ -717,8 +717,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>710</x>
-      <y>1055</y>
+      <x>605</x>
+      <y>920</y>
       <w>50</w>
       <h>50</h>
     </coordinates>
@@ -729,8 +729,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>760</x>
-      <y>1075</y>
+      <x>655</x>
+      <y>940</y>
       <w>45</w>
       <h>40</h>
     </coordinates>
@@ -741,8 +741,8 @@ customer clicks to transfer money</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>655</x>
-      <y>1095</y>
+      <x>550</x>
+      <y>960</y>
       <w>110</w>
       <h>35</h>
     </coordinates>
@@ -753,8 +753,8 @@ needed from minimum balance</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>680</x>
-      <y>1155</y>
+      <x>575</x>
+      <y>1020</y>
       <w>135</w>
       <h>40</h>
     </coordinates>
@@ -768,8 +768,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>625</x>
-      <y>1120</y>
+      <x>520</x>
+      <y>985</y>
       <w>60</w>
       <h>25</h>
     </coordinates>
@@ -780,8 +780,8 @@ valign=top
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>720</x>
-      <y>1125</y>
+      <x>615</x>
+      <y>990</y>
       <w>50</w>
       <h>40</h>
     </coordinates>
@@ -792,8 +792,8 @@ valign=top
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1020</x>
-      <y>1090</y>
+      <x>915</x>
+      <y>955</y>
       <w>105</w>
       <h>60</h>
     </coordinates>
@@ -808,8 +808,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1055</x>
-      <y>1050</y>
+      <x>950</x>
+      <y>915</y>
       <w>75</w>
       <h>50</h>
     </coordinates>
@@ -820,8 +820,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1145</x>
-      <y>1080</y>
+      <x>1040</x>
+      <y>945</y>
       <w>115</w>
       <h>70</h>
     </coordinates>
@@ -836,8 +836,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>905</x>
-      <y>1175</y>
+      <x>800</x>
+      <y>1040</y>
       <w>115</w>
       <h>35</h>
     </coordinates>
@@ -850,8 +850,8 @@ add money</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1015</x>
-      <y>1195</y>
+      <x>910</x>
+      <y>1060</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -863,8 +863,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>1135</y>
+      <x>865</x>
+      <y>1000</y>
       <w>70</w>
       <h>50</h>
     </coordinates>
@@ -875,8 +875,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1055</x>
-      <y>1145</y>
+      <x>950</x>
+      <y>1010</y>
       <w>50</w>
       <h>60</h>
     </coordinates>
@@ -887,8 +887,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1160</x>
-      <y>1045</y>
+      <x>1055</x>
+      <y>910</y>
       <w>55</w>
       <h>45</h>
     </coordinates>
@@ -899,8 +899,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1280</x>
-      <y>1205</y>
+      <x>1175</x>
+      <y>1070</y>
       <w>65</w>
       <h>30</h>
     </coordinates>
@@ -911,8 +911,8 @@ for rollover</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1295</x>
-      <y>1150</y>
+      <x>1190</x>
+      <y>1015</y>
       <w>105</w>
       <h>30</h>
     </coordinates>
@@ -923,8 +923,8 @@ for rollover</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1130</x>
-      <y>1180</y>
+      <x>1025</x>
+      <y>1045</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
@@ -937,8 +937,8 @@ customer clicks to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1135</x>
-      <y>1270</y>
+      <x>1030</x>
+      <y>1135</y>
       <w>130</w>
       <h>50</h>
     </coordinates>
@@ -951,8 +951,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1195</x>
-      <y>1145</y>
+      <x>1090</x>
+      <y>1010</y>
       <w>45</w>
       <h>45</h>
     </coordinates>
@@ -963,8 +963,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
-      <y>1225</y>
+      <x>1085</x>
+      <y>1090</y>
       <w>45</w>
       <h>55</h>
     </coordinates>
@@ -975,8 +975,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1235</x>
-      <y>1140</y>
+      <x>1130</x>
+      <y>1005</y>
       <w>75</w>
       <h>80</h>
     </coordinates>
@@ -987,8 +987,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1255</x>
-      <y>1115</y>
+      <x>1150</x>
+      <y>980</y>
       <w>90</w>
       <h>45</h>
     </coordinates>
@@ -999,8 +999,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>870</x>
-      <y>1130</y>
+      <x>765</x>
+      <y>995</y>
       <w>105</w>
       <h>30</h>
     </coordinates>
@@ -1011,8 +1011,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>970</x>
-      <y>1120</y>
+      <x>865</x>
+      <y>985</y>
       <w>60</w>
       <h>30</h>
     </coordinates>
@@ -1023,8 +1023,8 @@ and warning message to withdraw</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>295</x>
-      <y>1175</y>
+      <x>190</x>
+      <y>1040</y>
       <w>95</w>
       <h>45</h>
     </coordinates>
@@ -1036,8 +1036,8 @@ the account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>205</x>
-      <y>850</y>
+      <x>100</x>
+      <y>715</y>
       <w>225</w>
       <h>345</h>
     </coordinates>
@@ -1048,8 +1048,8 @@ the account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>370</x>
-      <y>1210</y>
+      <x>265</x>
+      <y>1075</y>
       <w>580</w>
       <h>305</h>
     </coordinates>
@@ -1060,8 +1060,8 @@ the account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>300</x>
-      <y>960</y>
+      <x>195</x>
+      <y>825</y>
       <w>80</w>
       <h>230</h>
     </coordinates>
@@ -1072,8 +1072,8 @@ the account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>315</x>
-      <y>1030</y>
+      <x>210</x>
+      <y>895</y>
       <w>175</w>
       <h>155</h>
     </coordinates>
@@ -1084,8 +1084,8 @@ the account</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>770</x>
-      <y>1290</y>
+      <x>665</x>
+      <y>1155</y>
       <w>115</w>
       <h>40</h>
     </coordinates>
@@ -1096,8 +1096,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>575</x>
-      <y>1155</y>
+      <x>470</x>
+      <y>1020</y>
       <w>235</w>
       <h>150</h>
     </coordinates>
@@ -1108,8 +1108,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>685</x>
-      <y>1190</y>
+      <x>580</x>
+      <y>1055</y>
       <w>55</w>
       <h>50</h>
     </coordinates>
@@ -1120,8 +1120,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1325</x>
-      <y>790</y>
+      <x>1220</x>
+      <y>655</y>
       <w>55</w>
       <h>110</h>
     </coordinates>
@@ -1132,8 +1132,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1375</x>
-      <y>795</y>
+      <x>1270</x>
+      <y>660</y>
       <w>95</w>
       <h>45</h>
     </coordinates>
@@ -1144,8 +1144,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1305</x>
-      <y>965</y>
+      <x>1200</x>
+      <y>830</y>
       <w>100</w>
       <h>50</h>
     </coordinates>
@@ -1160,8 +1160,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1125</x>
-      <y>835</y>
+      <x>1020</x>
+      <y>700</y>
       <w>80</w>
       <h>45</h>
     </coordinates>
@@ -1175,8 +1175,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1190</x>
-      <y>865</y>
+      <x>1085</x>
+      <y>730</y>
       <w>55</w>
       <h>45</h>
     </coordinates>
@@ -1187,8 +1187,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1290</x>
-      <y>935</y>
+      <x>1185</x>
+      <y>800</y>
       <w>70</w>
       <h>40</h>
     </coordinates>
@@ -1199,8 +1199,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1240</x>
-      <y>825</y>
+      <x>1135</x>
+      <y>690</y>
       <w>60</w>
       <h>70</h>
     </coordinates>
@@ -1211,8 +1211,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1205</x>
-      <y>795</y>
+      <x>1100</x>
+      <y>660</y>
       <w>75</w>
       <h>35</h>
     </coordinates>
@@ -1223,8 +1223,8 @@ year mortage type</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1110</x>
-      <y>930</y>
+      <x>1005</x>
+      <y>795</y>
       <w>100</w>
       <h>55</h>
     </coordinates>
@@ -1238,8 +1238,8 @@ payments. </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1185</x>
-      <y>920</y>
+      <x>1080</x>
+      <y>785</y>
       <w>60</w>
       <h>25</h>
     </coordinates>
@@ -1250,8 +1250,8 @@ payments. </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1310</x>
-      <y>1005</y>
+      <x>1205</x>
+      <y>870</y>
       <w>50</w>
       <h>50</h>
     </coordinates>
@@ -1262,8 +1262,8 @@ payments. </panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1295</x>
-      <y>1040</y>
+      <x>1190</x>
+      <y>905</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -1277,8 +1277,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>815</x>
-      <y>1325</y>
+      <x>710</x>
+      <y>1190</y>
       <w>145</w>
       <h>185</h>
     </coordinates>
@@ -1289,8 +1289,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1390</x>
-      <y>1000</y>
+      <x>1285</x>
+      <y>865</y>
       <w>70</w>
       <h>45</h>
     </coordinates>
@@ -1301,8 +1301,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>825</x>
-      <y>1205</y>
+      <x>720</x>
+      <y>1070</y>
       <w>120</w>
       <h>95</h>
     </coordinates>
@@ -1313,8 +1313,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>875</x>
-      <y>1230</y>
+      <x>770</x>
+      <y>1095</y>
       <w>190</w>
       <h>85</h>
     </coordinates>
@@ -1325,8 +1325,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1245</x>
-      <y>1305</y>
+      <x>1140</x>
+      <y>1170</y>
       <w>80</w>
       <h>25</h>
     </coordinates>
@@ -1337,8 +1337,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1315</x>
-      <y>1305</y>
+      <x>1210</x>
+      <y>1170</y>
       <w>110</w>
       <h>45</h>
     </coordinates>
@@ -1349,8 +1349,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1400</x>
-      <y>1100</y>
+      <x>1295</x>
+      <y>965</y>
       <w>130</w>
       <h>65</h>
     </coordinates>
@@ -1367,8 +1367,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1255</x>
-      <y>1105</y>
+      <x>1150</x>
+      <y>970</y>
       <w>155</w>
       <h>35</h>
     </coordinates>
@@ -1379,8 +1379,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1375</x>
-      <y>1245</y>
+      <x>1270</x>
+      <y>1110</y>
       <w>70</w>
       <h>70</h>
     </coordinates>
@@ -1391,8 +1391,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1400</x>
-      <y>1200</y>
+      <x>1295</x>
+      <y>1065</y>
       <w>105</w>
       <h>55</h>
     </coordinates>
@@ -1408,8 +1408,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1455</x>
-      <y>1160</y>
+      <x>1350</x>
+      <y>1025</y>
       <w>50</w>
       <h>50</h>
     </coordinates>
@@ -1420,8 +1420,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1525</x>
-      <y>1175</y>
+      <x>1420</x>
+      <y>1040</y>
       <w>115</w>
       <h>75</h>
     </coordinates>
@@ -1439,8 +1439,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1505</x>
-      <y>1150</y>
+      <x>1400</x>
+      <y>1015</y>
       <w>60</w>
       <h>45</h>
     </coordinates>
@@ -1451,8 +1451,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1420</x>
-      <y>1245</y>
+      <x>1315</x>
+      <y>1110</y>
       <w>160</w>
       <h>90</h>
     </coordinates>
@@ -1463,8 +1463,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>995</x>
-      <y>1345</y>
+      <x>890</x>
+      <y>1210</y>
       <w>370</w>
       <h>165</h>
     </coordinates>
@@ -1475,8 +1475,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1450</x>
-      <y>1025</y>
+      <x>1345</x>
+      <y>890</y>
       <w>95</w>
       <h>40</h>
     </coordinates>
@@ -1488,8 +1488,8 @@ account to pay.</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1770</x>
-      <y>1005</y>
+      <x>1665</x>
+      <y>870</y>
       <w>110</w>
       <h>40</h>
     </coordinates>
@@ -1500,8 +1500,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1530</x>
-      <y>1020</y>
+      <x>1425</x>
+      <y>885</y>
       <w>250</w>
       <h>75</h>
     </coordinates>
@@ -1512,8 +1512,8 @@ reflect actions taken on account</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1535</x>
-      <y>865</y>
+      <x>1430</x>
+      <y>730</y>
       <w>100</w>
       <h>55</h>
     </coordinates>
@@ -1527,8 +1527,8 @@ payments. </panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1360</x>
-      <y>890</y>
+      <x>1255</x>
+      <y>755</y>
       <w>80</w>
       <h>45</h>
     </coordinates>
@@ -1542,8 +1542,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1560</x>
-      <y>810</y>
+      <x>1455</x>
+      <y>675</y>
       <w>75</w>
       <h>35</h>
     </coordinates>
@@ -1554,8 +1554,8 @@ of loan</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1475</x>
-      <y>930</y>
+      <x>1370</x>
+      <y>795</y>
       <w>100</w>
       <h>50</h>
     </coordinates>
@@ -1570,8 +1570,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1415</x>
-      <y>865</y>
+      <x>1310</x>
+      <y>730</y>
       <w>55</w>
       <h>40</h>
     </coordinates>
@@ -1582,8 +1582,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1510</x>
-      <y>830</y>
+      <x>1405</x>
+      <y>695</y>
       <w>65</w>
       <h>30</h>
     </coordinates>
@@ -1594,8 +1594,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1500</x>
-      <y>860</y>
+      <x>1395</x>
+      <y>725</y>
       <w>45</w>
       <h>30</h>
     </coordinates>
@@ -1606,8 +1606,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1470</x>
-      <y>870</y>
+      <x>1365</x>
+      <y>735</y>
       <w>60</w>
       <h>70</h>
     </coordinates>
@@ -1618,8 +1618,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1615</x>
-      <y>920</y>
+      <x>1510</x>
+      <y>785</y>
       <w>120</w>
       <h>40</h>
     </coordinates>
@@ -1633,8 +1633,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1570</x>
-      <y>940</y>
+      <x>1465</x>
+      <y>805</y>
       <w>60</w>
       <h>25</h>
     </coordinates>
@@ -1645,8 +1645,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1570</x>
-      <y>990</y>
+      <x>1465</x>
+      <y>855</y>
       <w>95</w>
       <h>40</h>
     </coordinates>
@@ -1658,8 +1658,8 @@ account to pay.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1525</x>
-      <y>975</y>
+      <x>1420</x>
+      <y>840</y>
       <w>70</w>
       <h>30</h>
     </coordinates>
@@ -1670,8 +1670,8 @@ account to pay.</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1660</x>
-      <y>1000</y>
+      <x>1555</x>
+      <y>865</y>
       <w>130</w>
       <h>25</h>
     </coordinates>
@@ -1682,8 +1682,8 @@ account to pay.</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1670</x>
-      <y>820</y>
+      <x>1565</x>
+      <y>685</y>
       <w>100</w>
       <h>45</h>
     </coordinates>
@@ -1697,8 +1697,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1700</x>
-      <y>785</y>
+      <x>1595</x>
+      <y>650</y>
       <w>50</w>
       <h>45</h>
     </coordinates>
@@ -1709,8 +1709,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1780</x>
-      <y>895</y>
+      <x>1675</x>
+      <y>760</y>
       <w>80</w>
       <h>45</h>
     </coordinates>
@@ -1724,8 +1724,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1730</x>
-      <y>860</y>
+      <x>1625</x>
+      <y>725</y>
       <w>70</w>
       <h>70</h>
     </coordinates>
@@ -1736,8 +1736,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1805</x>
-      <y>935</y>
+      <x>1700</x>
+      <y>800</y>
       <w>50</w>
       <h>80</h>
     </coordinates>
@@ -1748,8 +1748,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1810</x>
-      <y>730</y>
+      <x>1705</x>
+      <y>595</y>
       <w>90</w>
       <h>45</h>
     </coordinates>
@@ -1761,8 +1761,8 @@ remaining</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1745</x>
-      <y>755</y>
+      <x>1640</x>
+      <y>620</y>
       <w>85</w>
       <h>25</h>
     </coordinates>
@@ -1773,8 +1773,8 @@ remaining</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1725</x>
-      <y>775</y>
+      <x>1620</x>
+      <y>640</y>
       <w>100</w>
       <h>45</h>
     </coordinates>
@@ -1785,8 +1785,8 @@ remaining</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1815</x>
-      <y>795</y>
+      <x>1710</x>
+      <y>660</y>
       <w>100</w>
       <h>60</h>
     </coordinates>
@@ -1802,8 +1802,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1875</x>
-      <y>870</y>
+      <x>1770</x>
+      <y>735</y>
       <w>85</w>
       <h>50</h>
     </coordinates>
@@ -1818,8 +1818,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1710</x>
-      <y>780</y>
+      <x>1605</x>
+      <y>645</y>
       <w>175</w>
       <h>115</h>
     </coordinates>
@@ -1830,8 +1830,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1890</x>
-      <y>945</y>
+      <x>1785</x>
+      <y>810</y>
       <w>115</w>
       <h>50</h>
     </coordinates>
@@ -1844,8 +1844,8 @@ and submits the payment. </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1920</x>
-      <y>915</y>
+      <x>1815</x>
+      <y>780</y>
       <w>50</w>
       <h>40</h>
     </coordinates>
@@ -1856,8 +1856,8 @@ and submits the payment. </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1875</x>
-      <y>990</y>
+      <x>1770</x>
+      <y>855</y>
       <w>70</w>
       <h>40</h>
     </coordinates>
@@ -1868,8 +1868,8 @@ and submits the payment. </panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1000</x>
-      <y>1040</y>
+      <x>895</x>
+      <y>905</y>
       <w>830</w>
       <h>485</h>
     </coordinates>
@@ -1880,8 +1880,8 @@ and submits the payment. </panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>500</x>
-      <y>345</y>
+      <x>395</x>
+      <y>210</y>
       <w>120</w>
       <h>55</h>
     </coordinates>
@@ -1897,8 +1897,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>785</x>
-      <y>440</y>
+      <x>680</x>
+      <y>305</y>
       <w>80</w>
       <h>45</h>
     </coordinates>
@@ -1913,8 +1913,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>370</x>
-      <y>410</y>
+      <x>265</x>
+      <y>275</y>
       <w>110</w>
       <h>55</h>
     </coordinates>
@@ -1930,8 +1930,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>860</x>
-      <y>400</y>
+      <x>755</x>
+      <y>265</y>
       <w>70</w>
       <h>70</h>
     </coordinates>
@@ -1942,8 +1942,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>695</x>
-      <y>360</y>
+      <x>590</x>
+      <y>225</y>
       <w>90</w>
       <h>50</h>
     </coordinates>
@@ -1958,8 +1958,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>780</x>
-      <y>385</y>
+      <x>675</x>
+      <y>250</y>
       <w>45</w>
       <h>80</h>
     </coordinates>
@@ -1970,8 +1970,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>615</x>
-      <y>365</y>
+      <x>510</x>
+      <y>230</y>
       <w>90</w>
       <h>25</h>
     </coordinates>
@@ -1982,8 +1982,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>350</x>
-      <y>300</y>
+      <x>245</x>
+      <y>165</y>
       <w>125</w>
       <h>55</h>
     </coordinates>
@@ -1999,8 +1999,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>510</x>
-      <y>255</y>
+      <x>405</x>
+      <y>120</y>
       <w>115</w>
       <h>50</h>
     </coordinates>
@@ -2016,8 +2016,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>470</x>
-      <y>390</y>
+      <x>365</x>
+      <y>255</y>
       <w>60</w>
       <h>45</h>
     </coordinates>
@@ -2028,8 +2028,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>470</x>
-      <y>330</y>
+      <x>365</x>
+      <y>195</y>
       <w>45</w>
       <h>40</h>
     </coordinates>
@@ -2040,8 +2040,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>545</x>
-      <y>300</y>
+      <x>440</x>
+      <y>165</y>
       <w>55</w>
       <h>55</h>
     </coordinates>
@@ -2052,8 +2052,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>115</x>
-      <y>295</y>
+      <x>10</x>
+      <y>160</y>
       <w>115</w>
       <h>40</h>
     </coordinates>
@@ -2064,8 +2064,8 @@ debits and account status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>545</x>
-      <y>190</y>
+      <x>440</x>
+      <y>55</y>
       <w>50</w>
       <h>75</h>
     </coordinates>
@@ -2076,8 +2076,8 @@ debits and account status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>225</x>
-      <y>305</y>
+      <x>120</x>
+      <y>170</y>
       <w>135</w>
       <h>25</h>
     </coordinates>
@@ -2088,8 +2088,8 @@ debits and account status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>285</x>
-      <y>450</y>
+      <x>180</x>
+      <y>315</y>
       <w>110</w>
       <h>70</h>
     </coordinates>
@@ -2100,8 +2100,8 @@ debits and account status</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>325</x>
-      <y>510</y>
+      <x>220</x>
+      <y>375</y>
       <w>95</w>
       <h>45</h>
     </coordinates>
@@ -2115,8 +2115,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>385</x>
-      <y>460</y>
+      <x>280</x>
+      <y>325</y>
       <w>55</w>
       <h>60</h>
     </coordinates>
@@ -2127,8 +2127,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>105</x>
-      <y>355</y>
+      <x>0</x>
+      <y>220</y>
       <w>145</w>
       <h>55</h>
     </coordinates>
@@ -2144,8 +2144,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>505</x>
-      <y>155</y>
+      <x>400</x>
+      <y>20</y>
       <w>115</w>
       <h>40</h>
     </coordinates>
@@ -2156,8 +2156,8 @@ debits and account status</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>195</x>
-      <y>505</y>
+      <x>90</x>
+      <y>370</y>
       <w>115</w>
       <h>40</h>
     </coordinates>
@@ -2168,8 +2168,8 @@ debits and account status</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>245</x>
-      <y>340</y>
+      <x>140</x>
+      <y>205</y>
       <w>130</w>
       <h>55</h>
     </coordinates>
@@ -2180,8 +2180,8 @@ debits and account status</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>655</x>
-      <y>175</y>
+      <x>550</x>
+      <y>40</y>
       <w>125</w>
       <h>60</h>
     </coordinates>
@@ -2197,8 +2197,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>610</x>
-      <y>225</y>
+      <x>505</x>
+      <y>90</y>
       <w>85</w>
       <h>50</h>
     </coordinates>
@@ -2209,8 +2209,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>740</x>
-      <y>260</y>
+      <x>635</x>
+      <y>125</y>
       <w>115</w>
       <h>60</h>
     </coordinates>
@@ -2226,8 +2226,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>740</x>
-      <y>225</y>
+      <x>635</x>
+      <y>90</y>
       <w>60</w>
       <h>45</h>
     </coordinates>
@@ -2238,8 +2238,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1110</x>
-      <y>365</y>
+      <x>1065</x>
+      <y>240</y>
       <w>105</w>
       <h>25</h>
     </coordinates>
@@ -2250,8 +2250,8 @@ information on all accounts</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1260</x>
-      <y>340</y>
+      <x>950</x>
+      <y>240</y>
       <w>105</w>
       <h>25</h>
     </coordinates>
@@ -2261,36 +2261,38 @@ information on all accounts</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1350</x>
-      <y>540</y>
-      <w>120</w>
-      <h>45</h>
+      <x>1245</x>
+      <y>405</y>
+      <w>150</w>
+      <h>50</h>
     </coordinates>
     <panel_attributes>if bank manager selects
 a loan account for the customer
 --
-</panel_attributes>
+displays loan account and
+all options available for that
+loan account</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1410</x>
-      <y>505</y>
-      <w>55</w>
-      <h>45</h>
+      <x>1320</x>
+      <y>360</y>
+      <w>50</w>
+      <h>55</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;10.0;45.0;70.0</additional_attributes>
+    <additional_attributes>10.0;10.0;15.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1205</x>
-      <y>605</y>
-      <w>115</w>
-      <h>45</h>
+      <x>1145</x>
+      <y>480</y>
+      <w>125</w>
+      <h>60</h>
     </coordinates>
     <panel_attributes>initiates process that sends bills out
 to credit card and mortgage accounts</panel_attributes>
@@ -2299,8 +2301,8 @@ to credit card and mortgage accounts</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1325</x>
-      <y>630</y>
+      <x>1235</x>
+      <y>200</y>
       <w>110</w>
       <h>25</h>
     </coordinates>
@@ -2311,8 +2313,8 @@ out roll over notices for CD's</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1480</x>
-      <y>630</y>
+      <x>1390</x>
+      <y>265</y>
       <w>110</w>
       <h>25</h>
     </coordinates>
@@ -2323,44 +2325,8 @@ monthly on checking and savings</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1465</x>
-      <y>565</y>
-      <w>70</w>
-      <h>75</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;18.0;100.0;130.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1380</x>
-      <y>580</y>
-      <w>55</w>
-      <h>60</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>40.0;10.0;10.0;100.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1265</x>
-      <y>575</y>
-      <w>95</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;includes&gt;&gt;</panel_attributes>
-    <additional_attributes>170.0;10.0;10.0;60.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>445</x>
-      <y>455</y>
+      <x>340</x>
+      <y>320</y>
       <w>60</w>
       <h>65</h>
     </coordinates>
@@ -2371,8 +2337,8 @@ monthly on checking and savings</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>435</x>
-      <y>510</y>
+      <x>330</x>
+      <y>375</y>
       <w>95</w>
       <h>45</h>
     </coordinates>
@@ -2386,8 +2352,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>320</x>
-      <y>265</y>
+      <x>215</x>
+      <y>130</y>
       <w>65</w>
       <h>50</h>
     </coordinates>
@@ -2398,8 +2364,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>250</x>
-      <y>230</y>
+      <x>145</x>
+      <y>95</y>
       <w>95</w>
       <h>45</h>
     </coordinates>
@@ -2413,8 +2379,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>360</x>
-      <y>200</y>
+      <x>255</x>
+      <y>65</y>
       <w>110</w>
       <h>60</h>
     </coordinates>
@@ -2430,8 +2396,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>415</x>
-      <y>255</y>
+      <x>310</x>
+      <y>120</y>
       <w>45</w>
       <h>55</h>
     </coordinates>
@@ -2442,8 +2408,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>170</x>
-      <y>425</y>
+      <x>65</x>
+      <y>290</y>
       <w>110</w>
       <h>60</h>
     </coordinates>
@@ -2459,8 +2425,8 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>275</x>
-      <y>435</y>
+      <x>170</x>
+      <y>300</y>
       <w>105</w>
       <h>30</h>
     </coordinates>
@@ -2471,8 +2437,8 @@ valign=top</panel_attributes>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1260</x>
-      <y>480</y>
+      <x>1155</x>
+      <y>355</y>
       <w>80</w>
       <h>45</h>
     </coordinates>
@@ -2487,32 +2453,32 @@ valign=top</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1215</x>
-      <y>505</y>
+      <x>1110</x>
+      <y>375</y>
       <w>55</w>
-      <h>30</h>
-    </coordinates>
-    <panel_attributes>lt=.&gt;
-&lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;40.0;90.0;10.0</additional_attributes>
-  </element>
-  <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>1335</x>
-      <y>485</y>
-      <w>60</w>
       <h>25</h>
     </coordinates>
     <panel_attributes>lt=.&gt;
 &lt;&lt;extends&gt;&gt;</panel_attributes>
-    <additional_attributes>10.0;30.0;100.0;10.0</additional_attributes>
+    <additional_attributes>10.0;30.0;90.0;20.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1230</x>
+      <y>340</y>
+      <w>75</w>
+      <h>45</h>
+    </coordinates>
+    <panel_attributes>lt=.&gt;
+&lt;&lt;extends&gt;&gt;</panel_attributes>
+    <additional_attributes>10.0;70.0;130.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLUseCase</id>
     <coordinates>
-      <x>1385</x>
-      <y>460</y>
+      <x>1295</x>
+      <y>315</y>
       <w>90</w>
       <h>50</h>
     </coordinates>
@@ -2522,6 +2488,64 @@ is valid
 displays list of accounts
 owned by customer
 valign=top</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1280</x>
+      <y>470</y>
+      <w>120</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>LOANS
+bg=blue
+1. credit card 
+	a. debits made for purchases
+	b. credit limit
+	c. finance charges
+	d. total charges through purchases
+	e. payments
+	f. finance charge calculated
+	g. starts process to send out bills
+2. mortgages
+	a. length of loan 5/15/30
+	b. rate/payment plan info
+	c. $75 late fee
+	d. account flagged if behind
+	e. starts process to send out bills</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1425</x>
+      <y>315</y>
+      <w>100</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>CHECKING
+bg=blue
+1. withdraw/deposit
+2. sets interest rate
+3. stop payment</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>1255</x>
+      <y>235</y>
+      <w>105</w>
+      <h>50</h>
+    </coordinates>
+    <panel_attributes>SAVINGS
+bg=blue
+1. withdraw/deposit
+2. set the fixed interest rate
+3. CDs
+	a. sends out roll over notices
+</panel_attributes>
     <additional_attributes/>
   </element>
 </diagram>
