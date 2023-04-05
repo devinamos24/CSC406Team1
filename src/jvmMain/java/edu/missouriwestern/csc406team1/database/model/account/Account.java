@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 
-public abstract class Account implements CSV {
+public abstract class Account implements CSV, Comparable<Account> {
     @NotNull
     private String accountNumber;//account number to reference the account
     @NotNull String customerSSN;// SSN of customer owning the account
@@ -23,6 +23,10 @@ public abstract class Account implements CSV {
         this.balance = balance;
         this.dateOpened = dateOpened;
         this.interestRate = interestRate;
+    }
+
+    public int compareTo(Account o) {
+        return this.dateOpened.compareTo(o.dateOpened);
     }
 
     // Method to deposit a given amount into the account
