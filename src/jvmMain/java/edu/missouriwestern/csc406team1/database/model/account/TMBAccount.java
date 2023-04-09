@@ -12,12 +12,12 @@ public class TMBAccount extends CheckingAccount {
     private static final Double defaultTransactionFee = 0.75;
 
     //constructor
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, backupAccount, overdraftsThisMonth);
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean hasATMCard, @NotNull SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, backupAccount, overdraftsThisMonth, hasATMCard);
     }
 
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, null, overdraftsThisMonth);
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, null, overdraftsThisMonth, hasATMCard);
     }
 
     @Override
@@ -33,6 +33,11 @@ public class TMBAccount extends CheckingAccount {
         ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
         returnValue.add("TMB");
         returnValue.add(backupID);
+        if (this.atmCard == null) {
+            returnValue.add("false");
+        } else {
+            returnValue.add("true");
+        }
         returnValue.add(String.valueOf(overdraftsThisMonth));
 
         return returnValue.toArray(new String[returnValue.size()]);

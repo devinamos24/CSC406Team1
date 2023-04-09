@@ -1,7 +1,6 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.model.account.*;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
@@ -73,14 +72,14 @@ public class AccountDaoImpl implements AccountDao{
                 SavingsAccount savingsAccount;
                 switch (args[4]) {
                     case "TMB":
-                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Integer.parseInt(args[6]));
+                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[6]), Integer.parseInt(args[7]));
                         if (!args[5].equals("null")) {
                             checkingAccounts.put(account, args[5]);
                         }
                         accounts.add(account);
                         break;
                     case "GD":
-                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Integer.parseInt(args[7]));
+                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
                         if (!args[6].equals("null")) {
                             checkingAccounts.put(account, args[5]);
                         }
