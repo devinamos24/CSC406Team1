@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.customer
+package edu.missouriwestern.csc406team1.screens
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
@@ -15,7 +15,7 @@ import edu.missouriwestern.csc406team1.util.InputWrapper
 import edu.missouriwestern.csc406team1.util.isValidAddressOrCity
 
 @Composable
-fun CustomerAccountCreationScreen(customerRepository: CustomerRepository, onClickCreate: (String) -> Unit, onBack: () -> Unit) {
+fun CreateAccountScreen(customerRepository: CustomerRepository, onClickCreate: (String) -> Unit, onBack: () -> Unit) {
 
     var ssn by remember { mutableStateOf(InputWrapper()) }
     var firstName by remember { mutableStateOf(InputWrapper()) }

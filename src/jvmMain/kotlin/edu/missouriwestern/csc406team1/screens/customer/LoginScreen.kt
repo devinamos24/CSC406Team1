@@ -22,7 +22,6 @@ import edu.missouriwestern.csc406team1.util.InputWrapper
 fun CustomerLoginScreen(
     customerRepository: CustomerRepository,
     onClickLogin: (String) -> Unit,
-    onClickCreateAccount: () -> Unit,
     onBack: () -> Unit
 ) {
     var hasFailed by remember { mutableStateOf(false) }
@@ -34,12 +33,6 @@ fun CustomerLoginScreen(
             modifier = Modifier.align(Alignment.TopStart)
         ) {
             Text("Back")
-        }
-        Button(
-            onClick = onClickCreateAccount,
-            modifier = Modifier.align(Alignment.TopEnd)
-        ) {
-            Text("Create Account")
         }
         Column(
             modifier = Modifier.align(Alignment.Center),
