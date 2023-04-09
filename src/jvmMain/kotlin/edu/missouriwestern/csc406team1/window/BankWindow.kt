@@ -1,6 +1,6 @@
 package edu.missouriwestern.csc406team1.window
 
-import MainContent
+import edu.missouriwestern.csc406team1.MainContent
 import ProvideComponentContext
 import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.foundation.defaultScrollbarStyle
@@ -51,7 +51,7 @@ fun BankWindow(state: BankWindowState) {
             AppTheme {
                 CompositionLocalProvider(LocalScrollbarStyle provides defaultScrollbarStyle()) {
                     ProvideComponentContext(state.rootComponentContext) {
-                        MainContent(customerRepository = state.customerRepository, accountRepository = state.accountRepository)
+                        MainContent(customerRepository = state.customerRepository, accountRepository = state.accountRepository, transactionRepository = state.transactionRepository, loanRepository = state.loanRepository)
                     }
                 }
             }

@@ -77,12 +77,13 @@ public class CustomerDaoImpl implements CustomerDao {
      * @param customer the customer to be added to the system
      */
     @Override
-    public void addCustomer(Customer customer) {
+    public boolean addCustomer(Customer customer) {
          if (customers.stream().anyMatch(customer1 -> customer1.getSsn().equals(customer.getSsn()))) {
              System.err.println("Could not add customer due to ssn not being unique");
          } else {
-             customers.add(customer);
+             return customers.add(customer);
          }
+         return false;
     }
 
     /**

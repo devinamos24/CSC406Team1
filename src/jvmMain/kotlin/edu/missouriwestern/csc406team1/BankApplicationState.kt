@@ -1,3 +1,5 @@
+package edu.missouriwestern.csc406team1
+
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.Notification
 import androidx.compose.ui.window.TrayState
@@ -5,6 +7,10 @@ import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepositoryImpl
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.AccountRepositoryImpl
+import edu.missouriwestern.csc406team1.database.LoanRepository
+import edu.missouriwestern.csc406team1.database.LoanRepositoryImpl
+import edu.missouriwestern.csc406team1.database.TransactionRepository
+import edu.missouriwestern.csc406team1.database.TransactionRepositoryImpl
 import kotlinx.coroutines.*
 import edu.missouriwestern.csc406team1.util.AlertDialogResult
 import edu.missouriwestern.csc406team1.window.BankWindowState
@@ -41,6 +47,11 @@ class BankApplicationState {
 
     // A repository to pull and push accounts to
     val accountRepository: AccountRepository = AccountRepositoryImpl()
+
+    // A repository to pull and push transactions to
+    val transactionRepository: TransactionRepository = TransactionRepositoryImpl()
+
+    val loanRepository: LoanRepository = LoanRepositoryImpl()
 
     // A function to create a window state and add it to _windows
     fun newWindow() {
@@ -79,7 +90,7 @@ class BankApplicationState {
     private suspend fun save(): Boolean {
 
         saveJob?.cancel()
-        saveJob = launchSaving(customerRepository, accountRepository)
+        saveJob = launchSaving(customerRepository, accountRepository, transactionRepository, loanRepository)
 
         return try {
             saveJob?.join()
@@ -155,7 +166,9 @@ class DialogState<T> {
  * Function to launch a coroutine that attempts to save our data to disk
  */
 @OptIn(DelicateCoroutinesApi::class)
-private fun launchSaving(customerRepository: CustomerRepository, accountRepository: AccountRepository) = GlobalScope.launch {
+private fun launchSaving(customerRepository: CustomerRepository, accountRepository: AccountRepository, transactionRepository: TransactionRepository, loanRepository: LoanRepository) = GlobalScope.launch {
     customerRepository.save()
     accountRepository.save()
+    transactionRepository.save()
+    loanRepository.save()
 }

@@ -35,8 +35,8 @@ public class TransactionRepositoryImpl implements TransactionRepository{
     }
 
     @Override
-    public void delete(Transaction transaction) {
-        transactionDao.deleteTransaction(transaction.getTransactionID());
+    public void delete(String id) {
+        transactionDao.deleteTransaction(id);
     }
 
     @Override

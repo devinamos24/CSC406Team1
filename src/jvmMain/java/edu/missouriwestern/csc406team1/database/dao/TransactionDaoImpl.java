@@ -1,13 +1,9 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
+import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.Check;
 import edu.missouriwestern.csc406team1.database.model.Purchase;
-import edu.missouriwestern.csc406team1.database.model.Transaction;
-import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan;
-import edu.missouriwestern.csc406team1.database.model.loan.Loan;
-import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan;
-import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -16,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,6 +86,9 @@ public class TransactionDaoImpl implements TransactionDao{
                 boolean checkStopPayment = Boolean.parseBoolean(args[14]);
 
                 Transaction transaction;
+                if (Integer.parseInt(args[0]) > highestID) {
+                    highestID = Integer.parseInt(args[0]);
+                }
                 switch (transactionType.toLowerCase()) {
                     case "p":
                         transaction = new Purchase(transactionID, credit, debit, transactionType, amount, newTotal,
@@ -109,7 +108,7 @@ public class TransactionDaoImpl implements TransactionDao{
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                 System.err.println("Parse error on line: " + linenumber + " in transaction database");
                 e.printStackTrace();
-                //TODO put the problem line in an error file to be fixed by bank later
+                //TODO: put the problem line in an error file to be fixed by bank later
             } catch (DateTimeParseException e) {
                 System.err.println("Date parse error on line: " + linenumber + " in transaction database");
             }

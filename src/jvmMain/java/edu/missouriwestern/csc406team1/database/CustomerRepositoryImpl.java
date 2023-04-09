@@ -37,8 +37,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     // Add a customer to the system
     @Override
-    public void addCustomer(Customer customer) {
-        customerDao.addCustomer(customer);
+    public boolean addCustomer(Customer customer) {
+        return customerDao.addCustomer(customer);
     }
 
     // Update a customer that is already in the system
@@ -49,8 +49,8 @@ public class CustomerRepositoryImpl implements CustomerRepository {
 
     // Delete a customer from the system
     @Override
-    public void delete(Customer customer) {
-        customerDao.deleteCustomer(customer.getSsn());
+    public void delete(String ssn) {
+        customerDao.deleteCustomer(ssn);
     }
 
     // Attempt to save the customers to disk

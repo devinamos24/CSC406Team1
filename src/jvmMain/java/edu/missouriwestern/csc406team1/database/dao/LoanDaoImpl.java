@@ -2,7 +2,6 @@ package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
 import edu.missouriwestern.csc406team1.database.model.loan.*;
-import edu.missouriwestern.csc406team1.database.model.account.*;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -64,40 +63,37 @@ public class LoanDaoImpl implements LoanDao{
         // For each list of arguments, create and add a loan from them
         for (String[] args : collect) {
             try {
-                CreditCardLoan creditCardLoan;
-                MortgageLoan mortgageLoan;
-                ShortTermLoan shortTermLoan;
+
+                if (Integer.parseInt(args[0]) > highestID) {
+                    highestID = Integer.parseInt(args[0]);
+                }
 
                 switch (args[9]) {
                     case "cc":
-                        creditCardLoan = new CreditCardLoan(args[0]/*account number*/, args[1]/*customerSSN*/,
+                        loans.add(new CreditCardLoan(args[0]/*account number*/, args[1]/*customerSSN*/,
                                 Double.parseDouble(args[2])/*current balance*/, Double.parseDouble(args[3])/*current interest rate*/,
                                 DateConverter.convertStringToDate(args[4])/*date payment due*/, DateConverter.convertStringToDate(args[5])/*date notified of payment*/,
                                 Double.parseDouble(args[6])/*current payment due*/,DateConverter.convertStringToDate(args[7])/*date since last payment made*/,
-                                Boolean.parseBoolean(args[9]), Double.parseDouble(args[10]));
-                        loans.add(creditCardLoan);
+                                Boolean.parseBoolean(args[9]), Double.parseDouble(args[10])));
                         break;
                     case "ll":
-                        mortgageLoan = new MortgageLoan(args[0]/*accountNumber*/, args[1]/*customerSSN*/,
+                        loans.add(new MortgageLoan(args[0]/*accountNumber*/, args[1]/*customerSSN*/,
                                 Double.parseDouble(args[2])/*balance*/, Double.parseDouble(args[3])/*interestRate*/,
                                 DateConverter.convertStringToDate(args[4])/*datePaymentDue*/,
                                 DateConverter.convertStringToDate(args[5])/*paymentNotified*/,
                                 Double.parseDouble(args[6])/*currentPaymentDue*/,
                                 DateConverter.convertStringToDate(args[7])/*dateSinceLastPayment*/,
-                                Boolean.parseBoolean(args[8])/*missedPayment*/);
-                        loans.add(mortgageLoan);
+                                Boolean.parseBoolean(args[8])/*missedPayment*/));
                         break;
                     case "ls":
-                        shortTermLoan = new ShortTermLoan(
+                        loans.add(new ShortTermLoan(
                                 args[0]/*accountNumber*/, args[1]/*customerSSN*/,
                                 Double.parseDouble(args[2])/*balance*/, Double.parseDouble(args[3])/*interestRate*/,
                                 DateConverter.convertStringToDate(args[4])/*datePaymentDue*/,
                                 DateConverter.convertStringToDate(args[5])/*paymentNotified*/,
                                 Double.parseDouble(args[6])/*currentPaymentDue*/,
                                 DateConverter.convertStringToDate(args[7])/*dateSinceLastPayment*/,
-                                Boolean.parseBoolean(args[8])/*missedPayment*/
-                        );
-                        loans.add(shortTermLoan);
+                                Boolean.parseBoolean(args[8])/*missedPayment*/));
                         break;
                     default:
                         throw new IllegalArgumentException("Type: "+ args[9] + " not supported!");
@@ -118,10 +114,10 @@ public class LoanDaoImpl implements LoanDao{
     }
 
     @Override
-    public void addLoan(Loan loan) {
+    public boolean addLoan(Loan loan) {
         loan.setAccountNumber(String.valueOf(highestID+1));
         highestID++;
-        loans.add(loan);
+        return loans.add(loan);
     }
 
     @NotNull
@@ -142,14 +138,15 @@ public class LoanDaoImpl implements LoanDao{
     }
 
     @Override
-    public void updateLoan(Loan loan) {
+    public boolean updateLoan(Loan loan) {
         for (Loan loan1 : loans) {
             if (loan1.getAccountNumber().equals(loan.getAccountNumber())) {
-                loans.remove(loan1);
-                loans.add(loan);
-                return;
+                if (loans.remove(loan1)) {
+                    return loans.add(loan);
+                }
             }
         }
+        return false;
     }
 
     @Override

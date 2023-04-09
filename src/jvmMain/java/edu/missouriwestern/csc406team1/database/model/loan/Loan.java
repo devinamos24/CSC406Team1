@@ -1,19 +1,17 @@
 package edu.missouriwestern.csc406team1.database.model.loan;
 
-import edu.missouriwestern.csc406team1.database.model.account.Account;
 import edu.missouriwestern.csc406team1.util.CSV;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 public abstract class Loan implements CSV, Comparable<Loan>{
     @NotNull
     private String accountNumber;//account number to reference the account
     @NotNull
-    String customerSSN;// SSN of customer owning the account
+    private String customerSSN;// SSN of customer owning the account
     @NotNull
     private LocalDate datePaymentDue; //date next payment is due
     @Nullable
@@ -36,9 +34,16 @@ public abstract class Loan implements CSV, Comparable<Loan>{
     @NotNull
     private LocalDate dateOpened;//date the account was opened with the bank
 
-    public Loan(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
-                @NotNull Double interestRate, @NotNull LocalDate datePaymentDue, @NotNull LocalDate paymentNotified,
-                @NotNull Double currentPaymentDue, @NotNull LocalDate dateSinceLastPayment, @NotNull Boolean missedPayment) {
+    public Loan(@NotNull String accountNumber,
+                @NotNull String customerSSN,
+                @NotNull Double balance,
+                @NotNull Double interestRate,
+                @NotNull LocalDate datePaymentDue,
+                @NotNull LocalDate paymentNotified,
+                @NotNull Double currentPaymentDue,
+                @NotNull LocalDate dateSinceLastPayment,
+                @NotNull Boolean missedPayment
+    ) {
                 //TODO for ease of use, order of constructor needs to follow order of CVS data
                 //TODO super constructor order for each child class will need updated to reflect this change
         this.accountNumber = accountNumber;
@@ -50,6 +55,7 @@ public abstract class Loan implements CSV, Comparable<Loan>{
         this.dateSinceLastPayment = dateSinceLastPayment;
         this.currentPaymentDue = currentPaymentDue;
         this.missedPayment = missedPayment;
+        this.dateOpened = LocalDate.now(); // TODO: Implement date opened into database for loan
 
     }
     public int compareTo(Loan o) {
@@ -83,6 +89,47 @@ public abstract class Loan implements CSV, Comparable<Loan>{
     @NotNull
     public Boolean hasMissedPayment() { return missedPayment; }
     public void setMissedPayment(@NotNull Boolean missedPayment) { this.missedPayment = missedPayment; }
+
+    @NotNull
+    public String getCustomerSSN() {
+        return customerSSN;
+    }
+
+    public void setCustomerSSN(@NotNull String customerSSN) {
+        this.customerSSN = customerSSN;
+    }
+
+    @NotNull
+    public Boolean getMissedPayment() {
+        return missedPayment;
+    }
+
+    @NotNull
+    public Double getInterestRate() {
+        return interestRate;
+    }
+
+    public void setInterestRate(@NotNull Double interestRate) {
+        this.interestRate = interestRate;
+    }
+
+    @NotNull
+    public Double getBalance() {
+        return balance;
+    }
+
+    public void setBalance(@NotNull Double balance) {
+        this.balance = balance;
+    }
+
+    @NotNull
+    public LocalDate getDateOpened() {
+        return dateOpened;
+    }
+
+    public void setDateOpened(@NotNull LocalDate dateOpened) {
+        this.dateOpened = dateOpened;
+    }
 
     @Override
     public String[] convertToCSV() {

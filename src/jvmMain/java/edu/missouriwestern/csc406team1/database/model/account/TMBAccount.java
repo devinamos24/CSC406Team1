@@ -1,6 +1,7 @@
 package edu.missouriwestern.csc406team1.database.model.account;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -12,12 +13,12 @@ public class TMBAccount extends CheckingAccount {
     private static final Double defaultTransactionFee = 0.75;
 
     //constructor
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean hasATMCard, @NotNull SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, backupAccount, overdraftsThisMonth, hasATMCard);
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Boolean hasATMCard, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, null, defaultTransactionFee, backupAccount, overdraftsThisMonth, hasATMCard);
     }
 
-    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, null, defaultTransactionFee, null, overdraftsThisMonth, hasATMCard);
+    public TMBAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, null, defaultTransactionFee, null, overdraftsThisMonth, hasATMCard);
     }
 
     @Override

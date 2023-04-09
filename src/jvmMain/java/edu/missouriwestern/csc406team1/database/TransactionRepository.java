@@ -8,6 +8,6 @@ public interface TransactionRepository {
     ArrayListFlow<Transaction> getTransactions();
     void addTransaction(Transaction transaction);
     void update(Transaction transaction);
-    void delete(Transaction transaction);
+    void delete(String id);
     boolean save();
 }
