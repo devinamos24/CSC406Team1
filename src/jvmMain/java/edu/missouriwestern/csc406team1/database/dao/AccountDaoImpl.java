@@ -35,10 +35,10 @@ public class AccountDaoImpl implements AccountDao{
         This constructor attempts to populate the modified arrayList of accounts from disk
      */
     public AccountDaoImpl(){
-        // Create a list of string arrays to hold each piece of customer data
+        // Create a list of string arrays to hold each piece of account data
         List<String[]> collect = new ArrayList<>();
 
-        // Try to open a stream of data from the saved customer file
+        // Try to open a stream of data from the saved account file
         try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", filename))) {
             // Split the lines into pieces using the comma as a delimiter
             collect = info.map(line -> line.split(","))
@@ -46,7 +46,7 @@ public class AccountDaoImpl implements AccountDao{
 
             // If the first file fails, attempt to load the base data set
         } catch (IOException | NullPointerException e) {
-            // Try to open a stream of data from the base customer file
+            // Try to open a stream of data from the base account file
             try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", basefilename))) {
                 // Split the lines into pieces using the comma as a delimiter
                 collect = info.map(line -> line.split(","))
@@ -54,7 +54,7 @@ public class AccountDaoImpl implements AccountDao{
 
                 // If the second file fails, print the stacktrace and exit
             } catch (IOException | NullPointerException ee) {
-                System.err.println("Error parsing customer resources");
+                System.err.println("Error parsing account resources");
                 e.printStackTrace();
                 ee.printStackTrace();
                 System.exit(1);
@@ -63,7 +63,7 @@ public class AccountDaoImpl implements AccountDao{
         // This number keeps track of what line we are on for logging purposes
         int linenumber = 1;
 
-        // For each list of arguments, create and add a customer from them
+        // For each list of arguments, create and add a account from them
         Map<CheckingAccount, String> checkingAccounts = new HashMap<>();
         Map<String, SavingsAccount> savingsAccounts = new HashMap<>();
         for (String[] args : collect) {
