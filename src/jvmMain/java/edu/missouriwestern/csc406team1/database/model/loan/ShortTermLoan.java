@@ -7,8 +7,12 @@ import java.time.LocalDate;
 
 public class ShortTermLoan extends Loan{
 
-    public ShortTermLoan(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Date paymentDue, @NotNull Double currentPaymentDue, @NotNull Date dateSinceLastPayment, @NotNull Double interestRate, @NotNull Double balance, @NotNull LocalDate dateOpened) {
-        super(accountNumber, customerSSN, paymentDue, currentPaymentDue, dateSinceLastPayment, interestRate, balance, dateOpened);
+    public ShortTermLoan(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
+                         @NotNull Double interestRate, @NotNull LocalDate datePaymentDue,
+                         @NotNull LocalDate paymentNotified, @NotNull Double currentPaymentDue,
+                         @NotNull LocalDate dateSinceLastPayment, @NotNull Boolean missedPayment) {
+        super(accountNumber, customerSSN, balance, interestRate, datePaymentDue, paymentNotified, currentPaymentDue,
+                dateSinceLastPayment, missedPayment);
     }
     // TODO: implement business logic
 
