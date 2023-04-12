@@ -14,13 +14,14 @@ import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.util.CustomTextField
 import edu.missouriwestern.csc406team1.util.InputValidator
 import edu.missouriwestern.csc406team1.util.InputWrapper
+import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 
 /**
  * This screen is where the customer will log into their account
  */
 @Composable
 fun CustomerLoginScreen(
-    customerRepository: CustomerRepository,
+    loginScreenViewModel: LoginScreenViewModel,
     onClickLogin: (String) -> Unit,
     onBack: () -> Unit
 ) {
@@ -47,21 +48,17 @@ fun CustomerLoginScreen(
                     inputWrapper = ssn,
                     shape = RoundedCornerShape(topStart = 4.dp),
                     onValueChange = {
-                        if (it.all { character -> character.isDigit() } && it.length <= 9) {
-                            ssn = ssn.copy(value = it, errorMessage = InputValidator.getSSNErrorOrNull(it))
-                        }
+                        ssn = ssn.copy(value = loginScreenViewModel.filterSSN(it), errorMessage = InputValidator.getSSNErrorOrNull(it))
                     }
                 )
 
                 Button(
                     modifier = Modifier.fillMaxHeight(),
                     onClick = {
-                        customerRepository.getCustomer(ssn.value).let {
-                            if (it != null) {
-                                onClickLogin(ssn.value)
-                            } else {
-                                hasFailed = true
-                            }
+                        if (loginScreenViewModel.doesCustomerExist(ssn.value)) {
+                            onClickLogin(ssn.value)
+                        } else {
+                            hasFailed = true
                         }
                     },
                     enabled = ssn.errorMessage == null && ssn.value.isNotBlank(),

@@ -16,6 +16,7 @@ import edu.missouriwestern.csc406team1.screens.LoginScreen
 import edu.missouriwestern.csc406team1.screens.customer.*
 import edu.missouriwestern.csc406team1.screens.manager.ManagerStartScreen
 import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
+import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 
 /**
  * This Composable is responsible for managing the stack.
@@ -37,7 +38,7 @@ fun MainContent(
         when (screen) {
             is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerLogin) }, onClickBankTeller = { navigation.push(Screen.TellerStart) }, onClickBankManager = { navigation.push(Screen.ManagerStart) })
 
-            is Screen.CustomerLogin -> CustomerLoginScreen(customerRepository = customerRepository, onClickLogin = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
+            is Screen.CustomerLogin -> CustomerLoginScreen(loginScreenViewModel = LoginScreenViewModel(customerRepository), onClickLogin = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
             is Screen.CustomerSelectBankAccount -> CustomerSelectBankAccountScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, onClickAccount = { ssn, id -> navigation.push(Screen.CustomerBankAccountDetails(ssn, id)) }, onBack = navigation::pop)
             is Screen.CustomerBankAccountDetails -> CustomerBankAccountDetailsScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, accountId = screen.id, onBack = navigation::pop, onTransfer = { ssn, id -> navigation.push(Screen.CustomerTransferMoney(ssn, id)) }, onWithdraw = {}, onDeposit = {})
             is Screen.CustomerTransferMoney -> CustomerTransferMoneyScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, accountId = screen.id, onBack = navigation::pop)
