@@ -11,8 +11,11 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import edu.missouriwestern.csc406team1.database.AccountRepository
+import edu.missouriwestern.csc406team1.screens.CreateAccountScreen
 import edu.missouriwestern.csc406team1.screens.LoginScreen
 import edu.missouriwestern.csc406team1.screens.customer.*
+import edu.missouriwestern.csc406team1.screens.manager.ManagerStartScreen
+import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
 
 /**
  * This Composable is responsible for managing the stack.
@@ -32,15 +35,20 @@ fun MainContent(
         animation = stackAnimation(fade() + scale()),
     ) { screen ->
         when (screen) {
-            is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerLogin) }, onClickBankTeller = {}, onClickBankManager = {})
+            is Screen.Login -> LoginScreen(onClickCustomer = { navigation.push(Screen.CustomerLogin) }, onClickBankTeller = { navigation.push(Screen.TellerStart) }, onClickBankManager = { navigation.push(Screen.ManagerStart) })
 
-            is Screen.CustomerLogin -> CustomerLoginScreen(customerRepository = customerRepository, onClickLogin = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onClickCreateAccount = { navigation.push(Screen.CustomerCreation) }, onBack = navigation::pop)
-            is Screen.CustomerCreation -> CustomerAccountCreationScreen(customerRepository = customerRepository, onClickCreate = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
+            is Screen.CustomerLogin -> CustomerLoginScreen(customerRepository = customerRepository, onClickLogin = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
             is Screen.CustomerSelectBankAccount -> CustomerSelectBankAccountScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, onClickAccount = { ssn, id -> navigation.push(Screen.CustomerBankAccountDetails(ssn, id)) }, onBack = navigation::pop)
             is Screen.CustomerBankAccountDetails -> CustomerBankAccountDetailsScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, accountId = screen.id, onBack = navigation::pop, onTransfer = { ssn, id -> navigation.push(Screen.CustomerTransferMoney(ssn, id)) }, onWithdraw = {}, onDeposit = {})
             is Screen.CustomerTransferMoney -> CustomerTransferMoneyScreen(customerRepository = customerRepository, accountRepository = accountRepository, customerSSN = screen.ssn, accountId = screen.id, onBack = navigation::pop)
             is Screen.CustomerWithdrawMoney -> {}
             is Screen.CustomerDepositMoney -> {}
+
+            is Screen.TellerStart -> TellerStartScreen(onBack = navigation::pop)
+
+            is Screen.ManagerStart -> ManagerStartScreen(onBack = navigation::pop)
+
+            is Screen.AccountCreation -> CreateAccountScreen(customerRepository = customerRepository, onClickCreate = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
         }
     }
 }
@@ -55,10 +63,10 @@ sealed class Screen : Parcelable {
     object Login : Screen()
 
     @Parcelize
-    object CustomerLogin : Screen()
+    object AccountCreation : Screen()
 
     @Parcelize
-    object CustomerCreation : Screen()
+    object CustomerLogin : Screen()
 
     @Parcelize
     data class CustomerSelectBankAccount(val ssn: String) : Screen()
@@ -74,5 +82,11 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     data class CustomerDepositMoney(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    object TellerStart : Screen()
+
+    @Parcelize
+    object ManagerStart : Screen()
 
 }
