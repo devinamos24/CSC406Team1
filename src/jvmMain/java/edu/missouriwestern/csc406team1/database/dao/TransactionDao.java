@@ -2,7 +2,6 @@ package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
-import edu.missouriwestern.csc406team1.database.model.loan.Loan;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

@@ -4,7 +4,6 @@ import ChildStack
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.window.WindowScope
-import edu.missouriwestern.csc406team1.database.CustomerRepository
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.fade
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.plus
 import com.arkivanov.decompose.extensions.compose.jetbrains.stack.animation.scale
@@ -15,13 +14,18 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import edu.missouriwestern.csc406team1.database.AccountRepository
+import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.screens.CreateAccountScreen
 import edu.missouriwestern.csc406team1.screens.LoginScreen
 import edu.missouriwestern.csc406team1.screens.customer.*
+import edu.missouriwestern.csc406team1.screens.manager.ManagerStartScreen
+import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
+import edu.missouriwestern.csc406team1.viewmodel.customer.*
 import edu.missouriwestern.csc406team1.screens.manager.*
 import edu.missouriwestern.csc406team1.screens.teller.*
+import edu.missouriwestern.csc406team1.viewmodel.customer.*
 
 
 /**
@@ -50,102 +54,116 @@ fun WindowScope.MainContent(
                 onClickBankManager = { navigation.push(Screen.ManagerStart) })
             //Customer
             is Screen.CustomerLogin -> CustomerLoginScreen(
-                customerRepository = customerRepository,
-                onClickLogin = { navigation.push(Screen.CustomerSelectBankAccount(it)) },
-                onBack = navigation::pop
+                loginScreenViewModel = LoginScreenViewModel(
+                    customerRepository,
+                    { ssn -> navigation.push(Screen.CustomerSelectBankAccount(ssn = ssn)) },
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerSelectBankAccount -> CustomerSelectBankAccountScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                loanRepository = loanRepository,
-                ssn = screen.ssn,
-                onClickAccount = { ssn, id -> navigation.push(Screen.CustomerBankAccountDetails(ssn, id)) },
-                onClickLoan = { ssn, id -> navigation.push(Screen.CustomerLoanDetails(ssn, id)) },
-                onBack = navigation::pop
+                selectBankAccountScreenViewModel = SelectBankAccountScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    loanRepository,
+                    screen.ssn,
+                    { ssn, id -> navigation.push(Screen.CustomerBankAccountDetails(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerLoanDetails(ssn, id)) },
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerBankAccountDetails -> CustomerBankAccountDetailsScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                ssn = screen.ssn,
-                id = screen.id,
-                onTransfer = { ssn, id -> navigation.push(Screen.CustomerTransferMoney(ssn, id)) },
-                onWithdraw = { ssn, id -> navigation.push(Screen.CustomerWithdrawMoney(ssn, id)) },
-                onDeposit = { ssn, id -> navigation.push(Screen.CustomerDepositMoney(ssn, id)) },
-                onViewTransactionHistory = { ssn, id ->
-                    navigation.push(
-                        Screen.CustomerViewTransactionHistory(
-                            ssn,
-                            id
-                        )
-                    )
-                },
-                onSelectBackupAccount = { ssn, id -> navigation.push(Screen.CustomerSelectBackupAccount(ssn, id)) },
-                onBack = navigation::pop
+                bankAccountScreenViewModel = BankAccountScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    screen.ssn,
+                    screen.id,
+                    { ssn, id -> navigation.push(Screen.CustomerTransferMoney(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerWithdrawMoney(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerDepositMoney(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerViewTransactionHistory(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerSelectBackupAccount(ssn, id)) },
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerTransferMoney -> CustomerTransferMoneyScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                transactionRepository = transactionRepository,
-                ssn = screen.ssn,
-                id = screen.id,
-                onBack = navigation::pop
+                transferMoneyScreenViewModel = TransferMoneyScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                ),
             )
 
             is Screen.CustomerWithdrawMoney -> CustomerWithdrawMoneyScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                transactionRepository = transactionRepository,
-                screen.ssn,
-                screen.id,
-                navigation::pop
+                withdrawMoneyScreenViewModel = WithdrawMoneyScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerDepositMoney -> CustomerDepositMoneyScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                transactionRepository = transactionRepository,
-                screen.ssn,
-                screen.id,
-                navigation::pop
+                depositMoneyScreenViewModel = DepositMoneyScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerSelectBackupAccount -> CustomerSelectBackupAccountScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                screen.ssn,
-                screen.id,
-                navigation::pop
+                selectBackupAccountScreenViewModel = SelectBackupAccountScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerViewTransactionHistory -> CustomerViewTransactionHistoryScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                transactionRepository = transactionRepository,
-                screen.ssn,
-                screen.id,
-                navigation::pop
+                viewTransactionHistoryScreenViewModel = ViewTransactionHistoryScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerLoanDetails -> CustomerLoanDetailsScreen(
-                customerRepository = customerRepository,
-                loanRepository = loanRepository,
-                screen.ssn,
-                screen.id,
-                onMakePayment = { ssn, id -> navigation.push(Screen.CustomerLoanMakePayment(ssn, id)) },
-                onBack = navigation::pop
+                loanDetailsScreenViewModel = LoanDetailsScreenViewModel(
+                    customerRepository,
+                    loanRepository,
+                    screen.ssn,
+                    screen.id,
+                    { ssn, id -> navigation.push(Screen.CustomerLoanMakePayment(ssn, id)) },
+                    navigation::pop
+                )
             )
 
             is Screen.CustomerLoanMakePayment -> CustomerLoanMakePaymentScreen(
-                customerRepository = customerRepository,
-                accountRepository = accountRepository,
-                loanRepository = loanRepository,
-                transactionRepository = transactionRepository,
-                screen.ssn,
-                screen.id,
-                navigation::pop
+                loanMakePaymentScreenViewModel = LoanMakePaymentScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    loanRepository,
+                    screen.ssn,
+                    screen.id,
+                    navigation::pop
+                )
+
             )
 
             //Teller
@@ -265,7 +283,6 @@ fun WindowScope.MainContent(
             is Screen.ManagerEditCustomerBankAccount -> ManagerEditCustomerBankAccountScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
-                transactionRepository = transactionRepository,
                 ssn = screen.ssn,
                 id = screen.id,
                 onCreditAccount = { ssn, id ->
@@ -377,6 +394,9 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     object Login : Screen()
+
+    @Parcelize
+    object AccountCreation : Screen()
 
     @Parcelize
     object CustomerLogin : Screen()

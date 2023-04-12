@@ -14,51 +14,61 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
-import edu.missouriwestern.csc406team1.util.collectAsState
+import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
 import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.SelectBackupAccountScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomerSelectBackupAccountScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit,
+    selectBackupAccountScreenViewModel: SelectBackupAccountScreenViewModel,
 ) {
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val customers by selectBackupAccountScreenViewModel.customers.collectAsState()
+    val accounts by selectBackupAccountScreenViewModel.accounts.collectAsState()
+
+    val ssn = selectBackupAccountScreenViewModel.ssn
+    val id = selectBackupAccountScreenViewModel.id
 
     var expanded by remember { mutableStateOf(false) }
-
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
-    var amountFieldSize by remember { mutableStateOf(Size.Zero) }
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
-    val customerAccounts = accounts.filter { it.customerSSN == ssn && it.accountNumber != id && it.isActive && it !is CDAccount }.sorted()
+    val customerAccounts =
+        accounts.filter { it.customerSSN == ssn && it.accountNumber != id && it.isActive && it is SavingsAccount && it !is CDAccount }
+            .sorted()
 
-    var selectedAccountId by remember { mutableStateOf("") }
+    val selectedAccountId by selectBackupAccountScreenViewModel.selectedAccountId.collectAsState()
     val selectedAccount = accounts.find { it.accountNumber == selectedAccountId }
-    var selectedAccountText by remember { mutableStateOf("") }
+    val selectedAccountText = selectedAccount?.getName() ?: ""
 
     val icon = if (expanded)
         Icons.Filled.ArrowDropUp
     else
         Icons.Filled.ArrowDropDown
+
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = selectBackupAccountScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = account.getName()
+                )
+            }
         }
 
         if (customer != null && account != null && account.isActive) {
             Column(
+                modifier = Modifier.align(Alignment.Center),
                 verticalArrangement = Arrangement.Center
             ) {
                 if (customerAccounts.isNotEmpty()) {
@@ -83,11 +93,10 @@ fun CustomerSelectBackupAccountScreen(
                                 DropdownMenuItem(
                                     text = { Text(text = account.getName()) },
                                     onClick = {
-                                        selectedAccountId = account.accountNumber
-                                        selectedAccountText = account.getName()
+                                        selectBackupAccountScreenViewModel.onSelectAccount(account.accountNumber)
                                         expanded = false
                                     },
-                                    modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()})
+                                    modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
                                 )
                             }
                         }
@@ -96,10 +105,11 @@ fun CustomerSelectBackupAccountScreen(
                     Text("No Available Accounts")
                 }
             }
+        } else {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "This account no longer exists"
+            )
         }
-        Text(
-            modifier = Modifier.align(Alignment.Center),
-            text = "This account no longer exists"
-        )
     }
 }

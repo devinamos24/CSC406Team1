@@ -3,8 +3,6 @@ package edu.missouriwestern.csc406team1;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.*;
-import java.util.ArrayList;
 import java.util.Date;
 
 //datastructure basic outline for Banking System
@@ -254,11 +252,11 @@ abstract class Loan {
    //However, you must keep in mind that they need to customize some of their own functionality
    //The below attributes are also in account.
    @NotNull
-   private Double interestRate;
+   private final Double interestRate;
    @NotNull
-   private Double balance;//current balance of the account
+   private final Double balance;//current balance of the account
    @NotNull
-   private Date dateOpened;//date the account was opened with the bank
+   private final Date dateOpened;//date the account was opened with the bank
 
    public Loan(@NotNull Date paymentDue, @NotNull Double currentPaymentDue, @NotNull Date dateSinceLastPayment, @NotNull Double interestRate, @NotNull Double balance, @NotNull Date dateOpened) {
       this.paymentDue = paymentDue;

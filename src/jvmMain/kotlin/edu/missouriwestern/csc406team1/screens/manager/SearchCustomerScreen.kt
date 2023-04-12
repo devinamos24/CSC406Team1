@@ -14,7 +14,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.model.Customer
-import edu.missouriwestern.csc406team1.util.*
+import edu.missouriwestern.csc406team1.util.CustomTextField
+import edu.missouriwestern.csc406team1.util.InputWrapper
+import edu.missouriwestern.csc406team1.util.collectAsState
+import edu.missouriwestern.csc406team1.util.isValidAddressOrCity
 
 @Composable
 fun ManagerSearchCustomerScreen(

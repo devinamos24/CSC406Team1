@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GoldDiamondAccount extends CheckingAccount{
+public class GoldDiamondAccount extends CheckingAccount {
 
     @NotNull
     private static final Double defaultMinimumBalance = 5000.0; //minimum balanced required to not pay transaction fees
@@ -16,15 +16,25 @@ public class GoldDiamondAccount extends CheckingAccount{
     private Double minimumBalance;
 
     public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth, hasATMCard);
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate, (balance >= defaultMinimumBalance) ? 0.0 : 0.75, backupAccount, overdraftsThisMonth, hasATMCard);
         this.minimumBalance = defaultMinimumBalance;
+    }
+
+    private GoldDiamondAccount(GoldDiamondAccount account) {
+        super(account.getAccountNumber(), account.getCustomerSSN(), account.getBalance(), account.getDateOpened(), account.getIsActive(), account.getInterestRate(), account.minimumBalance, account.getBackupAccount(), account.overdraftsThisMonth, account.getAtmCard() != null);
+        this.minimumBalance = account.minimumBalance;
     }
 
     // TODO: make a factory for the GoldDiamondAccount because of all the different combinations
 
     @NotNull
-    public Double getMinimumBalance() { return minimumBalance; }
-    public void setMinimumBalance(@NotNull Double minimumBalance) { this.minimumBalance = minimumBalance; }
+    public Double getMinimumBalance() {
+        return minimumBalance;
+    }
+
+    public void setMinimumBalance(@NotNull Double minimumBalance) {
+        this.minimumBalance = minimumBalance;
+    }
 
     @Override
     public String[] convertToCSV() {
@@ -48,5 +58,10 @@ public class GoldDiamondAccount extends CheckingAccount{
         returnValue.add(String.valueOf(overdraftsThisMonth));
 
         return returnValue.toArray(new String[returnValue.size()]);
+    }
+
+    @Override
+    public GoldDiamondAccount copy() {
+        return new GoldDiamondAccount(this);
     }
 }

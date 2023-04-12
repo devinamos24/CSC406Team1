@@ -6,48 +6,62 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material3.Button
+import androidx.compose.material3.Divider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.DateConverter
-import edu.missouriwestern.csc406team1.util.collectAsState
+import edu.missouriwestern.csc406team1.util.TimeConverter
 import edu.missouriwestern.csc406team1.util.formatAsMoney
+import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.ViewTransactionHistoryScreenViewModel
+import java.time.format.DateTimeFormatter
+
+private val formatter = DateTimeFormatter.ofPattern("MMM dd, uuuu")
 
 @Composable
 fun CustomerViewTransactionHistoryScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit
+    viewTransactionHistoryScreenViewModel: ViewTransactionHistoryScreenViewModel,
 ) {
 
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
-    val transactions by transactionRepository.transactions.collectAsState()
+    val customers by viewTransactionHistoryScreenViewModel.customers.collectAsState()
+    val accounts by viewTransactionHistoryScreenViewModel.accounts.collectAsState()
+    val transactions by viewTransactionHistoryScreenViewModel.transactions.collectAsState()
+
+    val ssn = viewTransactionHistoryScreenViewModel.ssn
+    val id = viewTransactionHistoryScreenViewModel.id
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
     val accountTransactions = transactions.filter { it.accID == id }.sorted()
+    val daysOfTransactions = accountTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-
         Column(
             modifier = Modifier.fillMaxSize()
         ) {
-            Button(
-                onClick = onBack,
-                modifier = Modifier.align(Alignment.Start)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                Text("Back")
+                Button(
+                    onClick = viewTransactionHistoryScreenViewModel::onBack
+                ) {
+                    Text("Back")
+                }
+                if (customer != null && account != null) {
+                    Text(
+                        text = account.getName()
+                    )
+                }
             }
 
             if (customer != null && account != null && accountTransactions.isNotEmpty()) {
@@ -57,13 +71,27 @@ fun CustomerViewTransactionHistoryScreen(
                 ) {
                     val state = rememberLazyListState()
                     LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
-                        accountTransactions.forEach { transaction ->
+                        item {
+                            Divider()
+                        }
+                        daysOfTransactions.forEach { date ->
                             item {
-                                AccountTransactionButton(
-                                    transaction = transaction,
-                                    onClick = {}
-                                )
-                                Spacer(modifier = Modifier.height(5.dp))
+                                AccountDateHeader(date = date)
+                            }
+                            accountTransactions.forEach { transaction ->
+                                if (formatter.format(transaction.date) == date) {
+                                    item {
+                                        AccountTransactionButton(
+                                            transaction = transaction,
+                                        )
+                                        Spacer(
+                                            modifier = Modifier.height(16.dp)
+                                        )
+                                    }
+                                }
+                            }
+                            item {
+                                Divider()
                             }
                         }
                     }
@@ -91,23 +119,64 @@ fun CustomerViewTransactionHistoryScreen(
 }
 
 @Composable
-fun AccountTransactionButton(
+fun AccountDateHeader(
     modifier: Modifier = Modifier,
-    transaction: Transaction,
-    onClick: () -> Unit
+    date: String
 ) {
     Box(
         modifier = modifier.height(32.dp)
             .fillMaxWidth()
             .padding(start = 10.dp)
-//            .clickable { onClick() }
     ) {
-        val creditText = if (transaction.isCredit) "Credit" else "Debit"
-        val modifierSymbol = if (transaction.isCredit) "+" else "-"
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
-            text = "$creditText $modifierSymbol${transaction.amount.formatAsMoney()} on ${DateConverter.convertDateToString(transaction.date)} at ${transaction.time}"
+            text = date,
+            color = MaterialTheme.colorScheme.primary
         )
+    }
+}
 
+@Composable
+fun AccountTransactionButton(
+    modifier: Modifier = Modifier,
+    transaction: Transaction,
+) {
+    Box(
+        modifier = modifier.height(48.dp)
+            .fillMaxWidth()
+            .padding(start = 10.dp)
+    ) {
+        var creditText = if (transaction.isCredit) "Credit" else "Debit"
+        val modifierSymbol = if (transaction.isCredit) "" else "-"
+        val color = if (transaction.isCredit) Color.Green else Color.Unspecified
+
+        when (transaction.transactionType) {
+            "t" -> creditText = "Transaction"
+            "ch" -> creditText = "Check"
+        }
+
+        Column(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            horizontalAlignment = Alignment.End
+        ) {
+            Text(
+                text = "$modifierSymbol${transaction.amount.formatAsMoney()}",
+                color = color,
+                fontSize = MaterialTheme.typography.bodyLarge.fontSize
+            )
+            Text(
+                text = transaction.newTotal.formatAsMoney(),
+                fontSize = MaterialTheme.typography.bodyMedium.fontSize
+            )
+        }
+
+        Text(
+            modifier = Modifier.align(Alignment.CenterStart),
+            text = "$creditText on ${DateConverter.convertDateToString(transaction.date)} at ${
+                TimeConverter.convertTimeToString(
+                    transaction.time
+                )
+            }",
+        )
     }
 }

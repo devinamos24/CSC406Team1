@@ -15,7 +15,6 @@ import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.*
-import java.lang.NumberFormatException
 import java.time.LocalDate
 import java.time.LocalTime
 
@@ -39,11 +38,24 @@ fun ManagerCreditCustomerBankAccountScreen(
     var amount by remember { mutableStateOf(InputWrapper()) }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.align(Alignment.TopStart),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = "${customer.firstname} ${customer.lastname}"
+                )
+                Text(
+                    text = account.getName()
+                )
+            }
         }
 
         if (customer != null && account != null && account.isActive) {

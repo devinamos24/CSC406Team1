@@ -17,44 +17,36 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
-import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
 import edu.missouriwestern.csc406team1.util.*
-import java.lang.NumberFormatException
-import java.time.LocalDate
-import java.time.LocalTime
+import edu.missouriwestern.csc406team1.viewmodel.customer.TransferMoneyScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomerTransferMoneyScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit,
+    transferMoneyScreenViewModel: TransferMoneyScreenViewModel,
 ) {
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val customers by transferMoneyScreenViewModel.customers.collectAsState()
+    val accounts by transferMoneyScreenViewModel.accounts.collectAsState()
 
     var expanded by remember { mutableStateOf(false) }
-
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     var amountFieldSize by remember { mutableStateOf(Size.Zero) }
 
+    val ssn = transferMoneyScreenViewModel.ssn
+    val id = transferMoneyScreenViewModel.id
+
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
-    val customerAccounts = accounts.filter { it.customerSSN == ssn && it.accountNumber != id && it.isActive && it !is CDAccount }.sorted()
+    val customerAccounts =
+        accounts.filter { it.customerSSN == ssn && it.accountNumber != id && it.isActive && it !is CDAccount }.sorted()
 
-    var selectedAccountId by remember { mutableStateOf("") }
+    val selectedAccountId by transferMoneyScreenViewModel.selectedAccountId.collectAsState()
     val selectedAccount = accounts.find { it.accountNumber == selectedAccountId }
-    var selectedAccountText by remember { mutableStateOf("") }
+    val selectedAccountText = selectedAccount?.getName() ?: ""
 
-    var amount by remember { mutableStateOf(InputWrapper()) }
-    var hasFailed by remember { mutableStateOf(false) }
+    val amount by transferMoneyScreenViewModel.amount.collectAsState()
+    val hasFailed by transferMoneyScreenViewModel.hasFailed.collectAsState()
 
     val icon = if (expanded)
         Icons.Filled.ArrowDropUp
@@ -62,22 +54,27 @@ fun CustomerTransferMoneyScreen(
         Icons.Filled.ArrowDropDown
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = transferMoneyScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = account.getName()
+                )
+            }
         }
 
-        if (customer != null && account != null &&  account.isActive) {
+        if (customer != null && account != null && account.isActive) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = "Account balance must be $0 to close"
-                )
 
                 Spacer(
                     modifier = Modifier.height(24.dp)
@@ -103,7 +100,7 @@ fun CustomerTransferMoneyScreen(
                         if (customerAccounts.isNotEmpty()) {
                             Box {
                                 TextField(
-                                    value = if (selectedAccount != null) selectedAccountText else "",
+                                    value = selectedAccountText,
                                     onValueChange = {},
                                     readOnly = true,
                                     modifier = Modifier
@@ -122,17 +119,16 @@ fun CustomerTransferMoneyScreen(
                                         DropdownMenuItem(
                                             text = { Text(text = account.getName()) },
                                             onClick = {
-                                                selectedAccountId = account.accountNumber
-                                                selectedAccountText = account.getName()
+                                                transferMoneyScreenViewModel.onSelectAccount(account.accountNumber)
                                                 expanded = false
                                             },
-                                            modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()})
+                                            modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
                                         )
                                     }
                                 }
                             }
-                            selectedAccount?.let {
-                                Text("Balance: ${it.balance.formatAsMoney()}")
+                            if (selectedAccount != null) {
+                                Text("Balance: ${selectedAccount.balance.formatAsMoney()}")
                             }
                         } else {
                             Text("No Available Accounts")
@@ -152,7 +148,7 @@ fun CustomerTransferMoneyScreen(
                 ) {
                     Button(
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = { amount = amount.copy(value = "") },
+                        onClick = transferMoneyScreenViewModel::onClickNone,
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topEnd = CornerSize(0.dp),
                             bottomEnd = CornerSize(0.dp)
@@ -170,16 +166,12 @@ fun CustomerTransferMoneyScreen(
                         inputWrapper = amount,
                         shape = RoundedCornerShape(topStart = 4.dp),
                         visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                amount = amount.copy(value = it)
-                            }
-                        }
+                        onValueChange = transferMoneyScreenViewModel::onAmountChange
                     )
 
                     Button(
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = { amount = amount.copy(value = account.balance.times(100).toInt().toString()) },
+                        onClick = transferMoneyScreenViewModel::onClickAll,
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topStart = CornerSize(0.dp),
                             bottomStart = CornerSize(0.dp)
@@ -193,30 +185,15 @@ fun CustomerTransferMoneyScreen(
                 Button(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .width(with(LocalDensity.current){amountFieldSize.width.toDp()}),
-                    onClick = {
-                        try {
-                            val money = amount.value.toDouble() / 100
-
-                            account.balance -= money
-                            selectedAccount!!.balance += money
-                            if (accountRepository.update(account) && accountRepository.update(selectedAccount)) {
-                                transactionRepository.addTransaction(Transaction("", false, true, "t", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
-                                transactionRepository.addTransaction(Transaction("", true, false, "t", money, selectedAccount!!.balance, selectedAccount.accountNumber, LocalDate.now(), LocalTime.now()))
-                            } else {
-                                hasFailed = true
-                            }
-
-                        } catch (e: NumberFormatException) {
-                            hasFailed = true
-                        }
-                    }, // TODO: Transfer Money In ViewModel
-                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && account.balance >= amount.value.toDouble()/100 && selectedAccount != null
+                        .width(with(LocalDensity.current) { amountFieldSize.width.toDp() }),
+                    onClick = transferMoneyScreenViewModel::onTransfer,
+                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && account.balance >= amount.value.toDouble() / 100 && selectedAccount != null
                 ) {
                     Text("Transfer")
                 }
                 if (hasFailed) {
                     Text(
+                        modifier = Modifier.align(Alignment.CenterHorizontally),
                         text = "Transfer failed, try again",
                         color = MaterialTheme.colorScheme.error
                     )

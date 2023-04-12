@@ -10,7 +10,7 @@ import edu.missouriwestern.csc406team1.database.model.loan.Loan
 import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan
 import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan
 import java.text.NumberFormat
-import java.util.Currency
+import java.util.*
 
 /**
  * This is an extension function for collecting state from our modified arraylist
@@ -45,5 +45,6 @@ fun Loan.getName(): String {
         is MortgageLoan -> "Mortgage Loan"
         is ShortTermLoan -> "Short Term Loan"
         is CreditCardLoan -> "Credit Card Loan"
-        else -> "Loan" } + ", Date Opened: ${DateConverter.convertDateToString(this.dateOpened)}"
+        else -> "Loan"
+    } + ", Date Opened: ${DateConverter.convertDateToString(this.dateOpened)}"
 }

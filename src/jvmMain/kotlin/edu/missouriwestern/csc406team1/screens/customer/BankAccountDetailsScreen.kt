@@ -4,46 +4,44 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
 import edu.missouriwestern.csc406team1.database.model.account.CheckingAccount
-import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount
-import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
-import edu.missouriwestern.csc406team1.database.model.account.TMBAccount
 import edu.missouriwestern.csc406team1.util.DateConverter.convertDateToString
-import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
+import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.BankAccountScreenViewModel
 
 @Composable
 fun CustomerBankAccountDetailsScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    ssn: String,
-    id: String,
-    onTransfer: (String, String) -> Unit,
-    onWithdraw: (String, String) -> Unit,
-    onDeposit: (String, String) -> Unit,
-    onViewTransactionHistory: (String, String) -> Unit,
-    onSelectBackupAccount: (String, String) -> Unit,
-    onBack: () -> Unit
+    bankAccountScreenViewModel: BankAccountScreenViewModel,
 ) {
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val customers by bankAccountScreenViewModel.customers.collectAsState()
+    val accounts by bankAccountScreenViewModel.accounts.collectAsState()
 
-    val customer = customers.find { it.ssn == ssn }
-    val account = accounts.find { it.accountNumber == id }
+    val customer = customers.find { it.ssn == bankAccountScreenViewModel.ssn }
+    val account = accounts.find { it.accountNumber == bankAccountScreenViewModel.id }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = bankAccountScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = account.getName()
+                )
+            }
         }
         if (customer != null && account != null && account.isActive) {
             Column(
@@ -80,30 +78,30 @@ fun CustomerBankAccountDetailsScreen(
                 ) {
                     if (account !is CDAccount) {
                         Button(
-                            onClick = { onTransfer(ssn, id) }
+                            onClick = bankAccountScreenViewModel::onTransfer
                         ) {
                             Text(text = "Transfer")
                         }
                         Button(
-                            onClick = { onWithdraw(ssn, id) }
+                            onClick = bankAccountScreenViewModel::onWithdraw
                         ) {
                             Text(text = "Withdraw")
                         }
                         Button(
-                            onClick = { onDeposit(ssn, id) }
+                            onClick = bankAccountScreenViewModel::onDeposit
                         ) {
                             Text("Deposit")
                         }
                     }
                     if (account is CheckingAccount) {
                         Button(
-                            onClick = { onSelectBackupAccount(ssn, id) }
+                            onClick = bankAccountScreenViewModel::onSelectBackupAccount
                         ) {
                             Text (text = "Select Backup Account")
                         }
                     }
                     Button(
-                        onClick = { onViewTransactionHistory(ssn, id) }
+                        onClick = bankAccountScreenViewModel::onViewTransactionHistory
                     ) {
                         Text("Transaction History")
                     }
@@ -115,74 +113,5 @@ fun CustomerBankAccountDetailsScreen(
                 text = "This account no longer exists"
             )
         }
-    }
-}
-
-@Composable
-private fun TMBAccountDetails(
-    modifier: Modifier = Modifier,
-    account: TMBAccount
-) {
-    Column(
-        modifier = modifier
-    ) {
-        Text("Date Opened: ${convertDateToString(account.dateOpened)}")
-        Text("Current Balance: ${account.balance.formatAsMoney()}")
-        Text("Overdrafts This Month: ${account.overdraftsThisMonth}")
-        account.backupAccount?.let {
-            Text("Backup Account Balance: ${it.balance.formatAsMoney()}")
-        } ?: run {
-            Text("Backup Account Not Selected")
-        }
-
-    }
-}
-
-@Composable
-private fun GoldDiamondAccountDetails(
-    modifier: Modifier = Modifier,
-    account: GoldDiamondAccount
-    ) {
-    Column(
-        modifier = modifier
-    ) {
-        Text("Date Opened: ${convertDateToString(account.dateOpened)}")
-        Text("Current Balance: ${account.balance.formatAsMoney()}")
-        Text("Overdrafts This Month: ${account.overdraftsThisMonth}")
-        Text("Daily Interest Rate: ${account.interestRate?.times(100)}%")
-        account.backupAccount?.let {
-            Text("Backup Account Balance: ${it.balance.formatAsMoney()}")
-        } ?: run {
-            Text("Backup Account Not Selected")
-        }
-    }
-}
-
-@Composable
-private fun SavingsAccountDetails(
-    modifier: Modifier = Modifier,
-    account: SavingsAccount
-) {
-    Column(
-        modifier = modifier
-    ) {
-        Text("Date Opened: ${convertDateToString(account.dateOpened)}")
-        Text("Current Balance: ${account.balance.formatAsMoney()}")
-        Text("Daily Interest Rate: ${account.interestRate?.times(100)}%")
-    }
-}
-
-@Composable
-private fun CDAccountDetails(
-    modifier: Modifier = Modifier,
-    account: CDAccount
-) {
-    Column(
-        modifier = modifier
-    ) {
-        Text("Date Opened: ${convertDateToString(account.dateOpened)}")
-        Text("Current Balance: ${account.balance.formatAsMoney()}")
-        Text("Fixed Rate Of Return: ${account.interestRate?.times(100)}%")
-        Text("Date Complete: ${convertDateToString(account.dueDate)}")
     }
 }

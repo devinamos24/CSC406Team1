@@ -12,7 +12,11 @@ import androidx.compose.ui.unit.dp
  * This screen is where the user will select who they are
  */
 @Composable
-fun LoginScreen(onClickCustomer: () -> Unit, onClickBankTeller: () -> Unit, onClickBankManager: () -> Unit) {
+fun LoginScreen(
+    onClickCustomer: () -> Unit,
+    onClickBankTeller: () -> Unit,
+    onClickBankManager: () -> Unit
+) {
     Box(modifier = Modifier.fillMaxSize()) {
         Column(
             modifier = Modifier.align(Alignment.Center),
