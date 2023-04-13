@@ -15,14 +15,8 @@ public class GoldDiamondAccount extends CheckingAccount{
     @NotNull
     private Double minimumBalance;
 
-    //constructor
-    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate , @Nullable SavingsAccount backupAccount, @NotNull Double minimumBalance, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= minimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth);
-        this.minimumBalance = minimumBalance;
-    }
-
-    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth);
+    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth, hasATMCard);
         this.minimumBalance = defaultMinimumBalance;
     }
 
@@ -46,9 +40,12 @@ public class GoldDiamondAccount extends CheckingAccount{
         returnValue.add("GD");
         returnValue.add(String.valueOf(getInterestRate()));
         returnValue.add(backupID);
+        if (this.atmCard == null) {
+            returnValue.add("false");
+        } else {
+            returnValue.add("true");
+        }
         returnValue.add(String.valueOf(overdraftsThisMonth));
-
-
 
         return returnValue.toArray(new String[returnValue.size()]);
     }
