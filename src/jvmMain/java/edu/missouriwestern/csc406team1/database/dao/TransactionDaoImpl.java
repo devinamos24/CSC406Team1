@@ -2,10 +2,6 @@ package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
-import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan;
-import edu.missouriwestern.csc406team1.database.model.loan.Loan;
-import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan;
-import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -78,7 +74,7 @@ public class TransactionDaoImpl implements TransactionDao{
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                 System.err.println("Parse error on line: " + linenumber + " in transaction database");
                 e.printStackTrace();
-                //TODO put the problem line in an error file to be fixed by bank later
+                //TODO: put the problem line in an error file to be fixed by bank later
             } catch (DateTimeParseException e) {
                 System.err.println("Date parse error on line: " + linenumber + " in transaction database");
             }

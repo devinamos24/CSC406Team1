@@ -9,8 +9,8 @@ import edu.missouriwestern.csc406team1.database.model.Customer;
 public interface CustomerRepository {
     Customer getCustomer(String ssn);
     ArrayListFlow<Customer> getCustomers();
-    void addCustomer(Customer customer);
+    boolean addCustomer(Customer customer);
     void update(Customer customer);
-    void delete(Customer customer);
+    void delete(String ssn);
     boolean save();
 }

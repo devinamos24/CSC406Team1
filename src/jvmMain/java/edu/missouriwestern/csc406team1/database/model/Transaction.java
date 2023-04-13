@@ -1,6 +1,7 @@
 package edu.missouriwestern.csc406team1.database.model;
 
 import edu.missouriwestern.csc406team1.util.CSV;
+import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
@@ -69,10 +70,13 @@ public class Transaction implements Comparable<Transaction>, CSV {
     public String getTransactionID(){return transactionID;}
     @Override
     public String[] convertToCSV() {
-        return new String[0];
+        return new String[] {transactionID, String.valueOf(credit), String.valueOf(debit), transactionType, String.valueOf(amount), String.valueOf(newTotal), accID, DateConverter.convertDateToString(date), time.toString()};
     }
     @Override
     public int compareTo(@NotNull Transaction o) {
-        return 0;
+        if (date.isEqual(o.date)) {
+            return time.compareTo(o.time);
+        }
+        return date.compareTo(o.date);
     }
 }

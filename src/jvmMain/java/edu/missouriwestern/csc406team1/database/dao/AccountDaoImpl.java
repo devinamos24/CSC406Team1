@@ -138,14 +138,15 @@ public class AccountDaoImpl implements AccountDao{
     }
 
     @Override
-    public void updateAccount(Account account) {
+    public boolean updateAccount(Account account) {
         for (Account account1 : accounts) {
             if (account1.getAccountNumber().equals(account.getAccountNumber())) {
-                accounts.remove(account1);
-                accounts.add(account);
-                return;
+                if (accounts.remove(account1)) {
+                    return accounts.add(account);
+                }
             }
         }
+        return false;
     }
 
     @Override
