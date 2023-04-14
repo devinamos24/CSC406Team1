@@ -44,7 +44,7 @@ fun MainContent(
             is Screen.CustomerWithdrawMoney -> {}
             is Screen.CustomerDepositMoney -> {}
 
-            is Screen.TellerStart -> TellerStartScreen(onBack = navigation::pop)
+            is Screen.TellerStart -> TellerStartScreen(onBack = navigation::pop, onListAccounts = {}, onAccountBalance = {}, onRecentDebits = {}, onAccountStatus = {})
 
             is Screen.ManagerStart -> ManagerStartScreen(onBack = navigation::pop)
 
