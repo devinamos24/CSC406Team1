@@ -10,10 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.util.CustomTextField
-import edu.missouriwestern.csc406team1.util.InputValidator
-import edu.missouriwestern.csc406team1.util.InputWrapper
 import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 
 /**
@@ -22,15 +19,13 @@ import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 @Composable
 fun CustomerLoginScreen(
     loginScreenViewModel: LoginScreenViewModel,
-    onClickLogin: (String) -> Unit,
-    onBack: () -> Unit
 ) {
-    var hasFailed by remember { mutableStateOf(false) }
-    var ssn by remember { mutableStateOf(InputWrapper()) }
+    val hasFailed by loginScreenViewModel.hasFailed.collectAsState()
+    val ssn by loginScreenViewModel.ssn.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Button(
-            onClick = onBack,
+            onClick = loginScreenViewModel::onBack,
             modifier = Modifier.align(Alignment.TopStart)
         ) {
             Text("Back")
@@ -47,20 +42,12 @@ fun CustomerLoginScreen(
                     label = "SSN",
                     inputWrapper = ssn,
                     shape = RoundedCornerShape(topStart = 4.dp),
-                    onValueChange = {
-                        ssn = ssn.copy(value = loginScreenViewModel.filterSSN(it), errorMessage = InputValidator.getSSNErrorOrNull(it))
-                    }
+                    onValueChange = { loginScreenViewModel.onSSNChange(it) }
                 )
 
                 Button(
                     modifier = Modifier.fillMaxHeight(),
-                    onClick = {
-                        if (loginScreenViewModel.doesCustomerExist(ssn.value)) {
-                            onClickLogin(ssn.value)
-                        } else {
-                            hasFailed = true
-                        }
-                    },
+                    onClick = loginScreenViewModel::onClickLogin ,
                     enabled = ssn.errorMessage == null && ssn.value.isNotBlank(),
                     shape = MaterialTheme.shapes.extraLarge.copy(
                         topStart = CornerSize(0.dp),
