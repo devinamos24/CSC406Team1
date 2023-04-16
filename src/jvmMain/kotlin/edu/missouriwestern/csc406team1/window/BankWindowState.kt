@@ -26,6 +26,7 @@ class BankWindowState(
     // This is our repository of customer data in memory
     val customerRepository = application.customerRepository
     val accountRepository = application.accountRepository
+    val transactionRepository = application.transactionRepository
 
     // This function is called when a new window is requested
     fun newWindow() {

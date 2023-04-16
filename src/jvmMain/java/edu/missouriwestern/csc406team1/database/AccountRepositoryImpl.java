@@ -29,13 +29,13 @@ public class AccountRepositoryImpl implements AccountRepository {
     }
 
     @Override
-    public void update(Account account) {
-        accountDao.updateAccount(account);
+    public boolean update(Account account) {
+        return accountDao.updateAccount(account);
     }
 
     @Override
-    public void delete(Account account) {
-        accountDao.deleteAccount(account.getAccountNumber());
+    public void delete(String id) {
+        accountDao.deleteAccount(id);
     }
 
     @Override

@@ -1,7 +1,6 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.model.account.*;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
@@ -36,10 +35,10 @@ public class AccountDaoImpl implements AccountDao{
         This constructor attempts to populate the modified arrayList of accounts from disk
      */
     public AccountDaoImpl(){
-        // Create a list of string arrays to hold each piece of customer data
+        // Create a list of string arrays to hold each piece of account data
         List<String[]> collect = new ArrayList<>();
 
-        // Try to open a stream of data from the saved customer file
+        // Try to open a stream of data from the saved account file
         try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", filename))) {
             // Split the lines into pieces using the comma as a delimiter
             collect = info.map(line -> line.split(","))
@@ -47,7 +46,7 @@ public class AccountDaoImpl implements AccountDao{
 
             // If the first file fails, attempt to load the base data set
         } catch (IOException | NullPointerException e) {
-            // Try to open a stream of data from the base customer file
+            // Try to open a stream of data from the base account file
             try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", basefilename))) {
                 // Split the lines into pieces using the comma as a delimiter
                 collect = info.map(line -> line.split(","))
@@ -55,7 +54,7 @@ public class AccountDaoImpl implements AccountDao{
 
                 // If the second file fails, print the stacktrace and exit
             } catch (IOException | NullPointerException ee) {
-                System.err.println("Error parsing customer resources");
+                System.err.println("Error parsing account resources");
                 e.printStackTrace();
                 ee.printStackTrace();
                 System.exit(1);
@@ -64,7 +63,7 @@ public class AccountDaoImpl implements AccountDao{
         // This number keeps track of what line we are on for logging purposes
         int linenumber = 1;
 
-        // For each list of arguments, create and add a customer from them
+        // For each list of arguments, create and add a account from them
         Map<CheckingAccount, String> checkingAccounts = new HashMap<>();
         Map<String, SavingsAccount> savingsAccounts = new HashMap<>();
         for (String[] args : collect) {
@@ -73,14 +72,14 @@ public class AccountDaoImpl implements AccountDao{
                 SavingsAccount savingsAccount;
                 switch (args[4]) {
                     case "TMB":
-                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Integer.parseInt(args[6]));
+                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[6]), Integer.parseInt(args[7]));
                         if (!args[5].equals("null")) {
                             checkingAccounts.put(account, args[5]);
                         }
                         accounts.add(account);
                         break;
                     case "GD":
-                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Integer.parseInt(args[7]));
+                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
                         if (!args[6].equals("null")) {
                             checkingAccounts.put(account, args[5]);
                         }
@@ -139,14 +138,15 @@ public class AccountDaoImpl implements AccountDao{
     }
 
     @Override
-    public void updateAccount(Account account) {
+    public boolean updateAccount(Account account) {
         for (Account account1 : accounts) {
             if (account1.getAccountNumber().equals(account.getAccountNumber())) {
-                accounts.remove(account1);
-                accounts.add(account);
-                return;
+                if (accounts.remove(account1)) {
+                    return accounts.add(account);
+                }
             }
         }
+        return false;
     }
 
     @Override

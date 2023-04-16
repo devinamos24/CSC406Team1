@@ -2,7 +2,6 @@
 
 ## Our members:
 
-- Clay Judkins
 - Corey Morris
 - Devin Amos
 - Jacob Teasley
