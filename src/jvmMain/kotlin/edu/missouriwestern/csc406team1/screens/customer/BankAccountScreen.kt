@@ -17,6 +17,9 @@ import edu.missouriwestern.csc406team1.database.model.account.TMBAccount
 import edu.missouriwestern.csc406team1.util.DateConverter.convertDateToString
 import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 
 @Composable
 fun CustomerBankAccountDetailsScreen(
@@ -45,10 +48,10 @@ fun CustomerBankAccountDetailsScreen(
         if (customer != null && account != null) {
             val detailsModifier = Modifier.align(Alignment.Center)
             when (account) {
-                is TMBAccount -> TMBAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, onWithdraw, onDeposit)
-                is GoldDiamondAccount -> GoldDiamondAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, onWithdraw, onDeposit)
-                is CDAccount -> CDAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, onWithdraw, onDeposit)
-                is SavingsAccount -> SavingsAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, onWithdraw, onDeposit)
+                is TMBAccount -> TMBAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, { onWithdraw(customerSSN, accountId) } , { onDeposit(customerSSN, accountId) })
+                is GoldDiamondAccount -> GoldDiamondAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, { onWithdraw(customerSSN, accountId) } , { onDeposit(customerSSN, accountId) })
+                is CDAccount -> CDAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, { onWithdraw(customerSSN, accountId) } , { onDeposit(customerSSN, accountId) })
+                is SavingsAccount -> SavingsAccountDetails(detailsModifier, account, { onTransfer(customerSSN, accountId) }, { onWithdraw(customerSSN, accountId) } , { onDeposit(customerSSN, accountId) })
             }
         } else {
             Text(
@@ -64,8 +67,8 @@ private fun TMBAccountDetails(
     modifier: Modifier = Modifier,
     account: TMBAccount,
     onTransfer: () -> Unit,
-    onWithdraw: (String) -> Unit,
-    onDeposit: (String) -> Unit
+    onWithdraw: () -> Unit,
+    onDeposit: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -87,12 +90,12 @@ private fun TMBAccountDetails(
                 Text(text = "Transfer")
             }
             Button(
-                onClick = { onWithdraw(account.accountNumber) }
+                onClick = onWithdraw
             ) {
                 Text(text = "Withdraw")
             }
             Button(
-                onClick = { onDeposit(account.accountNumber) }
+                onClick = onDeposit
             ) {
                 Text("Deposit")
             }
@@ -105,8 +108,8 @@ private fun GoldDiamondAccountDetails(
     modifier: Modifier = Modifier,
     account: GoldDiamondAccount,
     onTransfer: () -> Unit,
-    onWithdraw: (String) -> Unit,
-    onDeposit: (String) -> Unit
+    onWithdraw: () -> Unit,
+    onDeposit: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -129,12 +132,12 @@ private fun GoldDiamondAccountDetails(
                 Text(text = "Transfer")
             }
             Button(
-                onClick = { onWithdraw(account.accountNumber) }
+                onClick = onWithdraw
             ) {
                 Text(text = "Withdraw")
             }
             Button(
-                onClick = { onDeposit(account.accountNumber) }
+                onClick = onDeposit
             ) {
                 Text("Deposit")
             }
@@ -147,8 +150,8 @@ private fun SavingsAccountDetails(
     modifier: Modifier = Modifier,
     account: SavingsAccount,
     onTransfer: () -> Unit,
-    onWithdraw: (String) -> Unit,
-    onDeposit: (String) -> Unit
+    onWithdraw: () -> Unit,
+    onDeposit: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -165,12 +168,12 @@ private fun SavingsAccountDetails(
                 Text(text = "Transfer")
             }
             Button(
-                onClick = { onWithdraw(account.accountNumber) }
+                onClick = onWithdraw
             ) {
                 Text(text = "Withdraw")
             }
             Button(
-                onClick = { onDeposit(account.accountNumber) }
+                onClick = onDeposit
             ) {
                 Text("Deposit")
             }
@@ -183,8 +186,8 @@ private fun CDAccountDetails(
     modifier: Modifier = Modifier,
     account: CDAccount,
     onTransfer: () -> Unit,
-    onWithdraw: (String) -> Unit,
-    onDeposit: (String) -> Unit
+    onWithdraw: () -> Unit,
+    onDeposit: () -> Unit
 ) {
     Column(
         modifier = modifier
@@ -202,12 +205,12 @@ private fun CDAccountDetails(
                 Text(text = "Transfer")
             }
             Button(
-                onClick = { onWithdraw(account.accountNumber) }
+                onClick = onWithdraw
             ) {
                 Text(text = "Withdraw")
             }
             Button(
-                onClick = { onDeposit(account.accountNumber) }
+                onClick = onDeposit
             ) {
                 Text("Deposit")
             }

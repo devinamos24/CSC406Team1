@@ -5,10 +5,14 @@ import edu.missouriwestern.csc406team1.database.CustomerRepository;
 import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.model.account.Account;
 import kotlin.Unit;
+import kotlin.collections.CollectionsKt;
 import kotlin.jvm.functions.Function0;
 import kotlin.jvm.functions.Function2;
+import kotlinx.coroutines.flow.FlowKt;
 import kotlinx.coroutines.flow.MutableStateFlow;
 import kotlinx.coroutines.flow.StateFlow;
+
+import java.util.List;
 
 /**
  * View model for the bank account screen.
@@ -18,12 +22,16 @@ public class BankAccountScreenViewModel{
     private final AccountRepository accountRepository;
     private final CustomerRepository customerRepository;
 
-    private final MutableStateFlow<Customer> customer = new MutableStateFlow<>(null);
-    private final MutableStateFlow<Account> account = new MutableStateFlow<>(null);
+//    private final MutableStateFlow<Customer> customer = new MutableStateFlow<>(null);
+//    private final MutableStateFlow<Account> account = new MutableStateFlow<>(null);
+
+    private final String ssn;
+    private final String id;
+
     private final Function2<String, String, Unit> onTransfer;
     private final Function2<String, String, Unit> onWithdraw;
     private final Function2<String, String, Unit> onDeposit;
-    Function0<Unit> onBack;
+    private final Function0<Unit> onBack;
 
 
     /**
@@ -31,22 +39,26 @@ public class BankAccountScreenViewModel{
      *
      * @param accountRepository  The repository for managing account data.
      * @param customerRepository The repository for managing customer data.
-     * @param onTransfer1
-     * @param onWithdraw1
-     * @param onDeposit1
      */
-    public BankAccountScreenViewModel(AccountRepository accountRepository, CustomerRepository customerRepository,
-                                      String ssn, String id,
-                                      Function2<String, String, Unit> onTransfer,
-                                      Function2<String, String, Unit> onWithdraw,
-                                      Function2<String, String, Unit> onDeposit,
-                                      Function0<Unit> onBack, Function2<String, String, Unit> onTransfer1, Function2<String, String, Unit> onWithdraw1, Function2<String, String, Unit> onDeposit1) {
+    public BankAccountScreenViewModel(
+            AccountRepository accountRepository,
+            CustomerRepository customerRepository,
+            String ssn,
+            String id,
+            Function2<String, String, Unit> onTransfer,
+            Function2<String, String, Unit> onWithdraw,
+            Function2<String, String, Unit> onDeposit,
+            Function0<Unit> onBack
+    ) {
+
         this.accountRepository = accountRepository;
         this.customerRepository = customerRepository;
-
-        this.onTransfer = onTransfer1;
-        this.onWithdraw = onWithdraw1;
-        this.onDeposit = onDeposit1;
+        this.ssn = ssn;
+        this.id = id;
+        this.onTransfer = onTransfer;
+        this.onWithdraw = onWithdraw;
+        this.onDeposit = onDeposit;
+        this.onBack = onBack;
     }
 
     /**
@@ -55,23 +67,24 @@ public class BankAccountScreenViewModel{
      * @param customerSSN The SSN of the customer.
      * @param accountId The ID of the account.
      */
-    public void init(String customerSSN, String accountId) {
-        customerRepository.getCustomerBySSN(customerSSN)
-                .onEach(c -> customer.setValue(c))
-                .launchIn(viewModelScope);
-
-        accountRepository.getAccountById(accountId)
-                .onEach(a -> account.setValue(a))
-                .launchIn(viewModelScope);
-    }
+//    public void init(String customerSSN, String accountId) {
+//        customerRepository.getCustomerBySSN(customerSSN)
+//                .onEach(c -> customer.setValue(c))
+//                .launchIn(viewModelScope);
+//
+//        accountRepository.getAccountById(accountId)
+//                .onEach(a -> account.setValue(a))
+//                .launchIn(viewModelScope);
+//    }
 
     /**
      * Gets the current customer data.
      *
      * @return A state flow of the current customer.
      */
-    public StateFlow<Customer> getCustomer() {
-        return customer;
+    public StateFlow<List<Customer>> getCustomers() {
+        return customerRepository.getCustomers().getFlow();
+        // It turns out that filtering kotlin flows in java is a headache, so we are just going to give the screen all the customers
     }
 
     /**
@@ -79,8 +92,33 @@ public class BankAccountScreenViewModel{
      *
      * @return A state flow of the current account.
      */
-    public StateFlow<Account> getAccount() {
-        return account;
+    public StateFlow<List<Account>> getAccounts() {
+        return accountRepository.getAccounts().getFlow();
+        // It turns out that filtering kotlin flows in java is a headache, so we are just going to give the screen all the accounts
+    }
+
+    public String getSsn() {
+        return ssn;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void onTransfer(String ssn, String id) {
+        onTransfer.invoke(ssn, id);
+    }
+
+    public void onWithdraw(String ssn, String id) {
+        onWithdraw.invoke(ssn, id);
+    }
+
+    public void onDeposit(String ssn, String id) {
+        onDeposit.invoke(ssn, id);
+    }
+
+    public void onBack() {
+        onBack.invoke();
     }
 
     /**
@@ -91,6 +129,7 @@ public class BankAccountScreenViewModel{
      */
     public void transfer(String sourceAccountId, String destinationAccountId) {
         // TODO: Implement transfer logic
+        // NOTE: The transfer logic will be in the transfer money screen so this can be moved to that view-model
     }
 
     /**
@@ -100,6 +139,7 @@ public class BankAccountScreenViewModel{
      */
     public void withdraw(String accountId) {
         // TODO: Implement withdraw logic
+        // NOTE: The withdraw logic will be in the transfer money screen so this can be moved to that view-model
     }
 
     /**
@@ -109,5 +149,6 @@ public class BankAccountScreenViewModel{
      */
     public void deposit(String accountId) {
         // TODO: Implement deposit logic
+        // NOTE: The deposit logic will be in the transfer money screen so this can be moved to that view-model
     }
 }
