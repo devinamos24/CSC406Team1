@@ -25,8 +25,8 @@ fun CustomerBankAccountDetailsScreen(
     customerSSN: String,
     accountId: String,
     onTransfer: (String, String) -> Unit,
-    onWithdraw: (String) -> Unit,
-    onDeposit: (String) -> Unit,
+    onWithdraw: (String, String) -> Unit,
+    onDeposit: (String, String) -> Unit,
     onBack: () -> Unit
 ) {
     val customers by customerRepository.customers.collectAsState()
