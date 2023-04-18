@@ -121,16 +121,6 @@ public class BankAccountScreenViewModel{
         onBack.invoke();
     }
 
-    /**
-     * Transfers money from the specified source account to the specified destination account.
-     *
-     * @param sourceAccountId The ID of the source account.
-     * @param destinationAccountId The ID of the destination account.
-     */
-    public void transfer(String sourceAccountId, String destinationAccountId) {
-        // TODO: Implement transfer logic
-        // NOTE: The transfer logic will be in the transfer money screen so this can be moved to that view-model
-    }
 
     /**
      * Withdraws money from the specified account.
