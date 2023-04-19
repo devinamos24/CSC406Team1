@@ -62,3 +62,15 @@
 - date of last payment
 - missed payment flag
 - type
+
+## Transaction csv columns
+
+- TransactionID
+- credit
+- debit
+- transactionType
+- amount
+- accBalance
+- accID
+- date
+- time

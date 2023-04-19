@@ -121,7 +121,6 @@ fun CreateAccountScreen(customerRepository: CustomerRepository, onClickCreate: (
 
             Button(
                 onClick = {
-                    onBack()
                     val customer = Customer(
                         ssn.value,
                         address.value,
@@ -131,8 +130,9 @@ fun CreateAccountScreen(customerRepository: CustomerRepository, onClickCreate: (
                         firstName.value,
                         lastName.value
                     )
-                    customerRepository.addCustomer(customer)
-                    onClickCreate(ssn.value)
+                    if (customerRepository.addCustomer(customer)) {
+                        onClickCreate(ssn.value)
+                    }
                 },
                 modifier = Modifier.align(Alignment.End),
                 enabled = inputsValid()

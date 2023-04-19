@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
  * This is mainly for testing purposes as we can make a CustomerDaoTestImpl for testing
  */
 public interface CustomerDao {
-    void addCustomer(Customer customer);
+    boolean addCustomer(Customer customer);
     @NotNull
     ArrayListFlow<Customer> getCustomers();
     @Nullable

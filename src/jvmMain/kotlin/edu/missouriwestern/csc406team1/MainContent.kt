@@ -11,10 +11,11 @@ import com.arkivanov.decompose.router.stack.push
 import com.arkivanov.essenty.parcelable.Parcelable
 import com.arkivanov.essenty.parcelable.Parcelize
 import edu.missouriwestern.csc406team1.database.AccountRepository
+import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.screens.CreateAccountScreen
 import edu.missouriwestern.csc406team1.screens.LoginScreen
 import edu.missouriwestern.csc406team1.screens.customer.*
-import edu.missouriwestern.csc406team1.screens.manager.ManagerStartScreen
+import edu.missouriwestern.csc406team1.screens.manager.*
 import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
 import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 
@@ -26,7 +27,8 @@ import edu.missouriwestern.csc406team1.viewmodel.customer.LoginScreenViewModel
 @Composable
 fun MainContent(
     customerRepository: CustomerRepository,
-    accountRepository: AccountRepository
+    accountRepository: AccountRepository,
+    transactionRepository: TransactionRepository,
 ) {
     val navigation = remember { StackNavigation<Screen>() }
 
@@ -46,10 +48,19 @@ fun MainContent(
             is Screen.CustomerDepositMoney -> {}
 
             is Screen.TellerStart -> TellerStartScreen(onBack = navigation::pop)
+            is Screen.TellerCreateCustomer -> CreateAccountScreen(customerRepository = customerRepository, onClickCreate = {}, onBack = navigation::pop)
 
-            is Screen.ManagerStart -> ManagerStartScreen(onBack = navigation::pop)
+            is Screen.ManagerStart -> ManagerStartScreen(onCreateCustomer = { navigation.push(Screen.ManagerCreateCustomer) }, onEditCustomerData = { navigation.push(Screen.ManagerSearchCustomer) },onBack = navigation::pop)
+            is Screen.ManagerCreateCustomer -> CreateAccountScreen(customerRepository = customerRepository, onClickCreate = { ssn -> navigation.pop().also { navigation.push(Screen.ManagerSearchCustomer) }.also { navigation.push(Screen.ManagerEditCustomer(ssn)) } }, onBack = navigation::pop)
+            is Screen.ManagerSearchCustomer -> ManagerSearchCustomerScreen(customerRepository = customerRepository, onClickCustomer = { navigation.push(Screen.ManagerEditCustomer(it)) }, onBack = navigation::pop)
+            is Screen.ManagerEditCustomer -> ManagerEditCustomerScreen(customerRepository = customerRepository, accountRepository = accountRepository, ssn = screen.ssn, onClickAccount = { ssn, id -> navigation.push(Screen.ManagerEditCustomerBankAccount(ssn, id)) }, onClickOpenAccount = { navigation.push(Screen.ManagerCreateCustomerBankAccount(it)) }, onBack = navigation::pop)
+            is Screen.ManagerCreateCustomerBankAccount -> ManagerCreateCustomerBankAccount(customerRepository = customerRepository, accountRepository = accountRepository, ssn = screen.ssn, onCreate = {}, onBack = navigation::pop)
+            is Screen.ManagerEditCustomerBankAccount -> ManagerEditCustomerBankAccountScreen(customerRepository = customerRepository, accountRepository = accountRepository, transactionRepository = transactionRepository, ssn = screen.ssn, id = screen.id, onCreditAccount = { ssn, id -> navigation.push(Screen.ManagerCreditCustomerBankAccount(ssn = ssn, id = id)) }, onDebitAccount = { ssn, id -> navigation.push(Screen.ManagerDebitCustomerBankAccount(ssn = ssn, id = id)) }, onModifyInterest = { ssn, id -> navigation.push(Screen.ManagerModifyInterestCustomerBankAccount(ssn = ssn, id = id)) }, onViewTransactions = { ssn, id -> navigation.push(Screen.ManagerViewTransactionHistory(ssn = ssn, id = id)) }, onBack = navigation::pop)
+            is Screen.ManagerCreditCustomerBankAccount -> ManagerCreditCustomerBankAccountScreen(customerRepository = customerRepository, accountRepository = accountRepository, transactionRepository = transactionRepository, ssn = screen.ssn, id = screen.id, onBack = navigation::pop)
+            is Screen.ManagerDebitCustomerBankAccount -> ManagerDebitCustomerBankAccountScreen(customerRepository = customerRepository, accountRepository = accountRepository, transactionRepository = transactionRepository, ssn = screen.ssn, id = screen.id, onBack = navigation::pop)
+            is Screen.ManagerModifyInterestCustomerBankAccount -> ManagerModifyInterestCustomerBankAccountScreen(onBack = navigation::pop)
+            is Screen.ManagerViewTransactionHistory -> ManagerViewTransactionHistoryScreen(customerRepository = customerRepository, accountRepository = accountRepository, transactionRepository = transactionRepository, ssn = screen.ssn, id = screen.id, onBack = navigation::pop)
 
-            is Screen.AccountCreation -> CreateAccountScreen(customerRepository = customerRepository, onClickCreate = { navigation.push(Screen.CustomerSelectBankAccount(it)) }, onBack = navigation::pop)
         }
     }
 }
@@ -62,9 +73,6 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     object Login : Screen()
-
-    @Parcelize
-    object AccountCreation : Screen()
 
     @Parcelize
     object CustomerLogin : Screen()
@@ -88,6 +96,36 @@ sealed class Screen : Parcelable {
     object TellerStart : Screen()
 
     @Parcelize
+    object TellerCreateCustomer : Screen()
+
+    @Parcelize
     object ManagerStart : Screen()
+
+    @Parcelize
+    object ManagerCreateCustomer : Screen()
+
+    @Parcelize
+    object ManagerSearchCustomer : Screen()
+
+    @Parcelize
+    data class ManagerEditCustomer(val ssn: String) : Screen()
+
+    @Parcelize
+    data class ManagerCreateCustomerBankAccount(val ssn: String) : Screen()
+
+    @Parcelize
+    data class ManagerEditCustomerBankAccount(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class ManagerCreditCustomerBankAccount(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class ManagerDebitCustomerBankAccount(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class ManagerModifyInterestCustomerBankAccount(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class ManagerViewTransactionHistory(val ssn: String, val id: String): Screen()
 
 }
