@@ -12,10 +12,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun TellerStartScreen(
     onBack: () -> Unit,
-    onListAccounts: () -> Unit,
-    onAccountBalance: () -> Unit,
-    onRecentDebits: () -> Unit,
-    onAccountStatus: () -> Unit
+    onListAccounts: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Button(
@@ -32,27 +29,9 @@ fun TellerStartScreen(
             Button(
                 onClick = onListAccounts,
             ) {
-                Text("List of Peanuts")
+                Text("Accounts")
             }
-            Button(
-                onClick = onAccountBalance,
-            ) {
-                Text("Account Balances")
-            }
-            Button(
-                onClick = onRecentDebits,
-            ) {
-                Text("Recent Debits")
-            }
-            Button(
-                onClick = onAccountStatus,
-            ) {
-                Text("Account Status")
-            }
-
         }
-
-
     }
 }
 
@@ -61,9 +40,6 @@ fun TellerStartScreen(
 fun TellerStartScreenPreview () {
     TellerStartScreen(
         onBack = {},
-        onListAccounts = {},
-        onAccountBalance = {},
-        onRecentDebits = {} ,
-        onAccountStatus = {}
+        onListAccounts = {}
     )
 }

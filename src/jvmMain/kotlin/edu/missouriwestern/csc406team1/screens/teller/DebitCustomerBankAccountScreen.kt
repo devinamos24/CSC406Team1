@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.manager
+package edu.missouriwestern.csc406team1.screens.teller
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -23,7 +23,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
-fun ManagerDebitCustomerBankAccountScreen(
+fun TellerDebitCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,
