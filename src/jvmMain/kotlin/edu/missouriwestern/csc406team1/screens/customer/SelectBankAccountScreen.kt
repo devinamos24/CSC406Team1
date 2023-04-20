@@ -15,22 +15,28 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
+import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
+import edu.missouriwestern.csc406team1.util.getName
 
 @Composable
 fun CustomerSelectBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
-    customerSSN: String,
+    loanRepository: LoanRepository,
+    ssn: String,
     onClickAccount: (String, String) -> Unit,
+    onClickLoan: (String, String) -> Unit,
     onBack: () -> Unit
 ) {
     val customers by customerRepository.customers.collectAsState()
     val accounts by accountRepository.accounts.collectAsState()
+    val loans by loanRepository.loans.collectAsState()
 
-    val customer = customers.find { it.ssn == customerSSN }
-    val customerAccounts = accounts.filter { it.customerSSN == customer?.ssn }
+    val customer = customers.find { it.ssn == ssn }
+    val customerAccounts = accounts.filter { it.customerSSN == customer?.ssn && it.isActive }
+    val customerLoans = loans.filter { it.accountNumber == customer?.ssn && it.balance > 0 }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column(
@@ -46,16 +52,45 @@ fun CustomerSelectBankAccountScreen(
                 Box(
                     modifier = Modifier.fillMaxSize()
                         .padding(10.dp)
+                        .weight(0.5f)
                 ) {
                     val state = rememberLazyListState()
 
                     LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
-                        customerAccounts.sorted().forEachIndexed { i, account ->
+                        customerAccounts.sorted().forEach { account ->
                             item {
                                 CustomerAccountButton(
-                                    name = "Account $i",
+                                    name = account.getName(),
                                     balance = account.balance,
-                                    onClick = { onClickAccount(customerSSN, account.accountNumber) }
+                                    onClick = { onClickAccount(ssn, account.accountNumber) }
+                                )
+                                Spacer(modifier = Modifier.height(5.dp))
+                            }
+                        }
+                    }
+                    VerticalScrollbar(
+                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                        adapter = rememberScrollbarAdapter(
+                            scrollState = state
+                        )
+                    )
+                }
+            }
+            if (customer != null && customerLoans.isNotEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                        .padding(10.dp)
+                        .weight(0.5f)
+                ) {
+                    val state = rememberLazyListState()
+
+                    LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
+                        customerLoans.sorted().forEach { loan ->
+                            item {
+                                LoanAccountButton(
+                                    name = loan.getName(),
+                                    balance = loan.balance,
+                                    onClick = { onClickLoan(ssn, loan.accountNumber) }
                                 )
                                 Spacer(modifier = Modifier.height(5.dp))
                             }
@@ -104,6 +139,30 @@ private fun CustomerAccountButton(
         Text(
             modifier = Modifier.align(Alignment.CenterEnd),
             text = balance.formatAsMoney()
+        )
+    }
+}
+
+@Composable
+private fun LoanAccountButton(
+    modifier: Modifier = Modifier,
+    name: String,
+    balance: Double,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = modifier.height(32.dp)
+            .fillMaxWidth()
+            .padding(start = 10.dp)
+            .clickable { onClick() }
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterStart),
+            text = name
+        )
+        Text(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            text = balance.formatAsMoney() + " Owed"
         )
     }
 }

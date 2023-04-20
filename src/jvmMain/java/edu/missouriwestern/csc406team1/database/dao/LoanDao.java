@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface LoanDao {
-    void addLoan(Loan loan);
+    boolean addLoan(Loan loan);
 
     @NotNull
     ArrayListFlow<Loan> getLoans();
@@ -15,7 +15,7 @@ public interface LoanDao {
     @Nullable
     Loan getLoan(String accountNumber);//accountNumber is referencing the loan account
 
-    void updateLoan(Loan loan);
+    boolean updateLoan(Loan loan);
     void deleteLoan(String accountNumber);//accountNumber references the loan account to be deleted
     boolean save();
 }

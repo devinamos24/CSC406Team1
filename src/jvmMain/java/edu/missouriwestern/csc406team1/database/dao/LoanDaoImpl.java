@@ -2,7 +2,6 @@ package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
 import edu.missouriwestern.csc406team1.database.model.loan.*;
-import edu.missouriwestern.csc406team1.database.model.account.*;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -68,6 +67,10 @@ public class LoanDaoImpl implements LoanDao{
                 MortgageLoan mortgageLoan;
                 ShortTermLoan shortTermLoan;
 
+                if (Integer.parseInt(args[0]) > highestID) {
+                    highestID = Integer.parseInt(args[0]);
+                }
+
                 switch (args[9]) {
                     case "cc":
                         creditCardLoan = new CreditCardLoan(args[0]/*account number*/, args[1]/*customerSSN*/,
@@ -118,10 +121,10 @@ public class LoanDaoImpl implements LoanDao{
     }
 
     @Override
-    public void addLoan(Loan loan) {
+    public boolean addLoan(Loan loan) {
         loan.setAccountNumber(String.valueOf(highestID+1));
         highestID++;
-        loans.add(loan);
+        return loans.add(loan);
     }
 
     @NotNull
@@ -142,14 +145,15 @@ public class LoanDaoImpl implements LoanDao{
     }
 
     @Override
-    public void updateLoan(Loan loan) {
+    public boolean updateLoan(Loan loan) {
         for (Loan loan1 : loans) {
             if (loan1.getAccountNumber().equals(loan.getAccountNumber())) {
-                loans.remove(loan1);
-                loans.add(loan);
-                return;
+                if (loans.remove(loan1)) {
+                    return loans.add(loan);
+                }
             }
         }
+        return false;
     }
 
     @Override

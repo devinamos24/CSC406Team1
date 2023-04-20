@@ -1,9 +1,9 @@
 package edu.missouriwestern.csc406team1.window
 
-import BankApplicationState
+import edu.missouriwestern.csc406team1.BankApplicationState
 import androidx.compose.ui.window.WindowState
 import edu.missouriwestern.csc406team1.util.AlertDialogResult
-import DialogState
+import edu.missouriwestern.csc406team1.DialogState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
 
@@ -27,6 +27,7 @@ class BankWindowState(
     val customerRepository = application.customerRepository
     val accountRepository = application.accountRepository
     val transactionRepository = application.transactionRepository
+    val loanRepository = application.loanRepository
 
     // This function is called when a new window is requested
     fun newWindow() {

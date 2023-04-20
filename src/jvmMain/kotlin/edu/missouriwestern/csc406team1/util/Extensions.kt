@@ -4,6 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
 import androidx.compose.runtime.collectAsState
 import edu.missouriwestern.csc406team1.ArrayListFlow
+import edu.missouriwestern.csc406team1.database.model.account.*
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan
+import edu.missouriwestern.csc406team1.database.model.loan.Loan
+import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan
+import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan
 import java.text.NumberFormat
 import java.util.Currency
 
@@ -24,4 +29,21 @@ fun Double.formatAsMoney(): String {
     format.maximumFractionDigits = 2
     format.currency = Currency.getInstance("USD")
     return format.format(this)
+}
+
+fun Account.getName(): String {
+    return when (this) {
+        is CDAccount -> "CD Savings"
+        is SavingsAccount -> "Standard Savings"
+        is TMBAccount -> "TMB Checking"
+        is GoldDiamondAccount -> "Gold/Diamond Checking"
+        else -> "Account" } + ", Date Opened: ${DateConverter.convertDateToString(this.dateOpened)}"
+}
+
+fun Loan.getName(): String {
+    return when (this) {
+        is MortgageLoan -> "Mortgage Loan"
+        is ShortTermLoan -> "Short Term Loan"
+        is CreditCardLoan -> "Credit Card Loan"
+        else -> "Loan" } + ", Date Opened: ${DateConverter.convertDateToString(this.dateOpened)}"
 }

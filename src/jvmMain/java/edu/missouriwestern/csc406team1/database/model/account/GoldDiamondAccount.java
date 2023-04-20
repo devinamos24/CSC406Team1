@@ -15,8 +15,8 @@ public class GoldDiamondAccount extends CheckingAccount{
     @NotNull
     private Double minimumBalance;
 
-    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth, hasATMCard);
+    public GoldDiamondAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate, @Nullable SavingsAccount backupAccount, @NotNull Boolean hasATMCard, @NotNull Integer overdraftsThisMonth) {
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate, (balance >= defaultMinimumBalance) ? 0.0: 0.75, backupAccount, overdraftsThisMonth, hasATMCard);
         this.minimumBalance = defaultMinimumBalance;
     }
 

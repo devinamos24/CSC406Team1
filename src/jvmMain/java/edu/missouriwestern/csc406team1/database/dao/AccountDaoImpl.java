@@ -70,28 +70,31 @@ public class AccountDaoImpl implements AccountDao{
             try {
                 CheckingAccount account;
                 SavingsAccount savingsAccount;
+                if (Integer.parseInt(args[0]) > highestID) {
+                    highestID = Integer.parseInt(args[0]);
+                }
                 switch (args[4]) {
                     case "TMB":
-                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[6]), Integer.parseInt(args[7]));
+                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
                         if (!args[5].equals("null")) {
-                            checkingAccounts.put(account, args[5]);
+                            checkingAccounts.put(account, args[6]);
                         }
                         accounts.add(account);
                         break;
                     case "GD":
-                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), null, Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
+                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]), null, Boolean.parseBoolean(args[8]), Integer.parseInt(args[9]));
                         if (!args[6].equals("null")) {
-                            checkingAccounts.put(account, args[5]);
+                            checkingAccounts.put(account, args[6]);
                         }
                         accounts.add(account);
                         break;
                     case "S":
-                        savingsAccount = new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]));
+                        savingsAccount = new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]));
                         accounts.add(savingsAccount);
                         savingsAccounts.put(args[0], savingsAccount);
                         break;
                     case "CD":
-                        accounts.add(new CDAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Double.parseDouble(args[5]), DateConverter.convertStringToDate(args[6])));
+                        accounts.add(new CDAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]), DateConverter.convertStringToDate(args[7])));
                         break;
                     default:
                         throw new IllegalArgumentException("Type: "+ args[2] + " not supported!");
@@ -114,10 +117,10 @@ public class AccountDaoImpl implements AccountDao{
     }
 
     @Override
-    public void addAccount(Account account) {
+    public boolean addAccount(Account account) {
         account.setAccountNumber(String.valueOf(highestID+1));
         highestID++;
-        accounts.add(account);
+        return accounts.add(account);
     }
 
     @NotNull

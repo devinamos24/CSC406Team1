@@ -15,13 +15,16 @@ public abstract class Account implements CSV, Comparable<Account> {
     private Double balance;//current balance of the account
     @NotNull
     private LocalDate dateOpened;//date the account was opened with the bank
+    @NotNull
+    private Boolean isActive;
     @Nullable // The interest rate can be null if it is a basic checking account
     private Double interestRate;//current interest rate of the account
-    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @Nullable Double interestRate) {
+    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @Nullable Double interestRate) {
         this.accountNumber = accountNumber;
         this.customerSSN = customerSSN;
         this.balance = balance;
         this.dateOpened = dateOpened;
+        this.isActive = isActive;
         this.interestRate = interestRate;
     }
 
@@ -94,6 +97,14 @@ public abstract class Account implements CSV, Comparable<Account> {
         this.dateOpened = dateOpened;
     }
 
+    @NotNull
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    public void setIsActive(@NotNull Boolean isActive) {
+        this.isActive = isActive;
+    }
+
     @Nullable
     public Double getInterestRate() {
         return interestRate;
@@ -104,6 +115,6 @@ public abstract class Account implements CSV, Comparable<Account> {
 
     @Override
     public String[] convertToCSV() {
-        return new String[] {accountNumber, customerSSN, String.valueOf(balance), DateConverter.convertDateToString(dateOpened)};
+        return new String[] {accountNumber, customerSSN, String.valueOf(balance), DateConverter.convertDateToString(dateOpened), String.valueOf(isActive)};
     }
 }

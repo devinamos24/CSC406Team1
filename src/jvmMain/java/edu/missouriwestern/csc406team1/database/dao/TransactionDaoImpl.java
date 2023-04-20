@@ -64,6 +64,9 @@ public class TransactionDaoImpl implements TransactionDao{
         for (String[] args : collect) {
             try {
                 Transaction transaction;
+                if (Integer.parseInt(args[0]) > highestID) {
+                    highestID = Integer.parseInt(args[0]);
+                }
                 transaction = new Transaction(args[0]/*transactionID*/, Boolean.parseBoolean(args[1])/*credit*/,
                         Boolean.parseBoolean(args[2])/*debit*/, args[3]/*transactionType*/,
                         Double.parseDouble(args[4])/*amount*/, Double.parseDouble(args[5])/*newTotal*/,
