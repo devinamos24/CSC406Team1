@@ -36,7 +36,7 @@ fun CustomerSelectBankAccountScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val customerAccounts = accounts.filter { it.customerSSN == customer?.ssn && it.isActive }
-    val customerLoans = loans.filter { it.accountNumber == customer?.ssn && it.balance > 0 }
+    val customerLoans = loans.filter { it.customerSSN == customer?.ssn && it.balance > 0 }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column(

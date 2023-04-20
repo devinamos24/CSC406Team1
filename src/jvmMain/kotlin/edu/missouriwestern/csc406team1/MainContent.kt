@@ -134,6 +134,7 @@ fun WindowScope.MainContent(
                 loanRepository = loanRepository,
                 screen.ssn,
                 screen.id,
+                onMakePayment = { ssn, id -> navigation.push(Screen.CustomerLoanMakePayment(ssn, id)) },
                 onBack = navigation::pop
             )
 

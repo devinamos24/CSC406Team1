@@ -24,6 +24,7 @@ fun CustomerLoanDetailsScreen(
     loanRepository: LoanRepository,
     ssn: String,
     id: String,
+    onMakePayment: (String, String) -> Unit,
     onBack: () -> Unit
 ) {
     val customers by customerRepository.customers.collectAsState()
@@ -43,18 +44,23 @@ fun CustomerLoanDetailsScreen(
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-                val detailsModifier = Modifier.align(Alignment.CenterHorizontally)
-                when (loan) {
-                    is MortgageLoan -> MortgageLoanDetails(detailsModifier, loan)
-                    is ShortTermLoan -> ShortTermLoanDetails(detailsModifier, loan)
-                    is CreditCardLoan -> CreditCardLoanDetails(detailsModifier, loan)
+                Text("Date Opened: ${convertDateToString(loan.dateOpened)}")
+                Text("Current Balance Owed: ${loan.balance.formatAsMoney()}")
+                Text("Interest Rate: ${loan.interestRate.times(100)}%")
+                Text("Next Payment Due: ${convertDateToString(loan.datePaymentDue)} Amount: ${loan.currentPaymentDue.formatAsMoney()}")
+                Text("Last Payment Date: ${convertDateToString(loan.dateSinceLastPayment)}")
+                if (loan.missedPayment) {
+                    Text(
+                        color = MaterialTheme.colorScheme.error,
+                        text = "Payment Missed"
+                    )
                 }
                 Row (
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
                     Button(
-                        onClick = {  }
+                        onClick = { onMakePayment(ssn, id) }
                     ) {
                         Text("Make Payment")
                     }
@@ -79,7 +85,7 @@ private fun MortgageLoanDetails(
     ) {
         Text("Date Opened: ${convertDateToString(loan.dateOpened)}")
         Text("Current Balance Owed: ${loan.balance.formatAsMoney()}")
-        Text("Interest Rate: ${loan.interestRate.times(100)}%}")
+        Text("Interest Rate: ${loan.interestRate.times(100)}%")
         Text("Next Payment Due: ${convertDateToString(loan.datePaymentDue)} Amount: ${loan.currentPaymentDue.formatAsMoney()}")
         Text("Last Payment Date: ${convertDateToString(loan.dateSinceLastPayment)}")
         if (loan.missedPayment) {
@@ -101,7 +107,7 @@ private fun ShortTermLoanDetails(
     ) {
         Text("Date Opened: ${convertDateToString(loan.dateOpened)}")
         Text("Current Balance Owed: ${loan.balance.formatAsMoney()}")
-        Text("Interest Rate: ${loan.interestRate.times(100)}%}")
+        Text("Interest Rate: ${loan.interestRate.times(100)}%")
         Text("Next Payment Due: ${convertDateToString(loan.datePaymentDue)} Amount: ${loan.currentPaymentDue.formatAsMoney()}")
         Text("Last Payment Date: ${convertDateToString(loan.dateSinceLastPayment)}")
         if (loan.missedPayment) {
@@ -123,7 +129,7 @@ private fun CreditCardLoanDetails(
     ) {
         Text("Date Opened: ${convertDateToString(loan.dateOpened)}")
         Text("Current Balance Owed: ${loan.balance.formatAsMoney()}")
-        Text("Interest Rate: ${loan.interestRate.times(100)}%}")
+        Text("Interest Rate: ${loan.interestRate.times(100)}%")
         Text("Next Payment Due: ${convertDateToString(loan.datePaymentDue)} Amount: ${loan.currentPaymentDue.formatAsMoney()}")
         Text("Last Payment Date: ${convertDateToString(loan.dateSinceLastPayment)}")
         if (loan.missedPayment) {
