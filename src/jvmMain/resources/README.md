@@ -68,7 +68,7 @@
 - TransactionID
 - credit
 - debit
-- transactionType
+- transactionType (c=credit, d=debit, t=transfer, f=fee)
 - amount
 - accBalance
 - accID
