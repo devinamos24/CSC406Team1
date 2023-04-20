@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class GoldDiamondAccount extends CheckingAccount{
+public class GoldDiamondAccount extends CheckingAccount {
 
     @NotNull
     private static final Double defaultMinimumBalance = 5000.0; //minimum balanced required to not pay transaction fees

@@ -77,14 +77,16 @@ public class TransferMoneyScreenViewModel {
                     Double fee = null;
                     if (sourceAccount instanceof TMBAccount) {
                         //TODO set transfer fee for TMBAccount
+                        fee = ((TMBAccount) sourceAccount).getTransactionFee();
                     } else if (sourceAccount instanceof GoldDiamondAccount) {
                         //TODO set transfer fee for GoldDiamondAccount
+                        fee = ((GoldDiamondAccount) sourceAccount).getTransactionFee();
                     } else if (sourceAccount instanceof SavingsAccount) {
                         //TODO set transfer fee for Savings account
                     } else {
                         processed=false;
                     }
-                    if (fee!=null) {
+                    if (fee != null && fee > 0.0) {
                         //add transaction for the fee
                         transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, sourceAccount.getBalance(), sourceAccount.getAccountNumber(), LocalDate.now(), LocalTime.now()));
                     }
