@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.customer
+package edu.missouriwestern.csc406team1.screens.teller
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -20,7 +20,7 @@ import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
-fun CustomerDepositMoneyScreen(
+fun TellerCreditCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,
@@ -46,7 +46,7 @@ fun CustomerDepositMoneyScreen(
             Text("Back")
         }
 
-        if (customer != null && account != null && account.isActive) {
+        if (customer != null && account != null) {
 
             Column(
                 modifier = Modifier.align(Alignment.Center),

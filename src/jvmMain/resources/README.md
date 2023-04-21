@@ -9,6 +9,7 @@
 - zip
 - first name
 - last name
+- is active
 
 ## Savings csv columns
 
@@ -17,6 +18,7 @@
 - balance
 - date opened
 - account type
+- is active
 - interest rate
 
 ## CD Savings csv columns
@@ -26,6 +28,7 @@
 - balance
 - date opened
 - account type
+- is active
 - interest rate
 - cd due date
 
@@ -36,6 +39,7 @@
 - balance
 - date opened
 - account type
+- is active
 - id of overdraft account
 - number of overdrafts this month
 
@@ -46,6 +50,7 @@
 - balance
 - date opened
 - account type
+- is active
 - interest rate
 - id of overdraft account
 - number of overdrafts this month

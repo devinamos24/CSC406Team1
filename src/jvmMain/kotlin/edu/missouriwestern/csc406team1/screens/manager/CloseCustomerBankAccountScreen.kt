@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.customer
+package edu.missouriwestern.csc406team1.screens.manager
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -17,6 +17,7 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import androidx.compose.ui.window.WindowScope
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
@@ -29,7 +30,7 @@ import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomerTransferMoneyScreen(
+fun WindowScope.ManagerCloseCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,
@@ -60,6 +61,9 @@ fun CustomerTransferMoneyScreen(
         Icons.Filled.ArrowDropUp
     else
         Icons.Filled.ArrowDropDown
+
+    var printingCheck by remember { mutableStateOf(false) }
+    var closingAccount by remember { mutableStateOf(false) }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Button(
@@ -215,6 +219,18 @@ fun CustomerTransferMoneyScreen(
                 ) {
                     Text("Transfer")
                 }
+
+                Button(
+                    modifier = Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .width(with(LocalDensity.current){amountFieldSize.width.toDp()}),
+                    onClick = {
+                        printingCheck = true
+                    },
+                    enabled = account.balance > 0.0
+                ) {
+                    Text("Print Check")
+                }
                 if (hasFailed) {
                     Text(
                         text = "Transfer failed, try again",
@@ -224,11 +240,52 @@ fun CustomerTransferMoneyScreen(
 
             }
 
+            if (printingCheck) {
+                YesNoCancelDialog("Print", "Are you sure you want to print check for ${account.balance.formatAsMoney()} and close the account? This action cannot be undone.") {
+                    when (it) {
+                        AlertDialogResult.Yes -> {
+                            transactionRepository.addTransaction(Transaction("", false, true, "ch", account.balance, 0.0, account.accountNumber, LocalDate.now(), LocalTime.now()))
+                            accountRepository.update(account.apply { this.balance = 0.0; this.isActive = false })
+                            // TODO: Put check in database
+                            onBack()
+                        }
+                        else -> {
+                            printingCheck = false
+                        }
+                    }
+                }
+            }
+
+            if (closingAccount) {
+                YesNoCancelDialog("Close Account", "Are you sure you want to close this account? This action cannot be undone.") {
+                    when (it) {
+                        AlertDialogResult.Yes -> {
+                            accountRepository.update(account.apply { this.balance = 0.0; this.isActive = false })
+                            onBack()
+                        }
+                        else -> {
+                            printingCheck = false
+                        }
+                    }
+                }
+            }
+
         } else {
             Text(
                 modifier = Modifier.align(Alignment.Center),
                 text = "This account no longer exists"
             )
+        }
+        if (customer != null && account != null && account.isActive) {
+            Button(
+                modifier = Modifier.align(Alignment.BottomEnd),
+                enabled = account.balance == 0.0,
+                onClick = {
+                    closingAccount = true
+                }
+            ) {
+                Text("Confirm")
+            }
         }
     }
 }

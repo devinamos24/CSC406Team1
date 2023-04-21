@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public interface AccountDao {
-    void addAccount(Account account);
+    boolean addAccount(Account account);
 
     @NotNull
     ArrayListFlow<Account> getAccounts();

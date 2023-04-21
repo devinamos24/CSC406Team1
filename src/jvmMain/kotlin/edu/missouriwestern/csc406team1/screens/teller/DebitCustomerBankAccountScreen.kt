@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.customer
+package edu.missouriwestern.csc406team1.screens.teller
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -14,13 +14,16 @@ import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.Transaction
-import edu.missouriwestern.csc406team1.util.*
+import edu.missouriwestern.csc406team1.util.CurrencyAmountInputVisualTransformation
+import edu.missouriwestern.csc406team1.util.CustomTextField
+import edu.missouriwestern.csc406team1.util.InputWrapper
+import edu.missouriwestern.csc406team1.util.collectAsState
 import java.lang.NumberFormatException
 import java.time.LocalDate
 import java.time.LocalTime
 
 @Composable
-fun CustomerDepositMoneyScreen(
+fun TellerDebitCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,
@@ -36,6 +39,8 @@ fun CustomerDepositMoneyScreen(
     val account = accounts.find { it.accountNumber == id }
 
     var hasFailed by remember { mutableStateOf(false) }
+    var hasFailedText by remember { mutableStateOf("Debiting account failed, try again") }
+
     var amount by remember { mutableStateOf(InputWrapper()) }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
@@ -46,7 +51,7 @@ fun CustomerDepositMoneyScreen(
             Text("Back")
         }
 
-        if (customer != null && account != null && account.isActive) {
+        if (customer != null && account != null) {
 
             Column(
                 modifier = Modifier.align(Alignment.Center),
@@ -74,11 +79,16 @@ fun CustomerDepositMoneyScreen(
                             try {
                                 val money = amount.value.toDouble() / 100
 
-                                account.balance += money
-                                if (accountRepository.update(account)) {
-                                    transactionRepository.addTransaction(Transaction("", true, false, "c", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
-                                    onBack()
+                                if (account.balance >= money) {
+                                    account.balance -= money
+                                    if (accountRepository.update(account)) {
+                                        transactionRepository.addTransaction(Transaction("", false, true, "d", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
+                                        onBack()
+                                    } else {
+                                        hasFailed = true
+                                    }
                                 } else {
+                                    hasFailedText = "Insufficient funds in account"
                                     hasFailed = true
                                 }
 
@@ -97,7 +107,7 @@ fun CustomerDepositMoneyScreen(
                 }
                 if (hasFailed) {
                     Text(
-                        text = "Crediting account failed, try again",
+                        text = hasFailedText,
                         color = MaterialTheme.colorScheme.error
                     )
                 }

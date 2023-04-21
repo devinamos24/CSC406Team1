@@ -51,7 +51,7 @@ fun ManagerDebitCustomerBankAccountScreen(
             Text("Back")
         }
 
-        if (customer != null && account != null) {
+        if (customer != null && account != null && account.isActive) {
 
             Column(
                 modifier = Modifier.align(Alignment.Center),
@@ -78,7 +78,6 @@ fun ManagerDebitCustomerBankAccountScreen(
                         onClick = {
                             try {
                                 val money = amount.value.toDouble() / 100
-
 
                                 if (account.balance >= money) {
                                     account.balance -= money

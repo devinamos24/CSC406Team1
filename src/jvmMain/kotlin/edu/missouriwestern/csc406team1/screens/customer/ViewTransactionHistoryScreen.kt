@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.manager
+package edu.missouriwestern.csc406team1.screens.customer
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.*
@@ -21,7 +21,7 @@ import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
 
 @Composable
-fun ManagerViewTransactionHistoryScreen(
+fun CustomerViewTransactionHistoryScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,
