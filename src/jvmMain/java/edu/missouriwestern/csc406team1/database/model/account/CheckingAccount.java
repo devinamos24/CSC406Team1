@@ -15,8 +15,8 @@ public abstract class CheckingAccount extends Account{
     @Nullable // The atm card associated with this checking account
     ATMCard atmCard;
 
-    public CheckingAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @Nullable Double interestRate, @NotNull Double transactionFee, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth, @NotNull Boolean hasATMCard) {
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate);
+    public CheckingAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @Nullable Double interestRate, @NotNull Double transactionFee, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth, @NotNull Boolean hasATMCard) {
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
         this.transactionFee = transactionFee;
         this.backupAccount = backupAccount;
         this.overdraftsThisMonth = overdraftsThisMonth;

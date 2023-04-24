@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
+import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
@@ -29,9 +30,10 @@ import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomerTransferMoneyScreen(
+fun CustomerLoanMakePaymentScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
+    loanRepository: LoanRepository,
     transactionRepository: TransactionRepository,
     ssn: String,
     id: String,
@@ -39,6 +41,7 @@ fun CustomerTransferMoneyScreen(
 ) {
     val customers by customerRepository.customers.collectAsState()
     val accounts by accountRepository.accounts.collectAsState()
+    val loans by loanRepository.loans.collectAsState()
 
     var expanded by remember { mutableStateOf(false) }
 
@@ -46,8 +49,8 @@ fun CustomerTransferMoneyScreen(
     var amountFieldSize by remember { mutableStateOf(Size.Zero) }
 
     val customer = customers.find { it.ssn == ssn }
-    val account = accounts.find { it.accountNumber == id }
-    val customerAccounts = accounts.filter { it.customerSSN == ssn && it.accountNumber != id && it.isActive && it !is CDAccount }.sorted()
+    val customerAccounts = accounts.filter { it.customerSSN == ssn && it.isActive && it !is CDAccount }.sorted()
+    val loan = loans.find { it.accountNumber == id }
 
     var selectedAccountId by remember { mutableStateOf("") }
     val selectedAccount = accounts.find { it.accountNumber == selectedAccountId }
@@ -69,34 +72,14 @@ fun CustomerTransferMoneyScreen(
             Text("Back")
         }
 
-        if (customer != null && account != null &&  account.isActive) {
+        if (customer != null && loan != null &&  loan.balance > 0) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
-
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = "Account balance must be $0 to close"
-                )
-
-                Spacer(
-                    modifier = Modifier.height(24.dp)
-                )
-
                 Row(
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
-                    Column(
-                        verticalArrangement = Arrangement.Center
-                    ) {
-                        Text(account.getName())
-                        Text("Balance: ${account.balance.formatAsMoney()}")
-                    }
-                    Icon(
-                        modifier = Modifier.align(Alignment.CenterVertically),
-                        imageVector = Icons.Default.ArrowForward,
-                        contentDescription = null
-                    )
+
                     Column(
                         verticalArrangement = Arrangement.Center
                     ) {
@@ -138,6 +121,17 @@ fun CustomerTransferMoneyScreen(
                             Text("No Available Accounts")
                         }
                     }
+                    Icon(
+                        modifier = Modifier.align(Alignment.CenterVertically),
+                        imageVector = Icons.Default.ArrowForward,
+                        contentDescription = null
+                    )
+                    Column(
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(loan.getName())
+                        Text("Balance Owed: ${loan.balance.formatAsMoney()}")
+                    }
                 }
 
                 Spacer(
@@ -151,6 +145,7 @@ fun CustomerTransferMoneyScreen(
 
                 ) {
                     Button(
+                        enabled = selectedAccount != null && selectedAccount.isActive,
                         modifier = Modifier.fillMaxHeight(),
                         onClick = { amount = amount.copy(value = "") },
                         shape = MaterialTheme.shapes.extraLarge.copy(
@@ -178,8 +173,19 @@ fun CustomerTransferMoneyScreen(
                     )
 
                     Button(
+                        enabled = selectedAccount != null && selectedAccount.isActive,
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = { amount = amount.copy(value = account.balance.times(100).toInt().toString()) },
+                        onClick = {
+                            if (selectedAccount != null) {
+                                amount = if (selectedAccount.balance >= loan.balance) {
+                                    amount.copy(value = loan.balance.times(100).toInt().toString())
+                                } else {
+                                    amount.copy(value = selectedAccount.balance.times(100).toInt().toString())
+                                }
+                            } else {
+                                hasFailed = true
+                            }
+                        },
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topStart = CornerSize(0.dp),
                             bottomStart = CornerSize(0.dp)
@@ -198,10 +204,11 @@ fun CustomerTransferMoneyScreen(
                         try {
                             val money = amount.value.toDouble() / 100
 
-                            account.balance -= money
-                            selectedAccount!!.balance += money
-                            if (accountRepository.update(account) && accountRepository.update(selectedAccount)) {
-                                transactionRepository.addTransaction(Transaction("", false, true, "t", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
+                            loan.balance -= money
+                            selectedAccount!!.balance -= money
+                            if (loanRepository.update(loan) && accountRepository.update(selectedAccount)) {
+                                //TODO: Implement loans into transactionRepository
+//                                transactionRepository.addTransaction(Transaction("", false, true, "p", money, loan.balance, loan.accountNumber, LocalDate.now(), LocalTime.now()))
                                 transactionRepository.addTransaction(Transaction("", true, false, "t", money, selectedAccount!!.balance, selectedAccount.accountNumber, LocalDate.now(), LocalTime.now()))
                             } else {
                                 hasFailed = true
@@ -211,13 +218,13 @@ fun CustomerTransferMoneyScreen(
                             hasFailed = true
                         }
                     }, // TODO: Transfer Money In ViewModel
-                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && account.balance >= amount.value.toDouble()/100 && selectedAccount != null
+                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && selectedAccount != null && selectedAccount.balance >= amount.value.toDouble()/100
                 ) {
-                    Text("Transfer")
+                    Text("Pay")
                 }
                 if (hasFailed) {
                     Text(
-                        text = "Transfer failed, try again",
+                        text = "Payment failed, try again",
                         color = MaterialTheme.colorScheme.error
                     )
                 }
@@ -227,7 +234,7 @@ fun CustomerTransferMoneyScreen(
         } else {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "This account no longer exists"
+                text = "This loan no longer exists or has been payed off"
             )
         }
     }

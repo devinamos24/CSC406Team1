@@ -5,7 +5,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Represents a certificate of deposit (CD) savings account in the bank system.
@@ -15,8 +14,8 @@ public class CDAccount extends SavingsAccount {
     @NotNull
     private LocalDate dueDate;   //Date CD is due to complete
 
-    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate, @NotNull LocalDate dueDate) {
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate);
+    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate, @NotNull LocalDate dueDate) {
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
         this.dueDate = dueDate;
     }
 

@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.customer
+package edu.missouriwestern.csc406team1.screens.manager
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -29,7 +29,7 @@ import java.time.LocalTime
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CustomerTransferMoneyScreen(
+fun ManagerTransferMoneyCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     transactionRepository: TransactionRepository,

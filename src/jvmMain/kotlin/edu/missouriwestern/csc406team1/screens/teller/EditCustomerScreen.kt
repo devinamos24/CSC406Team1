@@ -1,7 +1,6 @@
-package edu.missouriwestern.csc406team1.screens.manager
+package edu.missouriwestern.csc406team1.screens.teller
 
 import androidx.compose.foundation.VerticalScrollbar
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -13,21 +12,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
-import edu.missouriwestern.csc406team1.util.getName
 
 @Composable
-fun ManagerEditCustomerScreen(
+fun TellerEditCustomerScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     ssn: String,
     onClickAccount: (String, String) -> Unit,
-    onClickOpenAccount: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val customers by customerRepository.customers.collectAsState()
@@ -53,31 +49,17 @@ fun ManagerEditCustomerScreen(
                 }
 
                 if (customer != null) {
-                    Row(
+                    Button(
                         modifier = Modifier.align(Alignment.CenterEnd),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        onClick = {
+                            customerRepository.delete(ssn)
+                            customerAccounts.forEach {
+                                accountRepository.delete(it.accountNumber)
+                            }
+                            onBack()
+                        }
                     ) {
-                        Button(
-                            modifier = Modifier,
-                            onClick = {
-                                onClickOpenAccount(ssn)
-                            }
-                        ) {
-                            Text("Open New Account")
-                        }
-
-                        Button(
-                            modifier = Modifier,
-                            onClick = {
-                                customerRepository.delete(ssn)
-                                customerAccounts.forEach {
-                                    accountRepository.delete(it.accountNumber)
-                                }
-                                onBack()
-                            }
-                        ) {
-                            Text("Delete Account")
-                        }
+                        Text("Delete Account")
                     }
                 }
             }
@@ -90,11 +72,10 @@ fun ManagerEditCustomerScreen(
                     ) {
                         val state = rememberLazyListState()
                         LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
-                            customerAccounts.sorted().forEach { account ->
+                            customerAccounts.sorted().forEachIndexed { i, account ->
                                 item {
                                     CustomerAccountButton(
-                                        enabled = account.isActive,
-                                        name = account.getName(),
+                                        name = "Account $i",
                                         balance = account.balance,
                                         onClick = { onClickAccount(ssn, account.accountNumber) }
                                     )
@@ -123,7 +104,6 @@ fun ManagerEditCustomerScreen(
 @Composable
 private fun CustomerAccountButton(
     modifier: Modifier = Modifier,
-    enabled: Boolean,
     name: String,
     balance: Double,
     onClick: () -> Unit
@@ -133,21 +113,14 @@ private fun CustomerAccountButton(
             .fillMaxWidth()
             .padding(start = 10.dp)
             .clickable { onClick() }
-            .then( if (enabled) {
-                Modifier
-            } else {
-                Modifier.background(Color.LightGray)
-            })
     ) {
         Text(
             modifier = Modifier.align(Alignment.CenterStart),
-            text = if (enabled) name else "$name {closed}"
+            text = name
         )
-        if (enabled) {
-            Text(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                text = balance.formatAsMoney()
-            )
-        }
+        Text(
+            modifier = Modifier.align(Alignment.CenterEnd),
+            text = balance.formatAsMoney()
+        )
     }
 }

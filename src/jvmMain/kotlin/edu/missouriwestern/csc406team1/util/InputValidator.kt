@@ -55,4 +55,11 @@ object InputValidator {
             else -> null
         }
     }
+
+    fun getAccountTypeErrorOrNull(input: String): String? {
+        return when {
+            input !in listOf("CD", "S", "TMB", "GD") -> "Unrecognized account type"
+            else -> null
+        }
+    }
 }

@@ -9,9 +9,9 @@ import java.util.Arrays;
 public class SavingsAccount extends Account {
 
     // Constructor for the SavingsAccount class
-    public SavingsAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Double interestRate) {
+    public SavingsAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate) {
         // Call the constructor of the superclass (Account) with the provided balance, dateOpened, and interestRate
-        super(accountNumber, customerSSN, balance, dateOpened, interestRate);
+        super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
     }
 
     @Override

@@ -46,7 +46,7 @@ fun ManagerCreditCustomerBankAccountScreen(
             Text("Back")
         }
 
-        if (customer != null && account != null) {
+        if (customer != null && account != null && account.isActive) {
 
             Column(
                 modifier = Modifier.align(Alignment.Center),

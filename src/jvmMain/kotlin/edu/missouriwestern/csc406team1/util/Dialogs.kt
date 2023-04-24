@@ -40,6 +40,24 @@ fun WindowScope.YesNoCancelDialog(
     }
 }
 
+@OptIn(DelicateCoroutinesApi::class)
+@Composable
+fun WindowScope.OkDialog(
+    title: String,
+    message: String,
+    onResult: () -> Unit
+) {
+    DisposableEffect(Unit) {
+        val job = GlobalScope.launch(Dispatchers.Swing) {
+            JOptionPane.showConfirmDialog(window, message, title, JOptionPane.OK_OPTION)
+            onResult()
+        }
+        onDispose {
+            job.cancel()
+        }
+    }
+}
+
 /**
  * An enum for representing our dialog options
  */
