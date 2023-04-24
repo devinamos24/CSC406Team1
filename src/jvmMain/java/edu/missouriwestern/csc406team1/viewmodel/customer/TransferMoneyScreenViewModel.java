@@ -102,61 +102,9 @@ public class TransferMoneyScreenViewModel {
         }
         return processed;
     }
-    /**
-     * Withdraws money from the specified account.
-     *
-     * @param accountId The ID of the account to withdraw from.
-     * @param amountToWithdraw amount to withdraw from account.
-     */
-    public Boolean withdraw(String accountId, Double amountToWithdraw) {
-        Account account = accountRepository.getAccount(accountId);
-        Boolean processed=true;
-        if (account != null) {
-            if (account.getBalance() >= amountToWithdraw) {
-                account.setBalance(account.getBalance() - amountToWithdraw);
-                if (accountRepository.update(account)) {
-                    transactionRepository.addTransaction(new Transaction("", false, true, "d", amountToWithdraw, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-                    Double fee = null;
-                    if (account instanceof TMBAccount) {
-                        //TODO set transaction fee for TMBAccount
-                    } else if (account instanceof GoldDiamondAccount) {
-                        //TODO set transaction fee for GoldDiamondAccount
-                    } else if (account instanceof SavingsAccount) {
-                        //TODO set transaction fee for Savings account
-                    } else {
-                        processed=false;
-                    }
-                    if (fee!=null) {
-                        //add transaction for the fee
-                        transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-                    }
 
-                }
-            }
-            else {
-                processed = false;
-            }
-        }
-        return processed;
-    }
 
-    /**
-     * Deposits money into the specified account.
-     *
-     * @param accountId The ID of the account to deposit into.
-     * @param amountToDeposit amount to be deposited to account.
-     */
-    public void deposit(String accountId, Double amountToDeposit) {
-        Account account = accountRepository.getAccount(accountId);
-        if (account != null) {
-            account.setBalance(account.getBalance() + amountToDeposit);
-            if (accountRepository.update(account)) {
-                transactionRepository.addTransaction(new Transaction("", true, false, "c", amountToDeposit, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-                //TODO is there a transaction fee for a deposit?
 
-            }
-        }
-    }
 
 }
 
