@@ -46,26 +46,23 @@ public class WithdrawMoneyScreenViewModel {
     public Boolean withdraw(String accountId, Double amountToWithdraw) {
         Account account = accountRepository.getAccount(accountId);
         Boolean processed=true;
+        Double fee = null;
         if (account != null) {
             if (account.getBalance() >= amountToWithdraw) {
                 account.setBalance(account.getBalance() - amountToWithdraw);
                 if (accountRepository.update(account)) {
                     transactionRepository.addTransaction(new Transaction("", false, true, "d", amountToWithdraw, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-                    Double fee = null;
                     if (account instanceof TMBAccount) {
-                        //TODO set transaction fee for TMBAccount
+
+                        fee = .75;
                     } else if (account instanceof GoldDiamondAccount) {
-                        //TODO set transaction fee for GoldDiamondAccount
-                    } else if (account instanceof SavingsAccount) {
-                        //TODO set transaction fee for Savings account
-                    } else {
-                        processed=false;
+
+                        if (account.getBalance() < 5000) fee=.75;
                     }
                     if (fee!=null) {
                         //add transaction for the fee
                         transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
                     }
-
                 }
             }
             else {

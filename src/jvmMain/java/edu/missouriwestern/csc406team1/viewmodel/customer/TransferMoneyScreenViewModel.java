@@ -76,13 +76,9 @@ public class TransferMoneyScreenViewModel {
                     //TODO we could possibly even add a letter to the transfer type saying if the customer got it from the atm or the teller
                     Double fee = null;
                     if (sourceAccount instanceof TMBAccount) {
-                        //TODO set transfer fee for TMBAccount
+                        fee = 1.25;
                     } else if (sourceAccount instanceof GoldDiamondAccount) {
-                        //TODO set transfer fee for GoldDiamondAccount
-                    } else if (sourceAccount instanceof SavingsAccount) {
-                        //TODO set transfer fee for Savings account
-                    } else {
-                        processed=false;
+                        if (sourceAccount.getBalance() < 5000) fee=1.25;
                     }
                     if (fee!=null) {
                         //add transaction for the fee

@@ -5,6 +5,8 @@ import edu.missouriwestern.csc406team1.database.CustomerRepository;
 import edu.missouriwestern.csc406team1.database.TransactionRepository;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.account.Account;
+import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount;
+import edu.missouriwestern.csc406team1.database.model.account.TMBAccount;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
 
@@ -43,11 +45,24 @@ public class DepositMoneyScreenViewModel {
      */
     public void deposit(String accountId, Double amountToDeposit) {
         Account account = accountRepository.getAccount(accountId);
+        Double fee = null;
+
         if (account != null) {
             account.setBalance(account.getBalance() + amountToDeposit);
             if (accountRepository.update(account)) {
                 transactionRepository.addTransaction(new Transaction("", true, false, "c", amountToDeposit, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-                //TODO is there a transaction fee for a deposit?
+
+                if (account instanceof TMBAccount) {
+
+                    fee = .75;
+                } else if (account instanceof GoldDiamondAccount) {
+
+                    if (account.getBalance() < 5000) fee=.75;
+                }
+                if (fee!=null) {
+                    //add transaction for the fee
+                    transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                }
 
             }
         }
