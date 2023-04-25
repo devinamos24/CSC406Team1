@@ -73,9 +73,15 @@
 - TransactionID
 - credit
 - debit
-- transactionType (c=credit, d=debit, t=transfer, f=fee)
+- transactionType
 - amount
 - accBalance
 - accID
 - date
 - time
+- purchaseMerchant
+- purchaseCategory
+- purchaseIsPosted
+- checkNumber
+- checkPayee
+- checkStopPayment

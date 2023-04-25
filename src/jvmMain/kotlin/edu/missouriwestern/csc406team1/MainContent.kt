@@ -25,8 +25,6 @@ import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
 import edu.missouriwestern.csc406team1.viewmodel.customer.*
 import edu.missouriwestern.csc406team1.screens.manager.*
 import edu.missouriwestern.csc406team1.screens.teller.*
-import edu.missouriwestern.csc406team1.viewmodel.customer.*
-
 
 /**
  * This Composable is responsible for managing the stack.
@@ -394,9 +392,6 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     object Login : Screen()
-
-    @Parcelize
-    object AccountCreation : Screen()
 
     @Parcelize
     object CustomerLogin : Screen()
