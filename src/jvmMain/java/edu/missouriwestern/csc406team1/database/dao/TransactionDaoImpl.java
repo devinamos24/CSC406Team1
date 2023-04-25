@@ -113,7 +113,7 @@ public class TransactionDaoImpl implements TransactionDao{
         for (Transaction transaction1 : transactions){
             if (transaction1.getTransactionID().equals(transaction.getTransactionID())) {
                 transactions.remove(transaction1);
-                transactions.add(transaction);
+                transactions.add(transaction.copy());
                 return;
             }
         }

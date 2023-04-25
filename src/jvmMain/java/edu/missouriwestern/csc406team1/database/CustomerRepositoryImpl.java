@@ -1,9 +1,9 @@
 package edu.missouriwestern.csc406team1.database;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.dao.CustomerDao;
 import edu.missouriwestern.csc406team1.database.dao.CustomerDaoImpl;
+import edu.missouriwestern.csc406team1.database.model.Customer;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

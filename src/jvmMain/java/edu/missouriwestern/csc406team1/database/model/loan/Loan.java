@@ -1,13 +1,14 @@
 package edu.missouriwestern.csc406team1.database.model.loan;
 
 import edu.missouriwestern.csc406team1.util.CSV;
+import edu.missouriwestern.csc406team1.util.Copyable;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDate;
 
-public abstract class Loan implements CSV, Comparable<Loan>{
+public abstract class Loan implements CSV, Comparable<Loan>, Copyable<Loan> {
     @NotNull
     private String accountNumber;//account number to reference the account
     @NotNull
@@ -59,7 +60,7 @@ public abstract class Loan implements CSV, Comparable<Loan>{
 
     }
     public int compareTo(Loan o) {
-        return this.dateOpened.compareTo(o.dateOpened);
+        return this.dateOpened.compareTo(o.dateOpened) * -1;
     }
 
     @NotNull

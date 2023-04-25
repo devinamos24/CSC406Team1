@@ -145,7 +145,7 @@ public class AccountDaoImpl implements AccountDao{
         for (Account account1 : accounts) {
             if (account1.getAccountNumber().equals(account.getAccountNumber())) {
                 if (accounts.remove(account1)) {
-                    return accounts.add(account);
+                    return accounts.add(account.copy());
                 }
             }
         }

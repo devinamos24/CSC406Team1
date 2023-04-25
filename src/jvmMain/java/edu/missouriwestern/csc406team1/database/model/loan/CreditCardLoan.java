@@ -2,12 +2,11 @@ package edu.missouriwestern.csc406team1.database.model.loan;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.time.LocalDate;
 
 public class CreditCardLoan extends Loan{
     @NotNull
-    private double creditLimit;
+    private Double creditLimit;
 
     public CreditCardLoan(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
                           @NotNull Double interestRate, @NotNull LocalDate datePaymentDue,
@@ -18,6 +17,24 @@ public class CreditCardLoan extends Loan{
                 dateSinceLastPayment, missedPayment);
         this.creditLimit = creditLimit;
     }
+
+    private CreditCardLoan(CreditCardLoan loan) {
+        super(loan.getAccountNumber(), loan.getCustomerSSN(), loan.getBalance(), loan.getInterestRate(), loan.getDatePaymentDue(), loan.getPaymentNotified(), loan.getCurrentPaymentDue(), loan.getDateSinceLastPayment(), loan.getMissedPayment());
+        this.creditLimit = loan.creditLimit;
+    }
     // TODO: implement business logic
 
+    @NotNull
+    public Double getCreditLimit() {
+        return creditLimit;
+    }
+
+    public void setCreditLimit(@NotNull Double creditLimit) {
+        this.creditLimit = creditLimit;
+    }
+
+    @Override
+    public CreditCardLoan copy() {
+        return new CreditCardLoan(this);
+    }
 }

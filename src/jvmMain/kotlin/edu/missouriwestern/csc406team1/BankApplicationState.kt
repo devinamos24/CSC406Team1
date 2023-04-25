@@ -3,18 +3,10 @@ package edu.missouriwestern.csc406team1
 import androidx.compose.runtime.*
 import androidx.compose.ui.window.Notification
 import androidx.compose.ui.window.TrayState
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepositoryImpl
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.AccountRepositoryImpl
-import edu.missouriwestern.csc406team1.database.LoanRepository
-import edu.missouriwestern.csc406team1.database.LoanRepositoryImpl
-import edu.missouriwestern.csc406team1.database.TransactionRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepositoryImpl
-import kotlinx.coroutines.*
+import edu.missouriwestern.csc406team1.database.*
 import edu.missouriwestern.csc406team1.util.AlertDialogResult
 import edu.missouriwestern.csc406team1.window.BankWindowState
-import java.lang.Exception
+import kotlinx.coroutines.*
 
 /**
  * This composable starts our app with one window and remembers the app state between compositions

@@ -17,34 +17,23 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.LoanRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
-import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
 import edu.missouriwestern.csc406team1.util.*
-import java.lang.NumberFormatException
-import java.time.LocalDate
-import java.time.LocalTime
+import edu.missouriwestern.csc406team1.viewmodel.customer.LoanMakePaymentScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CustomerLoanMakePaymentScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    loanRepository: LoanRepository,
-    transactionRepository: TransactionRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit,
+    loanMakePaymentScreenViewModel: LoanMakePaymentScreenViewModel,
 ) {
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
-    val loans by loanRepository.loans.collectAsState()
+    val customers by loanMakePaymentScreenViewModel.customers.collectAsState()
+    val accounts by loanMakePaymentScreenViewModel.accounts.collectAsState()
+    val loans by loanMakePaymentScreenViewModel.loans.collectAsState()
+
+    val ssn = loanMakePaymentScreenViewModel.ssn
+    val id = loanMakePaymentScreenViewModel.id
 
     var expanded by remember { mutableStateOf(false) }
-
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
     var amountFieldSize by remember { mutableStateOf(Size.Zero) }
 
@@ -52,12 +41,12 @@ fun CustomerLoanMakePaymentScreen(
     val customerAccounts = accounts.filter { it.customerSSN == ssn && it.isActive && it !is CDAccount }.sorted()
     val loan = loans.find { it.accountNumber == id }
 
-    var selectedAccountId by remember { mutableStateOf("") }
+    val selectedAccountId by loanMakePaymentScreenViewModel.selectedAccountId.collectAsState()
     val selectedAccount = accounts.find { it.accountNumber == selectedAccountId }
-    var selectedAccountText by remember { mutableStateOf("") }
+    val selectedAccountText = selectedAccount?.getName() ?: ""
 
-    var amount by remember { mutableStateOf(InputWrapper()) }
-    var hasFailed by remember { mutableStateOf(false) }
+    val amount by loanMakePaymentScreenViewModel.amount.collectAsState()
+    val hasFailed by loanMakePaymentScreenViewModel.hasFailed.collectAsState()
 
     val icon = if (expanded)
         Icons.Filled.ArrowDropUp
@@ -65,14 +54,24 @@ fun CustomerLoanMakePaymentScreen(
         Icons.Filled.ArrowDropDown
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = loanMakePaymentScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && loan != null) {
+                Text(
+                    text = loan.getName()
+                )
+            }
         }
 
-        if (customer != null && loan != null &&  loan.balance > 0) {
+        if (customer != null && loan != null && loan.balance > 0) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
@@ -105,8 +104,7 @@ fun CustomerLoanMakePaymentScreen(
                                         DropdownMenuItem(
                                             text = { Text(text = account.getName()) },
                                             onClick = {
-                                                selectedAccountId = account.accountNumber
-                                                selectedAccountText = account.getName()
+                                                loanMakePaymentScreenViewModel.onSelectAccount(account.accountNumber)
                                                 expanded = false
                                             },
                                             modifier = Modifier.width(with(LocalDensity.current){textFieldSize.width.toDp()})
@@ -147,7 +145,7 @@ fun CustomerLoanMakePaymentScreen(
                     Button(
                         enabled = selectedAccount != null && selectedAccount.isActive,
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = { amount = amount.copy(value = "") },
+                        onClick = loanMakePaymentScreenViewModel::onClickNone,
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topEnd = CornerSize(0.dp),
                             bottomEnd = CornerSize(0.dp)
@@ -165,27 +163,13 @@ fun CustomerLoanMakePaymentScreen(
                         inputWrapper = amount,
                         shape = RoundedCornerShape(topStart = 4.dp),
                         visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                amount = amount.copy(value = it)
-                            }
-                        }
+                        onValueChange = loanMakePaymentScreenViewModel::onAmountChange,
                     )
 
                     Button(
                         enabled = selectedAccount != null && selectedAccount.isActive,
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = {
-                            if (selectedAccount != null) {
-                                amount = if (selectedAccount.balance >= loan.balance) {
-                                    amount.copy(value = loan.balance.times(100).toInt().toString())
-                                } else {
-                                    amount.copy(value = selectedAccount.balance.times(100).toInt().toString())
-                                }
-                            } else {
-                                hasFailed = true
-                            }
-                        },
+                        onClick = loanMakePaymentScreenViewModel::onClickAll,
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topStart = CornerSize(0.dp),
                             bottomStart = CornerSize(0.dp)
@@ -199,26 +183,9 @@ fun CustomerLoanMakePaymentScreen(
                 Button(
                     modifier = Modifier
                         .align(Alignment.CenterHorizontally)
-                        .width(with(LocalDensity.current){amountFieldSize.width.toDp()}),
-                    onClick = {
-                        try {
-                            val money = amount.value.toDouble() / 100
-
-                            loan.balance -= money
-                            selectedAccount!!.balance -= money
-                            if (loanRepository.update(loan) && accountRepository.update(selectedAccount)) {
-                                //TODO: Implement loans into transactionRepository
-//                                transactionRepository.addTransaction(Transaction("", false, true, "p", money, loan.balance, loan.accountNumber, LocalDate.now(), LocalTime.now()))
-                                transactionRepository.addTransaction(Transaction("", true, false, "t", money, selectedAccount!!.balance, selectedAccount.accountNumber, LocalDate.now(), LocalTime.now()))
-                            } else {
-                                hasFailed = true
-                            }
-
-                        } catch (e: NumberFormatException) {
-                            hasFailed = true
-                        }
-                    }, // TODO: Transfer Money In ViewModel
-                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && selectedAccount != null && selectedAccount.balance >= amount.value.toDouble()/100
+                        .width(with(LocalDensity.current) { amountFieldSize.width.toDp() }),
+                    onClick = loanMakePaymentScreenViewModel::onPay,
+                    enabled = amount.errorMessage == null && amount.value.isNotBlank() && selectedAccount != null && selectedAccount.balance >= amount.value.toDouble() / 100
                 ) {
                     Text("Pay")
                 }

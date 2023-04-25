@@ -44,12 +44,21 @@ fun ManagerEditCustomerScreen(
             Box(
                 modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth()
             ) {
-
-                Button(
-                    onClick = onBack,
-                    modifier = Modifier.align(Alignment.CenterStart)
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    Text("Back")
+                    Button(
+                        onClick = onBack
+                    ) {
+                        Text("Back")
+                    }
+                    if (customer != null) {
+                        Text(
+                            text = "${customer.firstname} ${customer.lastname}"
+                        )
+                    }
                 }
 
                 if (customer != null) {

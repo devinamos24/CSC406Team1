@@ -9,30 +9,24 @@ import androidx.compose.foundation.rememberScrollbarAdapter
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.LoanRepository
-import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
 import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.SelectBankAccountScreenViewModel
 
 @Composable
 fun CustomerSelectBankAccountScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    loanRepository: LoanRepository,
-    ssn: String,
-    onClickAccount: (String, String) -> Unit,
-    onClickLoan: (String, String) -> Unit,
-    onBack: () -> Unit
+    selectBankAccountScreenViewModel: SelectBankAccountScreenViewModel,
 ) {
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
-    val loans by loanRepository.loans.collectAsState()
+    val customers by selectBankAccountScreenViewModel.customers.collectAsState()
+    val accounts by selectBankAccountScreenViewModel.accounts.collectAsState()
+    val loans by selectBankAccountScreenViewModel.loans.collectAsState()
+
+    val ssn = selectBankAccountScreenViewModel.ssn
 
     val customer = customers.find { it.ssn == ssn }
     val customerAccounts = accounts.filter { it.customerSSN == customer?.ssn && it.isActive }
@@ -43,7 +37,7 @@ fun CustomerSelectBankAccountScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Button(
-                onClick = onBack,
+                onClick = selectBankAccountScreenViewModel::onBack,
                 modifier = Modifier.align(Alignment.Start)
             ) {
                 Text(if (customer != null) "Logout" else "Back")
@@ -62,7 +56,7 @@ fun CustomerSelectBankAccountScreen(
                                 CustomerAccountButton(
                                     name = account.getName(),
                                     balance = account.balance,
-                                    onClick = { onClickAccount(ssn, account.accountNumber) }
+                                    onClick = { selectBankAccountScreenViewModel.onClickAccount(account.accountNumber) }
                                 )
                                 Spacer(modifier = Modifier.height(5.dp))
                             }
@@ -90,7 +84,7 @@ fun CustomerSelectBankAccountScreen(
                                 LoanAccountButton(
                                     name = loan.getName(),
                                     balance = loan.balance,
-                                    onClick = { onClickLoan(ssn, loan.accountNumber) }
+                                    onClick = { selectBankAccountScreenViewModel.onClickLoan(loan.accountNumber) }
                                 )
                                 Spacer(modifier = Modifier.height(5.dp))
                             }

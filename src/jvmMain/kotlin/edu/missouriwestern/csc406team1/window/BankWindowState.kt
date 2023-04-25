@@ -1,11 +1,11 @@
 package edu.missouriwestern.csc406team1.window
 
-import edu.missouriwestern.csc406team1.BankApplicationState
 import androidx.compose.ui.window.WindowState
-import edu.missouriwestern.csc406team1.util.AlertDialogResult
-import edu.missouriwestern.csc406team1.DialogState
 import com.arkivanov.decompose.DefaultComponentContext
 import com.arkivanov.essenty.lifecycle.LifecycleRegistry
+import edu.missouriwestern.csc406team1.BankApplicationState
+import edu.missouriwestern.csc406team1.DialogState
+import edu.missouriwestern.csc406team1.util.AlertDialogResult
 
 /**
  * This class holds our state for each window

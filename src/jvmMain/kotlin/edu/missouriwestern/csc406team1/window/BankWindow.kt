@@ -1,6 +1,5 @@
 package edu.missouriwestern.csc406team1.window
 
-import edu.missouriwestern.csc406team1.MainContent
 import ProvideComponentContext
 import androidx.compose.foundation.LocalScrollbarStyle
 import androidx.compose.foundation.defaultScrollbarStyle
@@ -15,10 +14,11 @@ import androidx.compose.ui.window.MenuBar
 import androidx.compose.ui.window.Window
 import com.arkivanov.decompose.ExperimentalDecomposeApi
 import com.arkivanov.decompose.extensions.compose.jetbrains.lifecycle.LifecycleController
+import edu.missouriwestern.csc406team1.MainContent
 import edu.missouriwestern.csc406team1.common.LocalAppResources
 import edu.missouriwestern.csc406team1.theme.AppTheme
-import kotlinx.coroutines.launch
 import edu.missouriwestern.csc406team1.util.YesNoCancelDialog
+import kotlinx.coroutines.launch
 
 /**
  * This composable creates a window starting at our entry screen

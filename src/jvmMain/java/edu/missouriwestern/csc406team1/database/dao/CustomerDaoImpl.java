@@ -121,7 +121,7 @@ public class CustomerDaoImpl implements CustomerDao {
         for (Customer customer1 : customers) {
             if (customer1.getSsn().equals(customer.getSsn())) {
                 customers.remove(customer1);
-                customers.add(customer);
+                customers.add(customer.copy());
                 return;
             }
         }

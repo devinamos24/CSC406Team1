@@ -21,6 +21,10 @@ public class TMBAccount extends CheckingAccount {
         super(accountNumber, customerSSN, balance, dateOpened, isActive, null, defaultTransactionFee, null, overdraftsThisMonth, hasATMCard);
     }
 
+    private TMBAccount(TMBAccount account) {
+        super(account.getAccountNumber(), account.getCustomerSSN(), account.getBalance(), account.getDateOpened(), account.getIsActive(), account.getInterestRate(), defaultTransactionFee, account.getBackupAccount(), account.overdraftsThisMonth, account.atmCard != null);
+    }
+
     @Override
     public String[] convertToCSV() {
         String backupID;
@@ -42,5 +46,10 @@ public class TMBAccount extends CheckingAccount {
         returnValue.add(String.valueOf(overdraftsThisMonth));
 
         return returnValue.toArray(new String[returnValue.size()]);
+    }
+
+    @Override
+    public TMBAccount copy() {
+        return new TMBAccount(this);
     }
 }

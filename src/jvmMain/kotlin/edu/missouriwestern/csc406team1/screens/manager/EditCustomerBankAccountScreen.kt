@@ -11,7 +11,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.account.CDAccount
 import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount
 import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
@@ -22,7 +21,6 @@ import edu.missouriwestern.csc406team1.util.*
 fun WindowScope.ManagerEditCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
     ssn: String,
     id: String,
     onCreditAccount: (String, String) -> Unit,
@@ -54,11 +52,24 @@ fun WindowScope.ManagerEditCustomerBankAccountScreen(
                 modifier = Modifier.align(Alignment.CenterHorizontally).fillMaxWidth()
             ) {
 
-                Button(
-                    onClick = onBack,
-                    modifier = Modifier.align(Alignment.CenterStart)
+                Row(
+                    modifier = Modifier.align(Alignment.CenterStart),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.spacedBy(24.dp)
                 ) {
-                    Text("Back")
+                    Button(
+                        onClick = onBack
+                    ) {
+                        Text("Back")
+                    }
+                    if (customer != null && account != null) {
+                        Text(
+                            text = "${customer.firstname} ${customer.lastname}"
+                        )
+                        Text(
+                            text = account.getName()
+                        )
+                    }
                 }
 
                 if (customer != null && account != null && account.isActive) {

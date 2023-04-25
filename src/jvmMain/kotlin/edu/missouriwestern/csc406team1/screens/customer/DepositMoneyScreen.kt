@@ -6,44 +6,49 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
-import edu.missouriwestern.csc406team1.database.model.Transaction
-import edu.missouriwestern.csc406team1.util.*
-import java.lang.NumberFormatException
-import java.time.LocalDate
-import java.time.LocalTime
+import edu.missouriwestern.csc406team1.util.CurrencyAmountInputVisualTransformation
+import edu.missouriwestern.csc406team1.util.CustomTextField
+import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.DepositMoneyScreenViewModel
 
 @Composable
 fun CustomerDepositMoneyScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit
+    depositMoneyScreenViewModel: DepositMoneyScreenViewModel,
 ) {
+    val customers by depositMoneyScreenViewModel.customers.collectAsState()
+    val accounts by depositMoneyScreenViewModel.accounts.collectAsState()
 
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val ssn = depositMoneyScreenViewModel.ssn
+    val id = depositMoneyScreenViewModel.id
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
 
-    var hasFailed by remember { mutableStateOf(false) }
-    var amount by remember { mutableStateOf(InputWrapper()) }
+    val amount by depositMoneyScreenViewModel.amount.collectAsState()
+    val hasFailed by depositMoneyScreenViewModel.hasFailed.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = depositMoneyScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = account.getName()
+                )
+            }
         }
 
         if (customer != null && account != null && account.isActive) {
@@ -61,31 +66,12 @@ fun CustomerDepositMoneyScreen(
                         inputWrapper = amount,
                         shape = RoundedCornerShape(topStart = 4.dp),
                         visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                amount = amount.copy(value = it)
-                            }
-                        }
+                        onValueChange = depositMoneyScreenViewModel::onAmountChange
                     )
 
                     Button(
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = {
-                            try {
-                                val money = amount.value.toDouble() / 100
-
-                                account.balance += money
-                                if (accountRepository.update(account)) {
-                                    transactionRepository.addTransaction(Transaction("", true, false, "c", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
-                                    onBack()
-                                } else {
-                                    hasFailed = true
-                                }
-
-                            } catch (e: NumberFormatException) {
-                                hasFailed = true
-                            }
-                        },
+                        onClick = depositMoneyScreenViewModel::onDeposit,
                         enabled = amount.errorMessage == null && amount.value.isNotBlank(),
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topStart = CornerSize(0.dp),

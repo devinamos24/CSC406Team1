@@ -2,7 +2,6 @@ package edu.missouriwestern.csc406team1.database.model.loan;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Date;
 import java.time.LocalDate;
 
 public class MortgageLoan extends Loan{
@@ -17,4 +16,12 @@ public class MortgageLoan extends Loan{
     }
     // TODO: implement business logic
 
+    private MortgageLoan(MortgageLoan loan) {
+        super(loan.getAccountNumber(), loan.getCustomerSSN(), loan.getBalance(), loan.getInterestRate(), loan.getDatePaymentDue(), loan.getPaymentNotified(), loan.getCurrentPaymentDue(), loan.getDateSinceLastPayment(), loan.getMissedPayment());
+    }
+
+    @Override
+    public MortgageLoan copy() {
+        return new MortgageLoan(this);
+    }
 }

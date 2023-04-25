@@ -18,7 +18,6 @@ import edu.missouriwestern.csc406team1.util.CurrencyAmountInputVisualTransformat
 import edu.missouriwestern.csc406team1.util.CustomTextField
 import edu.missouriwestern.csc406team1.util.InputWrapper
 import edu.missouriwestern.csc406team1.util.collectAsState
-import java.lang.NumberFormatException
 import java.time.LocalDate
 import java.time.LocalTime
 

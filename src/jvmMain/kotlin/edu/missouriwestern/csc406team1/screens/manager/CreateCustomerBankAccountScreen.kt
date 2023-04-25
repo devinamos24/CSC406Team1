@@ -17,11 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.model.account.Account
-import edu.missouriwestern.csc406team1.database.model.account.CDAccount
-import edu.missouriwestern.csc406team1.database.model.account.GoldDiamondAccount
-import edu.missouriwestern.csc406team1.database.model.account.SavingsAccount
-import edu.missouriwestern.csc406team1.database.model.account.TMBAccount
+import edu.missouriwestern.csc406team1.database.model.account.*
 import edu.missouriwestern.csc406team1.util.*
 import edu.missouriwestern.csc406team1.util.DateConverter.convertStringToDate
 import edu.missouriwestern.csc406team1.util.InputValidator.getAccountTypeErrorOrNull
@@ -75,11 +71,21 @@ fun ManagerCreateCustomerBankAccount(
         Icons.Filled.ArrowDropDown
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.align(Alignment.TopStart),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null) {
+                Text(
+                    text = "${customer.firstname} ${customer.lastname}"
+                )
+            }
         }
 
         if (customer != null) {
@@ -229,7 +235,7 @@ fun ManagerCreateCustomerBankAccount(
                                 onCreate(ssn, account.accountNumber)
                             }
                         } catch (e: Exception) {
-
+                            e.printStackTrace()
                         }
                     },
                     modifier = Modifier.align(Alignment.End),

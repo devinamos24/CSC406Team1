@@ -14,6 +14,10 @@ public class SavingsAccount extends Account {
         super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
     }
 
+    private SavingsAccount(SavingsAccount account) {
+        super(account.getAccountNumber(), account.getCustomerSSN(), account.getBalance(), account.getDateOpened(), account.getIsActive(), account.getInterestRate());
+    }
+
     @Override
     public String[] convertToCSV() {
         String[] base = super.convertToCSV();
@@ -24,6 +28,10 @@ public class SavingsAccount extends Account {
         return returnValue.toArray(new String[returnValue.size()]);
     }
 
+    @Override
+    public SavingsAccount copy() {
+        return new SavingsAccount(this);
+    }
     // TODO: implement business logic of savings account
 
 }

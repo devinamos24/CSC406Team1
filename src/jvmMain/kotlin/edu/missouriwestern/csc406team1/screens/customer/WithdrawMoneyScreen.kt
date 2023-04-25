@@ -6,49 +6,58 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
-import edu.missouriwestern.csc406team1.database.CustomerRepository
-import edu.missouriwestern.csc406team1.database.TransactionRepository
-import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.CurrencyAmountInputVisualTransformation
 import edu.missouriwestern.csc406team1.util.CustomTextField
-import edu.missouriwestern.csc406team1.util.InputWrapper
-import edu.missouriwestern.csc406team1.util.collectAsState
-import java.lang.NumberFormatException
-import java.time.LocalDate
-import java.time.LocalTime
+import edu.missouriwestern.csc406team1.util.getName
+import edu.missouriwestern.csc406team1.viewmodel.customer.WithdrawMoneyScreenViewModel
 
 @Composable
 fun CustomerWithdrawMoneyScreen(
-    customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
-    transactionRepository: TransactionRepository,
-    ssn: String,
-    id: String,
-    onBack: () -> Unit
+    withdrawMoneyScreenViewModel: WithdrawMoneyScreenViewModel,
+//    customerRepository: CustomerRepository,
+//    accountRepository: AccountRepository,
+//    transactionRepository: TransactionRepository,
+//    ssn: String,
+//    id: String,
+//    onBack: () -> Unit
 ) {
 
-    val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val customers by withdrawMoneyScreenViewModel.customers.collectAsState()
+    val accounts by withdrawMoneyScreenViewModel.accounts.collectAsState()
+
+    val ssn = withdrawMoneyScreenViewModel.ssn
+    val id = withdrawMoneyScreenViewModel.id
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
 
-    var hasFailed by remember { mutableStateOf(false) }
-    var hasFailedText by remember { mutableStateOf("Debiting account failed, try again") }
+    val hasFailed by withdrawMoneyScreenViewModel.hasFailed.collectAsState()
+    val hasFailedText by withdrawMoneyScreenViewModel.hasFailedText.collectAsState()
 
-    var amount by remember { mutableStateOf(InputWrapper()) }
+    val amount by withdrawMoneyScreenViewModel.amount.collectAsState()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Button(
-            onClick = onBack,
-            modifier = Modifier.align(Alignment.TopStart)
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.spacedBy(24.dp)
         ) {
-            Text("Back")
+            Button(
+                onClick = withdrawMoneyScreenViewModel::onBack
+            ) {
+                Text("Back")
+            }
+            if (customer != null && account != null) {
+                Text(
+                    text = account.getName()
+                )
+            }
         }
 
         if (customer != null && account != null && account.isActive) {
@@ -66,36 +75,12 @@ fun CustomerWithdrawMoneyScreen(
                         inputWrapper = amount,
                         shape = RoundedCornerShape(topStart = 4.dp),
                         visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                amount = amount.copy(value = it)
-                            }
-                        }
+                        onValueChange = withdrawMoneyScreenViewModel::onAmountChange,
                     )
 
                     Button(
                         modifier = Modifier.fillMaxHeight(),
-                        onClick = {
-                            try {
-                                val money = amount.value.toDouble() / 100
-
-                                if (account.balance >= money) {
-                                    account.balance -= money
-                                    if (accountRepository.update(account)) {
-                                        transactionRepository.addTransaction(Transaction("", false, true, "d", money, account.balance, account.accountNumber, LocalDate.now(), LocalTime.now()))
-                                        onBack()
-                                    } else {
-                                        hasFailed = true
-                                    }
-                                } else {
-                                    hasFailedText = "Insufficient funds in account"
-                                    hasFailed = true
-                                }
-
-                            } catch (e: NumberFormatException) {
-                                hasFailed = true
-                            }
-                        },
+                        onClick = withdrawMoneyScreenViewModel::onWithdraw,
                         enabled = amount.errorMessage == null && amount.value.isNotBlank(),
                         shape = MaterialTheme.shapes.extraLarge.copy(
                             topStart = CornerSize(0.dp),

@@ -1,7 +1,10 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.database.model.loan.*;
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan;
+import edu.missouriwestern.csc406team1.database.model.loan.Loan;
+import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan;
+import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -11,7 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.time.format.DateTimeParseException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -142,7 +146,7 @@ public class LoanDaoImpl implements LoanDao{
         for (Loan loan1 : loans) {
             if (loan1.getAccountNumber().equals(loan.getAccountNumber())) {
                 if (loans.remove(loan1)) {
-                    return loans.add(loan);
+                    return loans.add(loan.copy());
                 }
             }
         }

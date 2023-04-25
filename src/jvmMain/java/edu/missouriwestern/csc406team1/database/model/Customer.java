@@ -1,13 +1,14 @@
 package edu.missouriwestern.csc406team1.database.model;
 
 import edu.missouriwestern.csc406team1.util.CSV;
+import edu.missouriwestern.csc406team1.util.Copyable;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * This class is our model for a customer object
  * It implements comparable and csv to aid in sorting and writing to disk
  */
-public class Customer implements Comparable<Customer>, CSV {
+public class Customer implements Comparable<Customer>, CSV, Copyable<Customer> {
     @NotNull
     private final String ssn;
     @NotNull
@@ -37,6 +38,16 @@ public class Customer implements Comparable<Customer>, CSV {
         this.zipcode = zipcode;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    private Customer(Customer customer) {
+        this.ssn = customer.ssn;
+        this.address = customer.address;
+        this.city = customer.city;
+        this.state = customer.state;
+        this.zipcode = customer.zipcode;
+        this.firstname = customer.firstname;
+        this.lastname = customer.lastname;
     }
 
     @NotNull
@@ -105,6 +116,11 @@ public class Customer implements Comparable<Customer>, CSV {
 
     @Override
     public String[] convertToCSV() {
-        return new String[] {ssn, address, city, state, zipcode, firstname, lastname};
+        return new String[]{ssn, address, city, state, zipcode, firstname, lastname};
+    }
+
+    @Override
+    public Customer copy() {
+        return new Customer(this);
     }
 }
