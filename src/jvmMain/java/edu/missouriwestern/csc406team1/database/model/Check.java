@@ -10,15 +10,15 @@ import java.time.LocalTime;
 public class Check extends Transaction implements Comparable<Transaction>, CSV {
     private int checkNumber;
     private String payee;
-    private boolean stopPayment;
+    private Boolean stopPayment;
 
     public Check(@NotNull String transactionID, @NotNull Boolean credit, @NotNull Boolean debit, @NotNull String transactionType,
                  @NotNull Double amount, @NotNull Double newTotal, @NotNull String accID, @NotNull LocalDate date,
-                 @NotNull LocalTime time, int checkNumber, String payee) {
+                 @NotNull LocalTime time, int checkNumber, String payee, Boolean stopPayment) {
         super(transactionID, credit, debit, transactionType, amount, newTotal, accID, date, time);
         this.checkNumber = checkNumber;
         this.payee = payee;
-        this.stopPayment = false;
+        this.stopPayment = stopPayment;
     }
 
     // Getters
@@ -30,7 +30,7 @@ public class Check extends Transaction implements Comparable<Transaction>, CSV {
         return payee;
     }
 
-    public boolean isStopPayment() {
+    public Boolean isStopPayment() {
         return stopPayment;
     }
 

@@ -1,6 +1,8 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
+import edu.missouriwestern.csc406team1.database.model.Check;
+import edu.missouriwestern.csc406team1.database.model.Purchase;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan;
 import edu.missouriwestern.csc406team1.database.model.loan.Loan;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
@@ -32,28 +35,29 @@ public class TransactionDaoImpl implements TransactionDao{
     //the filename for the new data to be saved to
     private final String filename = "/transaction.csv";
 
-    /*
-        This constructor attempts to populate the modified arrayList of transactions from disk
+    /**
+     * Constructor for the TransactionDaoImpl class.
+     * It attempts to populate the ArrayListFlow of transactions from disk.
      */
-    public TransactionDaoImpl(){
-        //Create a list of string arrays to hold each piece of the transaction data
+    public TransactionDaoImpl() {
+        // Create a list of string arrays to hold each piece of the transaction data
         List<String[]> collect = new ArrayList<>();
 
-        //Try to open a stream of data from the saved Transaction file
+        // Try to open a stream of data from the saved Transaction file
         try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", filename))) {
             // Split the lines into pieces using the comma as a delimiter
-            collect = info.map(line ->line.split(","))
+            collect = info.map(line -> line.split(","))
                     .collect(Collectors.toList());
 
             // If the first file fails, attempt to load the base data set
         } catch (IOException | NullPointerException e) {
             // Try to open a stream of data from the base loan file
             try (Stream<String> info = Files.lines(Paths.get("src", "jvmMain", "resources", basefilename))) {
-                //Split the lines into pieces using the comma as a delimiter
+                // Split the lines into pieces using the comma as a delimiter
                 collect = info.map(line -> line.split(","))
                         .collect(Collectors.toList());
 
-                //if the second file fails, print the stacktrace and exit
+                // If the second file fails, print the stack trace and exit
             } catch (IOException | NullPointerException ee) {
                 System.err.println("Error parsing transaction resources");
                 e.printStackTrace();
@@ -61,19 +65,46 @@ public class TransactionDaoImpl implements TransactionDao{
                 System.exit(1);
             }
         }
+
         // This number keeps track of what line we are on for logging purposes
         int linenumber = 1;
 
         // For each list of arguments, create and add a transaction from them
         for (String[] args : collect) {
             try {
+
+                String transactionID = args[0];
+                boolean credit = Boolean.parseBoolean(args[1]);
+                boolean debit = Boolean.parseBoolean(args[2]);
+                String transactionType = args[3];
+                double amount = Double.parseDouble(args[4]);
+                double newTotal = Double.parseDouble(args[5]);
+                String accID = args[6];
+                LocalDate date = LocalDate.parse(args[7]);
+                LocalTime time = LocalTime.parse(args[8]);
+                String purchaseMerchant = args[9].equals("null") ? null : args[9];
+                String purchaseCategory = args[10].equals("null") ? null : args[10];
+                boolean purchaseIsPosted = Boolean.parseBoolean(args[11]);
+                int checkNumber = args[12].equals("null") ? 0 : Integer.parseInt(args[12]);
+                String checkPayee = args[13].equals("null") ? null : args[13];
+                boolean checkStopPayment = Boolean.parseBoolean(args[14]);
+
                 Transaction transaction;
-                transaction = new Transaction(args[0]/*transactionID*/, Boolean.parseBoolean(args[1])/*credit*/,
-                        Boolean.parseBoolean(args[2])/*debit*/, args[3]/*transactionType*/,
-                        Double.parseDouble(args[4])/*amount*/, Double.parseDouble(args[5])/*newTotal*/,
-                        args[6]/*accID*/, DateConverter.convertStringToDate(args[7])/*date*/,
-                        LocalTime.parse(args[8])/*time*/);
-                        transactions.add(transaction);
+                switch (transactionType.toLowerCase()) {
+                    case "p":
+                        transaction = new Purchase(transactionID, credit, debit, transactionType, amount, newTotal,
+                                accID, date, time, purchaseMerchant, purchaseCategory, purchaseIsPosted);
+                        break;
+                    case "ch":
+                        transaction = new Check(transactionID, credit, debit, transactionType, amount, newTotal, accID,
+                                date, time, checkNumber, checkPayee, checkStopPayment);
+                        break;
+                    default:
+                        transaction = new Transaction(transactionID, credit, debit, transactionType, amount, newTotal,
+                                accID, date, time);
+                }
+
+                transactions.add(transaction);
                 // If the params are malformed, skip the line and log it
             } catch (IndexOutOfBoundsException | IllegalArgumentException e) {
                 System.err.println("Parse error on line: " + linenumber + " in transaction database");
