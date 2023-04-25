@@ -1,1 +1,1 @@
-TransactionID,credit,debit,transactionType,amount,accBalance,accID,date,time,purchaseMerchant,purchaseCategory,checkNumber,checkPayee
+TransactionID,credit,debit,transactionType,amount,accBalance,accID,date,time,purchaseMerchant,purchaseCategory,purchaseIsPosted,checkNumber,checkPayee,checkStopPayment
