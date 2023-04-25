@@ -15,11 +15,29 @@ public class CDAccount extends SavingsAccount {
     @NotNull
     private LocalDate dueDate;   //Date CD is due to complete
 
-    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate, @NotNull LocalDate dueDate) {
+    /**
+     * Constructs a new CDAccount object with the specified parameters.
+     *
+     * @param accountNumber The account number of the CD account.
+     * @param customerSSN   The customer's Social Security number associated with the account.
+     * @param balance       The initial balance of the account.
+     * @param dateOpened    The date the account was opened.
+     * @param isActive      The active status of the account.
+     * @param interestRate  The interest rate associated with the account.
+     * @param dueDate       The due date of the CD.
+     */
+    public CDAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
+                     @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @NotNull Double interestRate,
+                     @NotNull LocalDate dueDate) {
         super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
         this.dueDate = dueDate;
     }
 
+    /**
+     * Creates a copy of the given CDAccount object.
+     *
+     * @param account The CDAccount object to be copied.
+     */
     private CDAccount(CDAccount account) {
         super(account.getAccountNumber(), account.getCustomerSSN(), account.getBalance(), account.getDateOpened(), account.getIsActive(), Objects.requireNonNull(account.getInterestRate()));
         this.dueDate = account.dueDate;

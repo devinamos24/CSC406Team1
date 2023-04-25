@@ -5,6 +5,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 // Check.java
 public class Check extends Transaction implements Comparable<Transaction>, CSV {
@@ -46,5 +48,16 @@ public class Check extends Transaction implements Comparable<Transaction>, CSV {
     public void setStopPayment(boolean stopPayment) {
         this.stopPayment = stopPayment;
     }
-
+    @Override
+    public String[] convertToCSV() {
+        String[] base = super.convertToCSV();
+        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add("null");//merchant, not in check
+        returnValue.add("null");//Category, not in check
+        returnValue.add("null");//posted, not in check
+        returnValue.add(String.valueOf(getCheckNumber()));
+        returnValue.add(String.valueOf(getPayee()));
+        returnValue.add(String.valueOf(isStopPayment()));
+        return returnValue.toArray(new String[returnValue.size()]);
+    }
 }

@@ -1,10 +1,13 @@
 package edu.missouriwestern.csc406team1.database.model;
 
 import edu.missouriwestern.csc406team1.util.CSV;
+import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 // Purchase.java
 public class Purchase extends Transaction{
@@ -46,5 +49,17 @@ public class Purchase extends Transaction{
 
     public void setPosted(Boolean posted) {
         isPosted = posted;
+    }
+    @Override
+    public String[] convertToCSV() {
+        String[] base = super.convertToCSV();
+        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add(String.valueOf(getMerchant()));
+        returnValue.add(String.valueOf(getCategory()));
+        returnValue.add(String.valueOf(getPosted()));
+        returnValue.add("null");//check number, not in purchase
+        returnValue.add("null");//checkPayee, not in purchase
+        returnValue.add("null");//checkStopPayment, not in purchase
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }

@@ -14,7 +14,20 @@ public abstract class CheckingAccount extends Account{
     @NotNull Integer overdraftsThisMonth;
     @Nullable // The atm card associated with this checking account
     ATMCard atmCard;
-
+    /**
+     * Constructs a new CheckingAccount object with the specified parameters.
+     *
+     * @param accountNumber      The account number of the checking account.
+     * @param customerSSN        The customer's Social Security number associated with the account.
+     * @param balance            The initial balance of the account.
+     * @param dateOpened         The date the account was opened.
+     * @param isActive           The active status of the account.
+     * @param interestRate       The interest rate associated with the account.
+     * @param transactionFee     The transaction fee for this checking account.
+     * @param backupAccount      The backup savings account, if available.
+     * @param overdraftsThisMonth The number of overdrafts for this account in the current month.
+     * @param hasATMCard         Indicates whether this checking account has an associated ATM card.
+     */
     public CheckingAccount(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @Nullable Double interestRate, @NotNull Double transactionFee, @Nullable SavingsAccount backupAccount, @NotNull Integer overdraftsThisMonth, @NotNull Boolean hasATMCard) {
         super(accountNumber, customerSSN, balance, dateOpened, isActive, interestRate);
         this.transactionFee = transactionFee;

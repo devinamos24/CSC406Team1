@@ -116,18 +116,31 @@ public class TransactionDaoImpl implements TransactionDao{
             linenumber++;
         }
     }
-
+    /**
+     * Adds a transaction to the data store and updates the highestID.
+     *
+     * @param transaction The transaction object to be added.
+     */
     @Override
     public void addTransaction(Transaction transaction) {
         transaction.setTransactionID(String.valueOf(highestID+1));
         highestID++;
         transactions.add(transaction);
     }
-
+    /**
+     * Retrieves all transactions from the data store.
+     *
+     * @return An ArrayListFlow containing all transactions.
+     */
     @NotNull
     @Override
     public ArrayListFlow<Transaction> getTransactions() {return transactions;}
-
+    /**
+     * Retrieves a transaction from the data store by its transaction ID.
+     *
+     * @param transactionID The ID of the transaction to be retrieved.
+     * @return The transaction object if found, null otherwise.
+     */
     @Nullable
     @Override
     public Transaction getTransaction(String transactionID) {
@@ -138,7 +151,11 @@ public class TransactionDaoImpl implements TransactionDao{
         }
         return null;
     }
-
+    /**
+     * Updates a transaction's information in the data store.
+     *
+     * @param transaction The transaction object containing the updated information.
+     */
     @Override
     public void updateTransaction(Transaction transaction) {
         for (Transaction transaction1 : transactions){
@@ -149,7 +166,11 @@ public class TransactionDaoImpl implements TransactionDao{
             }
         }
     }
-
+    /**
+     * Deletes a transaction from the data store by its transaction ID.
+     *
+     * @param transactionID The ID of the transaction to be deleted.
+     */
     @Override
     public void deleteTransaction(String transactionID) {
         for (Transaction transaction : transactions) {
@@ -160,7 +181,11 @@ public class TransactionDaoImpl implements TransactionDao{
         }
         System.err.println("Error deleting transaction, could not find matching ID");
     }
-
+    /**
+     * Saves any changes made to the data store in a CSV file.
+     *
+     * @return true if the changes are saved successfully, false otherwise.
+     */
     @Override
     public boolean save() {
         try {

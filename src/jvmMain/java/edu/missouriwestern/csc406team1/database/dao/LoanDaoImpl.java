@@ -116,20 +116,34 @@ public class LoanDaoImpl implements LoanDao{
         }
 
     }
-
+    /**
+     * Adds a loan to the data store, assigning it a unique account number.
+     *
+     * @param loan The loan object to be added.
+     * @return true if the loan is added successfully, false otherwise.
+     */
     @Override
     public boolean addLoan(Loan loan) {
         loan.setAccountNumber(String.valueOf(highestID+1));
         highestID++;
         return loans.add(loan);
     }
-
+    /**
+     * Retrieves all loans from the data store.
+     *
+     * @return An ArrayListFlow containing all loans.
+     */
     @NotNull
     @Override
     public ArrayListFlow<Loan> getLoans() {
         return loans;
     }
-
+    /**
+     * Retrieves a loan from the data store by its account number.
+     *
+     * @param accountNumber The account number of the loan to be retrieved.
+     * @return The loan object if found, null otherwise.
+     */
     @Nullable
     @Override
     public Loan getLoan(String accountNumber) {
@@ -140,7 +154,12 @@ public class LoanDaoImpl implements LoanDao{
         }
         return null;
     }
-
+    /**
+     * Updates a loan's information in the data store.
+     *
+     * @param loan The loan object containing the updated information.
+     * @return true if the loan is updated successfully, false otherwise.
+     */
     @Override
     public boolean updateLoan(Loan loan) {
         for (Loan loan1 : loans) {
@@ -152,7 +171,11 @@ public class LoanDaoImpl implements LoanDao{
         }
         return false;
     }
-
+    /**
+     * Deletes a loan from the data store by its account number.
+     *
+     * @param accountNumber The account number of the loan to be deleted.
+     */
     @Override
     public void deleteLoan(String accountNumber) {
         for (Loan loan : loans) {
@@ -163,7 +186,11 @@ public class LoanDaoImpl implements LoanDao{
         }
         System.err.println("Error deleting loan, could not find matching ID");
     }
-
+    /**
+     * Saves any changes made to the data store.
+     *
+     * @return true if the changes are saved successfully, false otherwise.
+     */
     @Override
     public boolean save() {
         try {

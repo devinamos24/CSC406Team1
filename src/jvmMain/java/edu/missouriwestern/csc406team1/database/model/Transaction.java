@@ -121,7 +121,9 @@ public class Transaction implements Comparable<Transaction>, CSV, Copyable<Trans
 
     @Override
     public String[] convertToCSV() {
-        return new String[]{transactionID, String.valueOf(credit), String.valueOf(debit), transactionType, String.valueOf(amount), String.valueOf(newTotal), accID, DateConverter.convertDateToString(date), time.toString()};
+        return new String[]{transactionID, String.valueOf(credit), String.valueOf(debit), transactionType,
+                String.valueOf(amount), String.valueOf(newTotal), accID, DateConverter.convertDateToString(date),
+                time.toString()};
     }
 
     @Override

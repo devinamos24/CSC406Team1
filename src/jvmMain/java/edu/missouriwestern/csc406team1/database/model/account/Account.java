@@ -22,7 +22,18 @@ public abstract class Account implements CSV, Comparable<Account>, Copyable<Acco
     @Nullable // The interest rate can be null if it is a basic checking account
     private Double interestRate;//current interest rate of the account
 
-    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance, @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @Nullable Double interestRate) {
+    /**
+     * Constructs an Account with the specified parameters.
+     *
+     * @param accountNumber The account number to reference the account.
+     * @param customerSSN   The SSN of the customer owning the account.
+     * @param balance       The current balance of the account.
+     * @param dateOpened    The date the account was opened with the bank.
+     * @param isActive      A boolean indicating whether the account is active.
+     * @param interestRate  The current interest rate of the account (can be null for basic checking accounts).
+     */
+    public Account(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
+                   @NotNull LocalDate dateOpened, @NotNull Boolean isActive, @Nullable Double interestRate) {
         this.accountNumber = accountNumber;
         this.customerSSN = customerSSN;
         this.balance = balance;
@@ -30,7 +41,14 @@ public abstract class Account implements CSV, Comparable<Account>, Copyable<Acco
         this.isActive = isActive;
         this.interestRate = interestRate;
     }
-
+    /**
+     * Compares this account with the specified account based on the date opened.
+     *
+     * @param o The account to compare with.
+     * @return A negative integer if this account was opened before the specified account,
+     *         a positive integer if this account was opened after the specified account, or
+     *         0 if the accounts were opened on the same date.
+     */
     public int compareTo(Account o) {
         return this.dateOpened.compareTo(o.dateOpened) * -1;
     }
