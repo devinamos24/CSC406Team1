@@ -219,8 +219,9 @@ fun WindowScope.MainContent(
             is Screen.TellerTransferMoney -> TellerTransferMoneyScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
-                customerSSN = screen.ssn,
-                accountId = screen.id,
+                transactionRepository = transactionRepository,
+                ssn = screen.ssn,
+                id = screen.id,
                 onBack = navigation::pop
             )
             //Manager
@@ -368,6 +369,8 @@ fun WindowScope.MainContent(
         }
     }
 }
+
+
 
 /**
  * This sealed class represents each screen and the parameters it requires

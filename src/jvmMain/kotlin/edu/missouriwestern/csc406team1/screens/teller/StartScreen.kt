@@ -29,7 +29,7 @@ fun TellerStartScreen(
             Button(
                 onClick = onListAccounts,
             ) {
-                Text("Accounts")
+                Text("Edit Customer Data")
             }
         }
     }
