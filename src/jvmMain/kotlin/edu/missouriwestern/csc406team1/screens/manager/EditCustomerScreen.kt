@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
+import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.util.collectAsState
 import edu.missouriwestern.csc406team1.util.formatAsMoney
 import edu.missouriwestern.csc406team1.util.getName
@@ -25,16 +26,21 @@ import edu.missouriwestern.csc406team1.util.getName
 fun ManagerEditCustomerScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
+    loanRepository: LoanRepository,
     ssn: String,
     onClickAccount: (String, String) -> Unit,
+    onClickLoan: (String, String) -> Unit,
     onClickOpenAccount: (String) -> Unit,
+    onClickOpenLoan: (String) -> Unit,
     onBack: () -> Unit
 ) {
     val customers by customerRepository.customers.collectAsState()
     val accounts by accountRepository.accounts.collectAsState()
+    val loans by loanRepository.loans.collectAsState()
 
     val customer = customers.find { it.ssn == ssn }
     val customerAccounts = accounts.filter { it.customerSSN == ssn }.sorted()
+    val customerLoans = loans.filter { it.customerSSN == customer?.ssn }
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column(
@@ -78,6 +84,15 @@ fun ManagerEditCustomerScreen(
                         Button(
                             modifier = Modifier,
                             onClick = {
+                                onClickOpenLoan(ssn)
+                            }
+                        ) {
+                            Text("Open New Loan")
+                        }
+
+                        Button(
+                            modifier = Modifier,
+                            onClick = {
                                 customerRepository.delete(ssn)
                                 customerAccounts.forEach {
                                     accountRepository.delete(it.accountNumber)
@@ -91,40 +106,74 @@ fun ManagerEditCustomerScreen(
                 }
             }
 
-            if (customer != null) {
-                if (customerAccounts.isNotEmpty()) {
-                    Box(
-                        modifier = Modifier.fillMaxSize()
-                            .padding(10.dp)
-                    ) {
-                        val state = rememberLazyListState()
-                        LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
-                            customerAccounts.sorted().forEach { account ->
-                                item {
-                                    CustomerAccountButton(
-                                        enabled = account.isActive,
-                                        name = account.getName(),
-                                        balance = account.balance,
-                                        onClick = { onClickAccount(ssn, account.accountNumber) }
-                                    )
-                                    Spacer(modifier = Modifier.height(5.dp))
-                                }
+            if (customer != null && customerAccounts.isNotEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                        .padding(10.dp)
+                        .weight(0.5f)
+                ) {
+                    val state = rememberLazyListState()
+                    LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
+                        customerAccounts.sorted().forEach { account ->
+                            item {
+                                CustomerAccountButton(
+                                    enabled = account.isActive,
+                                    name = account.getName(),
+                                    balance = account.balance,
+                                    onClick = { onClickAccount(ssn, account.accountNumber) }
+                                )
+                                Spacer(modifier = Modifier.height(5.dp))
                             }
                         }
-                        VerticalScrollbar(
-                            modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
-                            adapter = rememberScrollbarAdapter(
-                                scrollState = state
-                            )
-                        )
                     }
+                    VerticalScrollbar(
+                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                        adapter = rememberScrollbarAdapter(
+                            scrollState = state
+                        )
+                    )
                 }
-            } else {
-                Text(
-                    modifier = Modifier.align(Alignment.CenterHorizontally),
-                    text = "This account no longer exists"
-                )
             }
+            if (customer != null && customerLoans.isNotEmpty()) {
+                Box(
+                    modifier = Modifier.fillMaxSize()
+                        .padding(10.dp)
+                        .weight(0.5f)
+                ) {
+                    val state = rememberLazyListState()
+
+                    LazyColumn(Modifier.fillMaxSize().padding(end = 12.dp).align(Alignment.Center), state) {
+                        customerLoans.sorted().forEach { loan ->
+                            item {
+                                LoanAccountButton(
+                                    enabled = loan.balance > 0.0,
+                                    name = loan.getName(),
+                                    balance = loan.balance,
+                                    onClick = { onClickLoan(ssn, loan.accountNumber) }
+                                )
+                                Spacer(modifier = Modifier.height(5.dp))
+                            }
+                        }
+                    }
+                    VerticalScrollbar(
+                        modifier = Modifier.align(Alignment.CenterEnd).fillMaxHeight(),
+                        adapter = rememberScrollbarAdapter(
+                            scrollState = state
+                        )
+                    )
+                }
+            }
+        }
+        if (customer == null) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "This account no longer exists"
+            )
+        } else if (accounts.isEmpty()) {
+            Text(
+                modifier = Modifier.align(Alignment.Center),
+                text = "No bank accounts or loans associated with customer"
+            )
         }
     }
 }
@@ -156,6 +205,38 @@ private fun CustomerAccountButton(
             Text(
                 modifier = Modifier.align(Alignment.CenterEnd),
                 text = balance.formatAsMoney()
+            )
+        }
+    }
+}
+
+@Composable
+private fun LoanAccountButton(
+    modifier: Modifier = Modifier,
+    enabled: Boolean,
+    name: String,
+    balance: Double,
+    onClick: () -> Unit
+) {
+    Box(
+        modifier = modifier.height(32.dp)
+            .fillMaxWidth()
+            .padding(start = 10.dp)
+            .clickable { onClick() }
+            .then( if (enabled) {
+                Modifier
+            } else {
+                Modifier.background(Color.LightGray)
+            })
+    ) {
+        Text(
+            modifier = Modifier.align(Alignment.CenterStart),
+            text = if (enabled) name else "$name {payed off}"
+        )
+        if (enabled) {
+            Text(
+                modifier = Modifier.align(Alignment.CenterEnd),
+                text = balance.formatAsMoney() + " Owed"
             )
         }
     }

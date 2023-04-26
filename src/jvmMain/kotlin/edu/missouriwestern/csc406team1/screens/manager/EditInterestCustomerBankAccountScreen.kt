@@ -8,8 +8,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 
+// TODO: Finish this screen
+
 @Composable
-fun ManagerModifyInterestCustomerBankAccountScreen(
+fun ManagerEditInterestCustomerBankAccountScreen(
     onBack: () -> Unit
 ) {
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {

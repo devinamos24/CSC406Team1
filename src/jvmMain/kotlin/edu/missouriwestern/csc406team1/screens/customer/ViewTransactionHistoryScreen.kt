@@ -64,7 +64,7 @@ fun CustomerViewTransactionHistoryScreen(
                 }
             }
 
-            if (customer != null && account != null && accountTransactions.isNotEmpty()) {
+            if (customer != null && account != null && accountTransactions.isNotEmpty() && account.isActive) {
                 Box(
                     modifier = Modifier.fillMaxSize()
                         .padding(10.dp)
@@ -151,7 +151,9 @@ fun AccountTransactionButton(
         val color = if (transaction.isCredit) Color.Green else Color.Unspecified
 
         when (transaction.transactionType) {
-            "t" -> creditText = "Transaction"
+            "f" -> creditText = "Fee"
+            "lp" -> creditText = "Loan Payment"
+            "t" -> creditText = "Transfer"
             "ch" -> creditText = "Check"
         }
 

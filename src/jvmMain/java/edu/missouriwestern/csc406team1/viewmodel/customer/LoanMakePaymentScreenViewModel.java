@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlowKt;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 /**
@@ -103,7 +104,13 @@ public class LoanMakePaymentScreenViewModel {
     }
 
     public void onClickAll() {
-        amount.setValue(new InputWrapper(String.valueOf(Double.valueOf(accountRepository.getAccount(id).getBalance() * 100).intValue()), null));
+        int accountBalance = Double.valueOf(accountRepository.getAccount(selectedAccountId.getValue()).getBalance() * 100).intValue();
+        int loanBalance = Double.valueOf(loanRepository.getLoan(id).getBalance() * 100).intValue();
+        if (accountBalance > loanBalance) {
+            amount.setValue(new InputWrapper(String.valueOf(loanBalance), null));
+        } else {
+            amount.setValue(new InputWrapper(String.valueOf(accountBalance), null));
+        }
     }
 
     public void onClickNone() {
@@ -146,9 +153,9 @@ public class LoanMakePaymentScreenViewModel {
         if (loanRepository.update(loan) && accountRepository.update(account)) {
             //TODO: Implement loans into transactionRepository
             //transactionRepository.addTransaction(new Transaction("", false, true, "p", money, loan.getBalance(), loan.getAccountNumber(), LocalDate.now(), LocalTime.now()));
-            transactionRepository.addTransaction(new Transaction("", false, true, "t", money, account.getBalance() - fee, account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+            transactionRepository.addTransaction(new Transaction("", false, true, "lp", money, account.getBalance() + fee, account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
             if (fee > 0.0) {
-                transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now().plus(1, ChronoUnit.NANOS)));
             }
         } else {
             loan.setBalance(savedLoanBalance);

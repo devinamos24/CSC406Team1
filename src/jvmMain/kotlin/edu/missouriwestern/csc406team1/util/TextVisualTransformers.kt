@@ -112,3 +112,146 @@ class CurrencyAmountInputVisualTransformation(
         }
     }
 }
+
+class InterestInputVisualTransformation(
+    private val fixedCursorAtTheEnd: Boolean = true,
+    private val numberOfDecimals: Int = 2
+) : VisualTransformation {
+
+    private val symbols = DecimalFormat().decimalFormatSymbols
+
+    override fun filter(text: AnnotatedString): TransformedText {
+        val percentSymbol = symbols.percent
+        val thousandsSeparator = symbols.groupingSeparator
+        val decimalSeparator = symbols.decimalSeparator
+        val zero = symbols.zeroDigit
+
+        val inputText = text.text
+
+        val intPart = percentSymbol + inputText
+            .dropLast(numberOfDecimals)
+            .reversed()
+            .chunked(3)
+            .joinToString(thousandsSeparator.toString())
+            .reversed()
+            .ifEmpty {
+                zero.toString()
+            }
+
+        val fractionPart = inputText.takeLast(numberOfDecimals).let {
+            if (it.length != numberOfDecimals) {
+                List(numberOfDecimals - it.length) {
+                    zero
+                }.joinToString("") + it
+            } else {
+                it
+            }
+        }
+
+        val formattedNumber = intPart + decimalSeparator + fractionPart
+
+        val newText = AnnotatedString(
+            text = formattedNumber,
+            spanStyles = text.spanStyles,
+            paragraphStyles = text.paragraphStyles
+        )
+
+        val offsetMapping = if (fixedCursorAtTheEnd) {
+            FixedCursorOffsetMapping(
+                contentLength = inputText.length,
+                formattedContentLength = formattedNumber.length
+            )
+        } else {
+            MovableCursorOffsetMapping(
+                unmaskedText = text.toString(),
+                maskedText = newText.toString(),
+                decimalDigits = numberOfDecimals
+            )
+        }
+
+        return TransformedText(newText, offsetMapping)
+    }
+
+    private class FixedCursorOffsetMapping(
+        private val contentLength: Int,
+        private val formattedContentLength: Int,
+    ) : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int = formattedContentLength
+        override fun transformedToOriginal(offset: Int): Int = contentLength
+    }
+
+    private class MovableCursorOffsetMapping(
+        private val unmaskedText: String,
+        private val maskedText: String,
+        private val decimalDigits: Int
+    ) : OffsetMapping {
+        override fun originalToTransformed(offset: Int): Int =
+            when {
+                unmaskedText.length <= decimalDigits -> {
+                    maskedText.length - (unmaskedText.length - offset)
+                }
+                else -> {
+                    offset + offsetMaskCount(offset, maskedText)
+                }
+            }
+
+        override fun transformedToOriginal(offset: Int): Int =
+            when {
+                unmaskedText.length <= decimalDigits -> {
+                    max(unmaskedText.length - (maskedText.length - offset), 0)
+                }
+                else -> {
+                    offset - maskedText.take(offset).count { !it.isDigit() }
+                }
+            }
+
+        private fun offsetMaskCount(offset: Int, maskedText: String): Int {
+            var maskOffsetCount = 0
+            var dataCount = 0
+            for (maskChar in maskedText) {
+                if (!maskChar.isDigit()) {
+                    maskOffsetCount++
+                } else if (++dataCount > offset) {
+                    break
+                }
+            }
+            return maskOffsetCount
+        }
+    }
+}
+
+class DateInputVisualTransformation : VisualTransformation {
+    override fun filter(text: AnnotatedString): TransformedText {
+        // Make the string DD-MM-YYYY
+        val trimmed = if (text.text.length >= 8) text.text.substring(0..7) else text.text
+        var output = ""
+        for (i in trimmed.indices) {
+            output += trimmed[i]
+            if (i < 4 && i % 2 == 1) output += "/"
+        }
+        val dateTranslator = object : OffsetMapping {
+            override fun originalToTransformed(offset: Int): Int {
+                // [offset [0 - 1] remain the same]
+                if (offset <= 1) return offset
+                // [2 - 3] transformed to [3 - 4] respectively
+                if (offset <= 3) return offset + 1
+                // [4 - 7] transformed to [6 - 9] respectively
+                if (offset <= 7) return offset + 2
+                return 10
+            }
+
+            override fun transformedToOriginal(offset: Int): Int {
+                if (offset <= 1) return offset
+                if (offset <= 4) return offset - 1
+                if (offset <= 9) return offset - 2
+                return 8
+            }
+
+        }
+
+        return TransformedText(
+            AnnotatedString(output),
+            dateTranslator
+        )
+    }
+}

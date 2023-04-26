@@ -19,13 +19,16 @@ import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.model.account.*
 import edu.missouriwestern.csc406team1.util.*
-import edu.missouriwestern.csc406team1.util.DateConverter.convertStringToDate
+import edu.missouriwestern.csc406team1.util.DateConverter.convertStringToDateInterface
 import edu.missouriwestern.csc406team1.util.InputValidator.getAccountTypeErrorOrNull
+import edu.missouriwestern.csc406team1.util.InputValidator.getCdDueDateErrorOrNull
+import edu.missouriwestern.csc406team1.util.InputValidator.getInitialBalanceErrorOrNull
+import edu.missouriwestern.csc406team1.util.InputValidator.getInterestRateErrorOrNull
 import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ManagerCreateCustomerBankAccount(
+fun ManagerCreateCustomerBankAccountScreen(
     customerRepository: CustomerRepository,
     accountRepository: AccountRepository,
     ssn: String,
@@ -38,17 +41,12 @@ fun ManagerCreateCustomerBankAccount(
     var interestRate by remember { mutableStateOf(InputWrapper()) }
     var cdDueDate by remember { mutableStateOf(InputWrapper()) }
 
+
+
     var expandedType by remember { mutableStateOf(false) }
     var expandedBackup by remember { mutableStateOf(false) }
 
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
-
-//    fun inputsValid(): Boolean {
-//        return type.errorMessage == null && type.value.isNotBlank()
-//                && initialBalance.errorMessage == null && initialBalance.value.isNotBlank()
-//                && interestRate.errorMessage == null && interestRate.value.isNotBlank()
-//                && cdDueDate.errorMessage == null && cdDueDate.value.isNotBlank()
-//    }
 
     val customers by customerRepository.customers.collectAsState()
     val accounts by accountRepository.accounts.collectAsState()
@@ -148,7 +146,7 @@ fun ManagerCreateCustomerBankAccount(
                         visualTransformation = CurrencyAmountInputVisualTransformation(),
                         onValueChange = {
                             if (it.all { character -> character.isDigit() }) {
-                                initialBalance = initialBalance.copy(value = it)
+                                initialBalance = initialBalance.copy(value = it, errorMessage = getInitialBalanceErrorOrNull(it))
                             }
                         }
                     )
@@ -158,9 +156,10 @@ fun ManagerCreateCustomerBankAccount(
                     CustomTextField(
                         label = "Interest Rate",
                         inputWrapper = interestRate,
+                        visualTransformation = InterestInputVisualTransformation(),
                         onValueChange = {
-                            if (it.all { character -> character.isDigit() || character == '.' }) {
-                                interestRate = interestRate.copy(value = it) // TODO: Implement error stuff
+                            if (it.all { character -> character.isDigit() }) {
+                                interestRate = interestRate.copy(value = it, errorMessage = getInterestRateErrorOrNull(it))
                             }
                         }
                     )
@@ -170,9 +169,10 @@ fun ManagerCreateCustomerBankAccount(
                     CustomTextField(
                         label = "CD Due Date",
                         inputWrapper = cdDueDate,
+                        visualTransformation = DateInputVisualTransformation(),
                         onValueChange = {
-                            if (true) {
-                                cdDueDate = cdDueDate.copy(value = it) // TODO: Create error stuff and input mapper
+                            if (it.all { character -> character.isDigit() } && it.length < 9) {
+                                cdDueDate = cdDueDate.copy(value = it, errorMessage = getCdDueDateErrorOrNull(it))
                             }
                         }
                     )
@@ -224,7 +224,7 @@ fun ManagerCreateCustomerBankAccount(
 
                         try {
                             val account: Account? = when(type.value) {
-                                "CD" -> CDAccount("", ssn, (initialBalance.value.toDouble()/100), LocalDate.now(), true, interestRate.value.toDouble(), convertStringToDate(cdDueDate.value))
+                                "CD" -> CDAccount("", ssn, (initialBalance.value.toDouble()/100), LocalDate.now(), true, interestRate.value.toDouble(), convertStringToDateInterface(cdDueDate.value))
                                 "S" -> SavingsAccount("", ssn, (initialBalance.value.toDouble()/100), LocalDate.now(), true, interestRate.value.toDouble())
                                 "TMB" -> TMBAccount("", ssn, (initialBalance.value.toDouble()/100), LocalDate.now(), true, false, if (selectedAccount == null) null else selectedAccount as SavingsAccount, 0)
                                 "GD" -> GoldDiamondAccount("", ssn, (initialBalance.value.toDouble()/100), LocalDate.now(), true, interestRate.value.toDouble(), if (selectedAccount == null) null else selectedAccount as SavingsAccount, false, 0)

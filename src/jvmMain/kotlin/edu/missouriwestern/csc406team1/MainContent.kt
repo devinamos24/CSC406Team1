@@ -20,11 +20,10 @@ import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.screens.CreateAccountScreen
 import edu.missouriwestern.csc406team1.screens.LoginScreen
 import edu.missouriwestern.csc406team1.screens.customer.*
-import edu.missouriwestern.csc406team1.screens.manager.ManagerStartScreen
-import edu.missouriwestern.csc406team1.screens.teller.TellerStartScreen
-import edu.missouriwestern.csc406team1.viewmodel.customer.*
 import edu.missouriwestern.csc406team1.screens.manager.*
 import edu.missouriwestern.csc406team1.screens.teller.*
+import edu.missouriwestern.csc406team1.viewmodel.customer.*
+import edu.missouriwestern.csc406team1.viewmodel.manager.EditCustomerLoanScreenViewModel
 
 /**
  * This Composable is responsible for managing the stack.
@@ -264,17 +263,28 @@ fun WindowScope.MainContent(
             is Screen.ManagerEditCustomer -> ManagerEditCustomerScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
+                loanRepository = loanRepository,
                 ssn = screen.ssn,
                 onClickAccount = { ssn, id -> navigation.push(Screen.ManagerEditCustomerBankAccount(ssn, id)) },
+                onClickLoan = { ssn, id -> navigation.push(Screen.ManagerEditCustomerLoan(ssn, id)) },
                 onClickOpenAccount = { navigation.push(Screen.ManagerCreateCustomerBankAccount(it)) },
+                onClickOpenLoan = { navigation.push(Screen.ManagerCreateCustomerLoan(it)) },
                 onBack = navigation::pop
             )
 
-            is Screen.ManagerCreateCustomerBankAccount -> ManagerCreateCustomerBankAccount(
+            is Screen.ManagerCreateCustomerBankAccount -> ManagerCreateCustomerBankAccountScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
                 ssn = screen.ssn,
                 onCreate = { ssn, id -> navigation.pop(); navigation.push(Screen.ManagerEditCustomerBankAccount(ssn, id)) },
+                onBack = navigation::pop
+            )
+
+            is Screen.ManagerCreateCustomerLoan -> ManagerCreateCustomerLoanScreen(
+                customerRepository = customerRepository,
+                loanRepository = loanRepository,
+                ssn = screen.ssn,
+                onCreate = { ssn, id -> navigation.pop(); navigation.push(Screen.ManagerEditCustomerLoan(ssn, id)) },
                 onBack = navigation::pop
             )
 
@@ -283,54 +293,32 @@ fun WindowScope.MainContent(
                 accountRepository = accountRepository,
                 ssn = screen.ssn,
                 id = screen.id,
-                onCreditAccount = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerCreditCustomerBankAccount(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
-                onDebitAccount = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerDebitCustomerBankAccount(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
-                onModifyInterest = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerModifyInterestCustomerBankAccount(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
-                onViewTransactions = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerViewTransactionHistory(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
-                onDeleteAccount = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerCloseCustomerBankAccount(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
-                onTransfer = { ssn, id ->
-                    navigation.push(
-                        Screen.ManagerTransferMoneyCustomerBankAccount(
-                            ssn = ssn,
-                            id = id
-                        )
-                    )
-                },
+                onCreditAccount = { ssn, id -> navigation.push(Screen.ManagerCreditCustomerBankAccount(ssn = ssn, id = id)) },
+                onDebitAccount = { ssn, id -> navigation.push(Screen.ManagerDebitCustomerBankAccount(ssn = ssn, id = id)) },
+                onModifyInterest = { ssn, id -> navigation.push(Screen.ManagerModifyInterestCustomerBankAccount(ssn = ssn, id = id)) },
+                onViewTransactions = { ssn, id -> navigation.push(Screen.ManagerViewTransactionHistory(ssn = ssn, id = id)) },
+                onDeleteAccount = { ssn, id -> navigation.push(Screen.ManagerCloseCustomerBankAccount(ssn = ssn, id = id)) },
+                onTransfer = { ssn, id -> navigation.push(Screen.ManagerTransferMoneyCustomerBankAccount(ssn = ssn, id = id)) },
+                onBack = navigation::pop
+            )
+
+            is Screen.ManagerEditCustomerLoan -> ManagerEditCustomerLoanScreen(
+                editCustomerLoanScreenViewModel = EditCustomerLoanScreenViewModel(
+                    customerRepository,
+                    loanRepository,
+                    screen.ssn,
+                    screen.id,
+                    { ssn, id -> navigation.push(Screen.ManagerCreditCustomerLoan(ssn = ssn, id = id)) },
+                    navigation::pop
+                )
+            )
+
+            is Screen.ManagerCreditCustomerLoan -> ManagerCreditCustomerLoanScreen(
+                customerRepository = customerRepository,
+                loanRepository = loanRepository,
+                transactionRepository = transactionRepository,
+                ssn = screen.ssn,
+                id = screen.id,
                 onBack = navigation::pop
             )
 
@@ -370,7 +358,7 @@ fun WindowScope.MainContent(
                 navigation::pop
             )
 
-            is Screen.ManagerModifyInterestCustomerBankAccount -> ManagerModifyInterestCustomerBankAccountScreen(onBack = navigation::pop)
+            is Screen.ManagerModifyInterestCustomerBankAccount -> ManagerEditInterestCustomerBankAccountScreen(onBack = navigation::pop)
             is Screen.ManagerViewTransactionHistory -> ManagerViewTransactionHistoryScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
@@ -464,10 +452,19 @@ sealed class Screen : Parcelable {
     data class ManagerCreateCustomerBankAccount(val ssn: String) : Screen()
 
     @Parcelize
+    data class ManagerCreateCustomerLoan(val ssn: String) : Screen()
+
+    @Parcelize
     data class ManagerEditCustomerBankAccount(val ssn: String, val id: String) : Screen()
 
     @Parcelize
+    data class ManagerEditCustomerLoan(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
     data class ManagerCloseCustomerBankAccount(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class ManagerCreditCustomerLoan(val ssn: String, val id: String) : Screen()
 
     @Parcelize
     data class ManagerCreditCustomerBankAccount(val ssn: String, val id: String) : Screen()
