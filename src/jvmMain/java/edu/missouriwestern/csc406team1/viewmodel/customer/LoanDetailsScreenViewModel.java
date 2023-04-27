@@ -20,6 +20,7 @@ public class LoanDetailsScreenViewModel {
     private final String ssn;
     private final String id;
     private final Function2<String, String, Unit> onMakePayment;
+    private final Function2<String, String, Unit> onViewPaymentHistory;
     private final Function0<Unit> onBack;
 
     /**
@@ -36,6 +37,7 @@ public class LoanDetailsScreenViewModel {
             String ssn,
             String id,
             Function2<String, String, Unit> onMakePayment,
+            Function2<String, String, Unit> onViewPaymentHistory,
             Function0<Unit> onBack
     ) {
         this.customerRepository = customerRepository;
@@ -43,6 +45,7 @@ public class LoanDetailsScreenViewModel {
         this.ssn = ssn;
         this.id = id;
         this.onMakePayment = onMakePayment;
+        this.onViewPaymentHistory = onViewPaymentHistory;
         this.onBack = onBack;
     }
 
@@ -64,6 +67,10 @@ public class LoanDetailsScreenViewModel {
 
     public void onMakePayment() {
         onMakePayment.invoke(ssn, id);
+    }
+
+    public void onViewPaymentHistory() {
+        onViewPaymentHistory.invoke(ssn, id);
     }
 
     public void onBack() {

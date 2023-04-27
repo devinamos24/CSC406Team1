@@ -66,6 +66,17 @@ fun WindowScope.MainContent(
                     screen.ssn,
                     { ssn, id -> navigation.push(Screen.CustomerBankAccountDetails(ssn, id)) },
                     { ssn, id -> navigation.push(Screen.CustomerLoanDetails(ssn, id)) },
+                    { ssn -> navigation.push(Screen.CustomerShopping(ssn)) },
+                    navigation::pop
+                )
+            )
+
+            is Screen.CustomerShopping -> CustomerShoppingScreen(
+                shoppingScreenViewModel = ShoppingScreenViewModel(
+                    customerRepository,
+                    accountRepository,
+                    transactionRepository,
+                    screen.ssn,
                     navigation::pop
                 )
             )
@@ -146,6 +157,7 @@ fun WindowScope.MainContent(
                     screen.ssn,
                     screen.id,
                     { ssn, id -> navigation.push(Screen.CustomerLoanMakePayment(ssn, id)) },
+                    { ssn, id -> navigation.push(Screen.CustomerViewLoanPaymentHistory(ssn, id)) },
                     navigation::pop
                 )
             )
@@ -160,7 +172,15 @@ fun WindowScope.MainContent(
                     screen.id,
                     navigation::pop
                 )
+            )
 
+            is Screen.CustomerViewLoanPaymentHistory -> CustomerViewLoanPaymentHistoryScreen(
+                customerRepository = customerRepository,
+                loanRepository = loanRepository,
+                transactionRepository = transactionRepository,
+                ssn = screen.ssn,
+                id = screen.id,
+                onBack = navigation::pop
             )
 
             //Teller
@@ -310,6 +330,7 @@ fun WindowScope.MainContent(
                     screen.ssn,
                     screen.id,
                     { ssn, id -> navigation.push(Screen.ManagerCreditCustomerLoan(ssn = ssn, id = id)) },
+                    { ssn, id -> navigation.push(Screen.ManagerViewLoanPaymentHistory(ssn = ssn, id = id)) },
                     navigation::pop
                 )
             )
@@ -360,9 +381,19 @@ fun WindowScope.MainContent(
             )
 
             is Screen.ManagerModifyInterestCustomerBankAccount -> ManagerEditInterestCustomerBankAccountScreen(onBack = navigation::pop)
+
             is Screen.ManagerViewTransactionHistory -> ManagerViewTransactionHistoryScreen(
                 customerRepository = customerRepository,
                 accountRepository = accountRepository,
+                transactionRepository = transactionRepository,
+                ssn = screen.ssn,
+                id = screen.id,
+                onBack = navigation::pop
+            )
+
+            is Screen.ManagerViewLoanPaymentHistory -> ManagerViewLoanPaymentHistoryScreen(
+                customerRepository = customerRepository,
+                loanRepository = loanRepository,
                 transactionRepository = transactionRepository,
                 ssn = screen.ssn,
                 id = screen.id,
@@ -391,6 +422,9 @@ sealed class Screen : Parcelable {
     data class CustomerSelectBankAccount(val ssn: String) : Screen()
 
     @Parcelize
+    data class CustomerShopping(val ssn: String) : Screen()
+
+    @Parcelize
     data class CustomerBankAccountDetails(val ssn: String, val id: String) : Screen()
 
     @Parcelize
@@ -413,6 +447,9 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     data class CustomerLoanMakePayment(val ssn: String, val id: String) : Screen()
+
+    @Parcelize
+    data class CustomerViewLoanPaymentHistory(val ssn: String, val id: String) : Screen()
 
     //Teller
     @Parcelize
@@ -483,5 +520,8 @@ sealed class Screen : Parcelable {
 
     @Parcelize
     data class ManagerViewTransactionHistory(val ssn: String, val id: String): Screen()
+
+    @Parcelize
+    data class ManagerViewLoanPaymentHistory(val ssn: String, val id: String) : Screen()
 
 }

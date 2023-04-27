@@ -17,6 +17,7 @@ public class EditCustomerLoanScreenViewModel {
     private final String ssn;
     private final String id;
     private final Function2<String, String, Unit> onCredit;
+    private final Function2<String, String, Unit> onViewTransactionHistory;
     private final Function0<Unit> onBack;
 
     /**
@@ -33,6 +34,7 @@ public class EditCustomerLoanScreenViewModel {
             String ssn,
             String id,
             Function2<String, String, Unit> onCredit,
+            Function2<String, String, Unit> onViewTransactionHistory,
             Function0<Unit> onBack
     ) {
         this.customerRepository = customerRepository;
@@ -40,6 +42,7 @@ public class EditCustomerLoanScreenViewModel {
         this.ssn = ssn;
         this.id = id;
         this.onCredit = onCredit;
+        this.onViewTransactionHistory = onViewTransactionHistory;
         this.onBack = onBack;
     }
 
@@ -68,6 +71,10 @@ public class EditCustomerLoanScreenViewModel {
         loan.setBalance(0.0);
         loanRepository.update(loan);
         onBack.invoke();
+    }
+
+    public void onViewTransactionHistory() {
+        onViewTransactionHistory.invoke(ssn, id);
     }
 
     public void onBack() {

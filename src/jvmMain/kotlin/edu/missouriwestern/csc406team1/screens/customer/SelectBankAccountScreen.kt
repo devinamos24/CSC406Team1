@@ -36,11 +36,23 @@ fun CustomerSelectBankAccountScreen(
         Column(
             modifier = Modifier.fillMaxWidth()
         ) {
-            Button(
-                onClick = selectBankAccountScreenViewModel::onBack,
-                modifier = Modifier.align(Alignment.Start)
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(24.dp)
             ) {
-                Text(if (customer != null) "Logout" else "Back")
+                Button(
+                    onClick = selectBankAccountScreenViewModel::onBack
+                ) {
+                    Text(if (customer != null) "Logout" else "Back")
+                }
+                if (customer != null) {
+                    Button(
+                        onClick = selectBankAccountScreenViewModel::onGoShopping
+                    ) {
+                        Text("Go Shopping")
+                    }
+                }
             }
             if (customer != null && customerAccounts.isNotEmpty()) {
                 Box(

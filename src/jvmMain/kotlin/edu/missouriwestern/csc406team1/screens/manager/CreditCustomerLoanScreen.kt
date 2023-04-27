@@ -13,7 +13,10 @@ import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
+import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.*
+import java.time.LocalDate
+import java.time.LocalTime
 
 //TODO: Finish this screen
 
@@ -92,6 +95,7 @@ fun ManagerCreditCustomerLoanScreen(
 
                                 loan.balance -= money
                                 if (loanRepository.update(loan.copy())) {
+                                    transactionRepository.addTransaction(Transaction("", true, false, "lp", money, loan.balance, loan.accountNumber, LocalDate.now(), LocalTime.now()))
                                     onBack()
                                 } else {
                                     hasFailed = true

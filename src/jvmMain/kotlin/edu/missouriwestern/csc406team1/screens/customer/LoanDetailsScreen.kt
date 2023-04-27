@@ -69,6 +69,11 @@ fun CustomerLoanDetailsScreen(
                     ) {
                         Text("Make Payment")
                     }
+                    Button(
+                        onClick = loanDetailsScreenViewModel::onViewPaymentHistory
+                    ) {
+                        Text("View Payment History")
+                    }
                 }
             }
         } else {

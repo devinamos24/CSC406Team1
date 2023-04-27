@@ -68,11 +68,12 @@ fun WindowScope.ManagerEditCustomerLoanScreen(
                         color = Color.Green
                     )
                 }
-                if (loan.balance > 0.0) {
-                    Row (
-                        modifier = Modifier.align(Alignment.CenterHorizontally),
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
-                    ) {
+
+                Row(
+                    modifier = Modifier.align(Alignment.CenterHorizontally),
+                    horizontalArrangement = Arrangement.spacedBy(4.dp)
+                ) {
+                    if (loan.balance > 0.0) {
                         Button(
                             onClick = editCustomerLoanScreenViewModel::onCredit
                         ) {
@@ -83,6 +84,11 @@ fun WindowScope.ManagerEditCustomerLoanScreen(
                         ) {
                             Text("Release Lien")
                         }
+                    }
+                    Button(
+                        onClick = editCustomerLoanScreenViewModel::onViewTransactionHistory
+                    ) {
+                        Text("View Payment History")
                     }
                 }
             }

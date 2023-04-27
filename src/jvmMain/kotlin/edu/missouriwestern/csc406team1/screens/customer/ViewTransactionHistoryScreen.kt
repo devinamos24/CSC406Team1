@@ -40,7 +40,7 @@ fun CustomerViewTransactionHistoryScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
-    val accountTransactions = transactions.filter { it.accID == id }.sorted()
+    val accountTransactions = transactions.filter { it.accID == id && it.transactionType != "lp"}.sorted()
     val daysOfTransactions = accountTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
@@ -119,7 +119,7 @@ fun CustomerViewTransactionHistoryScreen(
 }
 
 @Composable
-fun AccountDateHeader(
+private fun AccountDateHeader(
     modifier: Modifier = Modifier,
     date: String
 ) {
@@ -137,7 +137,7 @@ fun AccountDateHeader(
 }
 
 @Composable
-fun AccountTransactionButton(
+private fun AccountTransactionButton(
     modifier: Modifier = Modifier,
     transaction: Transaction,
 ) {
@@ -152,7 +152,6 @@ fun AccountTransactionButton(
 
         when (transaction.transactionType) {
             "f" -> creditText = "Fee"
-            "lp" -> creditText = "Loan Payment"
             "t" -> creditText = "Transfer"
             "ch" -> creditText = "Check"
         }

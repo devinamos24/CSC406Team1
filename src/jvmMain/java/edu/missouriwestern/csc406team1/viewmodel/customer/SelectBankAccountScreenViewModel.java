@@ -8,6 +8,7 @@ import edu.missouriwestern.csc406team1.database.model.account.Account;
 import edu.missouriwestern.csc406team1.database.model.loan.Loan;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
+import kotlin.jvm.functions.Function1;
 import kotlin.jvm.functions.Function2;
 import kotlinx.coroutines.flow.StateFlow;
 
@@ -20,6 +21,7 @@ public class SelectBankAccountScreenViewModel {
     private final String ssn;
     private final Function2<String, String, Unit> onClickAccount;
     private final Function2<String, String, Unit> onClickLoan;
+    private final Function1<String, Unit> onGoShopping;
     private final Function0<Unit> onBack;
 
     public SelectBankAccountScreenViewModel(
@@ -29,6 +31,7 @@ public class SelectBankAccountScreenViewModel {
             String ssn,
             Function2<String, String, Unit> onClickAccount,
             Function2<String, String, Unit> onClickLoan,
+            Function1<String, Unit> onGoShopping,
             Function0<Unit> onBack
     ) {
         this.customerRepository = customerRepository;
@@ -37,6 +40,7 @@ public class SelectBankAccountScreenViewModel {
         this.ssn = ssn;
         this.onClickAccount = onClickAccount;
         this.onClickLoan = onClickLoan;
+        this.onGoShopping = onGoShopping;
         this.onBack = onBack;
     }
 
@@ -62,6 +66,9 @@ public class SelectBankAccountScreenViewModel {
 
     public void onClickLoan(String id) {
         onClickLoan.invoke(ssn, id);
+    }
+    public void onGoShopping() {
+        onGoShopping.invoke(ssn);
     }
 
     public void onBack() {

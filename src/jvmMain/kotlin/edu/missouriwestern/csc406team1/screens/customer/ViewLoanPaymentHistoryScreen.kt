@@ -1,4 +1,4 @@
-package edu.missouriwestern.csc406team1.screens.manager
+package edu.missouriwestern.csc406team1.screens.customer
 
 import androidx.compose.foundation.VerticalScrollbar
 import androidx.compose.foundation.layout.*
@@ -15,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
+import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.*
@@ -25,9 +25,9 @@ import java.time.format.DateTimeFormatter
 private val formatter = DateTimeFormatter.ofPattern("MMM dd, uuuu")
 
 @Composable
-fun ManagerViewTransactionHistoryScreen(
+fun CustomerViewLoanPaymentHistoryScreen(
     customerRepository: CustomerRepository,
-    accountRepository: AccountRepository,
+    loanRepository: LoanRepository,
     transactionRepository: TransactionRepository,
     ssn: String,
     id: String,
@@ -35,13 +35,13 @@ fun ManagerViewTransactionHistoryScreen(
 ) {
 
     val customers by customerRepository.customers.collectAsState()
-    val accounts by accountRepository.accounts.collectAsState()
+    val loans by loanRepository.loans.collectAsState()
     val transactions by transactionRepository.transactions.collectAsState()
 
     val customer = customers.find { it.ssn == ssn }
-    val account = accounts.find { it.accountNumber == id }
-    val accountTransactions = transactions.filter { it.accID == id && it.transactionType != "lp" }.sorted()
-    val daysOfTransactions = accountTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
+    val loan = loans.find { it.accountNumber == id }
+    val loanTransactions = transactions.filter { it.accID == id && it.transactionType == "lp" }.sorted()
+    val daysOfTransactions = loanTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Column(
@@ -57,17 +57,17 @@ fun ManagerViewTransactionHistoryScreen(
                 ) {
                     Text("Back")
                 }
-                if (customer != null && account != null) {
+                if (customer != null && loan != null) {
                     Text(
                         text = "${customer.firstname} ${customer.lastname}"
                     )
                     Text(
-                        text = account.getName()
+                        text = loan.getName()
                     )
                 }
             }
 
-            if (customer != null && account != null && accountTransactions.isNotEmpty()) {
+            if (customer != null && loan != null && loanTransactions.isNotEmpty() && loan.balance > 0.0) {
                 Box(
                     modifier = Modifier.fillMaxSize()
                         .padding(10.dp)
@@ -79,12 +79,12 @@ fun ManagerViewTransactionHistoryScreen(
                         }
                         daysOfTransactions.forEach { date ->
                             item {
-                                AccountDateHeader(date = date)
+                                LoanDateHeader(date = date)
                             }
-                            accountTransactions.forEach { transaction ->
+                            loanTransactions.forEach { transaction ->
                                 if (formatter.format(transaction.date) == date) {
                                     item {
-                                        AccountTransactionButton(
+                                        LoanTransactionButton(
                                             transaction = transaction,
                                         )
                                         Spacer(
@@ -107,22 +107,22 @@ fun ManagerViewTransactionHistoryScreen(
                 }
             }
         }
-        if (customer == null || account == null) {
+        if (customer == null || loan == null || loan.balance <= 0.0) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "This account no longer exists"
+                text = "This loan no longer exists or is payed off"
             )
         } else if (transactions.isEmpty()) {
             Text(
                 modifier = Modifier.align(Alignment.Center),
-                text = "This account has no transaction history"
+                text = "This loan has no payment history"
             )
         }
     }
 }
 
 @Composable
-private fun AccountDateHeader(
+private fun LoanDateHeader(
     modifier: Modifier = Modifier,
     date: String
 ) {
@@ -140,7 +140,7 @@ private fun AccountDateHeader(
 }
 
 @Composable
-private fun AccountTransactionButton(
+private fun LoanTransactionButton(
     modifier: Modifier = Modifier,
     transaction: Transaction,
 ) {
@@ -149,14 +149,9 @@ private fun AccountTransactionButton(
             .fillMaxWidth()
             .padding(start = 10.dp)
     ) {
-        var creditText = if (transaction.isCredit) "Credit" else "Debit"
-        val modifierSymbol = if (transaction.isCredit) "" else "-"
-        val color = if (transaction.isCredit) Color.Green else Color.Unspecified
-
-        when (transaction.transactionType) {
-            "t" -> creditText = "Transaction"
-            "ch" -> creditText = "Check"
-        }
+        val creditText = "Loan Payment"
+        val modifierSymbol = "-"
+        val color = Color.Green
 
         Column(
             modifier = Modifier.align(Alignment.CenterEnd),
