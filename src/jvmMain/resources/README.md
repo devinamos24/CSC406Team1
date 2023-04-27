@@ -73,7 +73,7 @@
 - TransactionID
 - credit
 - debit
-- transactionType
+- transactionType (c=credit, d=debit, t=transfer, f=fee, p=purchase, ch=check, lp=loan payment)
 - amount
 - accBalance
 - accID
