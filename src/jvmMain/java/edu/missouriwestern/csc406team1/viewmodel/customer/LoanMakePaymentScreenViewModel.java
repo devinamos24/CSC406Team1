@@ -145,7 +145,7 @@ public class LoanMakePaymentScreenViewModel {
 
         if (loanRepository.update(loan) && accountRepository.update(account)) {
             //TODO: Implement loans into transactionRepository
-            //transactionRepository.addTransaction(new Transaction("", false, true, "p", money, loan.getBalance(), loan.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+            transactionRepository.addTransaction(new Transaction("", false, true, "lp", money, loan.getBalance(), loan.getAccountNumber(), LocalDate.now(), LocalTime.now()));
             transactionRepository.addTransaction(new Transaction("", false, true, "t", money, account.getBalance() - fee, account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
             if (fee > 0.0) {
                 transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
