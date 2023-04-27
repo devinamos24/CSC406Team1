@@ -134,6 +134,6 @@ public abstract class Loan implements CSV, Comparable<Loan>, Copyable<Loan> {
 
     @Override
     public String[] convertToCSV() {
-        return new String[] {accountNumber, customerSSN, String.valueOf(balance), DateConverter.convertDateToString(dateOpened)};
+        return new String[] {accountNumber, customerSSN, String.valueOf(balance), String.valueOf(balance), DateConverter.convertDateToString(datePaymentDue), DateConverter.convertDateToString(paymentNotified), String.valueOf(currentPaymentDue), DateConverter.convertDateToString(dateSinceLastPayment), String.valueOf(missedPayment)};
     }
 }

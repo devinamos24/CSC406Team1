@@ -3,6 +3,8 @@ package edu.missouriwestern.csc406team1.database.model.loan;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class CreditCardLoan extends Loan{
     @NotNull
@@ -36,5 +38,15 @@ public class CreditCardLoan extends Loan{
     @Override
     public CreditCardLoan copy() {
         return new CreditCardLoan(this);
+    }
+
+    @Override
+    public String[] convertToCSV() {
+        String[] base = super.convertToCSV();
+        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add("cc");
+        returnValue.add(String.valueOf(creditLimit));
+
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }

@@ -59,6 +59,7 @@ public class CDAccount extends SavingsAccount {
         returnValue.add(getCustomerSSN());
         returnValue.add(String.valueOf(getBalance()));
         returnValue.add(DateConverter.convertDateToString(getDateOpened()));
+        returnValue.add(String.valueOf(getIsActive()));
         returnValue.add("CD");
         returnValue.add(String.valueOf(getInterestRate()));
         returnValue.add(DateConverter.convertDateToString(getDueDate()));

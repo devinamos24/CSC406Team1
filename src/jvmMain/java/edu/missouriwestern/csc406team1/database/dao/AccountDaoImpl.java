@@ -73,28 +73,28 @@ public class AccountDaoImpl implements AccountDao{
                 if (Integer.parseInt(args[0]) > highestID) {
                     highestID = Integer.parseInt(args[0]);
                 }
-                switch (args[4]) {
+                switch (args[5]) {
                     case "TMB":
-                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
-                        if (!args[5].equals("null")) {
-                            checkingAccounts.put(account, args[6]);
+                        account = new TMBAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[4]), Boolean.parseBoolean(args[7]), Integer.parseInt(args[8]));
+                        if (!args[6].equals("null")) {
+                            checkingAccounts.put(account, args[7]);
                         }
                         accounts.add(account);
                         break;
                     case "GD":
-                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]), null, Boolean.parseBoolean(args[8]), Integer.parseInt(args[9]));
-                        if (!args[6].equals("null")) {
-                            checkingAccounts.put(account, args[6]);
+                        account = new GoldDiamondAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[4]), Double.parseDouble(args[6]), null, Boolean.parseBoolean(args[8]), Integer.parseInt(args[9]));
+                        if (!args[7].equals("null")) {
+                            checkingAccounts.put(account, args[7]);
                         }
                         accounts.add(account);
                         break;
                     case "S":
-                        savingsAccount = new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]));
+                        savingsAccount = new SavingsAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[4]), Double.parseDouble(args[6]));
                         accounts.add(savingsAccount);
                         savingsAccounts.put(args[0], savingsAccount);
                         break;
                     case "CD":
-                        accounts.add(new CDAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[5]), Double.parseDouble(args[6]), DateConverter.convertStringToDate(args[7])));
+                        accounts.add(new CDAccount(args[0], args[1], Double.parseDouble(args[2]), DateConverter.convertStringToDate(args[3]), Boolean.parseBoolean(args[4]), Double.parseDouble(args[6]), DateConverter.convertStringToDate(args[7])));
                         break;
                     default:
                         throw new IllegalArgumentException("Type: "+ args[2] + " not supported!");
@@ -115,31 +115,20 @@ public class AccountDaoImpl implements AccountDao{
                 key.setBackupAccount(savingsAccounts.get(checkingAccounts.get(key)));
         }
     }
-    /**
-     * Adds a new account to the list of accounts and assigns it a new account number.
-     * @param account the Account object to be added
-     * @return true if the account was added successfully, false otherwise
-     */
+
     @Override
     public boolean addAccount(Account account) {
         account.setAccountNumber(String.valueOf(highestID+1));
         highestID++;
         return accounts.add(account);
     }
-    /**
-     * Retrieves a list of all accounts.
-     * @return an ArrayListFlow containing all Account objects
-     */
+
     @NotNull
     @Override
     public ArrayListFlow<Account> getAccounts() {
         return accounts;
     }
-    /**
-     * Retrieves an account using its account number.
-     * @param accountNumber the account number of the account to be retrieved
-     * @return the Account object if found, null otherwise
-     */
+
     @Nullable
     @Override
     public Account getAccount(String accountNumber) {
@@ -150,26 +139,19 @@ public class AccountDaoImpl implements AccountDao{
         }
         return null;
     }
-    /**
-     * Updates the details of an existing account in the list of accounts.
-     * @param account the Account object with updated information
-     * @return true if the account was updated successfully, false otherwise
-     */
+
     @Override
     public boolean updateAccount(Account account) {
         for (Account account1 : accounts) {
             if (account1.getAccountNumber().equals(account.getAccountNumber())) {
                 if (accounts.remove(account1)) {
-                    return accounts.add(account.copy());
+                    return accounts.add(account);
                 }
             }
         }
         return false;
     }
-    /**
-     * Deletes an account using its account number.
-     * @param accountNumber the account number of the account to be deleted
-     */
+
     @Override
     public void deleteAccount(String accountNumber) {
         for (Account account : accounts) {
@@ -180,10 +162,7 @@ public class AccountDaoImpl implements AccountDao{
         }
         System.err.println("Error deleting account, could not find matching ID");
     }
-    /**
-     * Saves the changes made to the list of accounts to a CSV file.
-     * @return true if the changes were saved successfully, false otherwise
-     */
+
     @Override
     public boolean save() {
         try {

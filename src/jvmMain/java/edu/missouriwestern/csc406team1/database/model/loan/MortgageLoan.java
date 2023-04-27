@@ -3,6 +3,8 @@ package edu.missouriwestern.csc406team1.database.model.loan;
 import org.jetbrains.annotations.NotNull;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MortgageLoan extends Loan{
 
@@ -23,5 +25,14 @@ public class MortgageLoan extends Loan{
     @Override
     public MortgageLoan copy() {
         return new MortgageLoan(this);
+    }
+
+    @Override
+    public String[] convertToCSV() {
+        String[] base = super.convertToCSV();
+        ArrayList<String> returnValue = new ArrayList<>(Arrays.asList(base));
+        returnValue.add("ll");
+
+        return returnValue.toArray(new String[returnValue.size()]);
     }
 }
