@@ -2,11 +2,14 @@ package edu.missouriwestern.csc406team1.viewmodel.customer;
 
 import edu.missouriwestern.csc406team1.database.AccountRepository;
 import edu.missouriwestern.csc406team1.database.CustomerRepository;
+import edu.missouriwestern.csc406team1.database.LoanRepository;
 import edu.missouriwestern.csc406team1.database.TransactionRepository;
 import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.account.Account;
 import edu.missouriwestern.csc406team1.database.model.account.CheckingAccount;
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan;
+import edu.missouriwestern.csc406team1.database.model.loan.Loan;
 import edu.missouriwestern.csc406team1.util.InputWrapper;
 import kotlin.Unit;
 import kotlin.jvm.functions.Function0;
@@ -23,10 +26,12 @@ public class ShoppingScreenViewModel {
 
     private final CustomerRepository customerRepository;
     private final AccountRepository accountRepository;
+    private final LoanRepository loanRepository;
     private final TransactionRepository transactionRepository;
     private final MutableStateFlow<Boolean> hasFailed = StateFlowKt.MutableStateFlow(false);
     private final MutableStateFlow<String> hasFailedText = StateFlowKt.MutableStateFlow("Purchase Failed, try again");
     private final MutableStateFlow<InputWrapper> amount = StateFlowKt.MutableStateFlow(new InputWrapper());
+    private final MutableStateFlow<Boolean> isAccount = StateFlowKt.MutableStateFlow(true);
     private final MutableStateFlow<String> selectedAccountId = StateFlowKt.MutableStateFlow("");
     private final String ssn;
     private final Function0<Unit> onBack;
@@ -34,12 +39,14 @@ public class ShoppingScreenViewModel {
     public ShoppingScreenViewModel(
             CustomerRepository customerRepository,
             AccountRepository accountRepository,
+            LoanRepository loanRepository,
             TransactionRepository transactionRepository,
             String ssn,
             Function0<Unit> onBack
     ) {
         this.customerRepository = customerRepository;
         this.accountRepository = accountRepository;
+        this.loanRepository = loanRepository;
         this.transactionRepository = transactionRepository;
         this.ssn = ssn;
         this.onBack = onBack;
@@ -61,6 +68,10 @@ public class ShoppingScreenViewModel {
      */
     public StateFlow<List<Account>> getAccounts() {
         return accountRepository.getAccounts().getFlow();
+    }
+
+    public StateFlow<List<Loan>> getLoans() {
+        return loanRepository.getLoans().getFlow();
     }
 
     public String getSsn() {
@@ -90,6 +101,14 @@ public class ShoppingScreenViewModel {
 
     public void onSelectAccount(String id) {
         selectedAccountId.setValue(id);
+    }
+
+    public StateFlow<Boolean> getIsAccount() {
+        return FlowKt.asStateFlow(isAccount);
+    }
+
+    public void setIsAccount(Boolean isAccount) {
+        this.isAccount.setValue(isAccount);
     }
 
     public void onMakePurchaseATM() {
@@ -160,10 +179,11 @@ public class ShoppingScreenViewModel {
             return;
         }
         double fee = account.getTransactionFee();
+        money += fee;
         if (account.getBalance() >= money) {
             account.setBalance(account.getBalance() - money);
             if (accountRepository.update(account)) {
-                transactionRepository.addTransaction(new Transaction("", false, true, "d", money, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                transactionRepository.addTransaction(new Transaction("", false, true, "d", money, account.getBalance() + fee, account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
                 if (fee > 0.0) {
                     transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
                 }
@@ -172,7 +192,7 @@ public class ShoppingScreenViewModel {
             }
         } else {
             if (account.getBackupAccount() != null && account.getBalance() + account.getBackupAccount().getBalance() >= money) {
-                account.getBackupAccount().setBalance(account.getBackupAccount().getBalance() - (money - account.getBalance()) - fee);
+                account.getBackupAccount().setBalance(account.getBackupAccount().getBalance() - (money - account.getBalance()));
                 double oldBalance = account.getBalance();
                 account.setBalance(0.0);
                 if (accountRepository.update(account) && accountRepository.update(account.getBackupAccount())) {
@@ -195,6 +215,37 @@ public class ShoppingScreenViewModel {
                 hasFailedText.setValue("Insufficient funds in account, applying check bounce fee");
                 hasFailed.setValue(true);
             }
+            return;
+        }
+        hasFailedText.setValue("Debiting account failed, try again");
+        hasFailed.setValue(true);
+    }
+
+    public void onMakePurchaseCreditCard() {
+        CreditCardLoan creditCard;
+        double money;
+        try {
+            creditCard = (CreditCardLoan) loanRepository.getLoan(selectedAccountId.getValue());
+            money = Double.parseDouble(amount.getValue().component1()) / 100;
+        } catch (NumberFormatException e) {
+            hasFailedText.setValue("Debiting account failed, try again");
+            hasFailed.setValue(true);
+            return;
+        }
+        if (creditCard.getCreditLimit() - creditCard.getBalance() >= money) {
+            creditCard.setBalance(creditCard.getBalance() + money);
+            if (loanRepository.update(creditCard)) {
+                transactionRepository.addTransaction(new Transaction("", false, true, "ccp", money, creditCard.getBalance(), creditCard.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                hasFailed.setValue(false);
+                return;
+            }
+        } else {
+            creditCard.setBalance(creditCard.getBalance() + 25.0);
+            if (loanRepository.update(creditCard)) {
+                transactionRepository.addTransaction(new Transaction("", false, true, "ccf", 25.0, creditCard.getBalance(), creditCard.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+            }
+            hasFailedText.setValue("Insufficient credit available, applying over-the-limit fee");
+            hasFailed.setValue(true);
             return;
         }
         hasFailedText.setValue("Debiting account failed, try again");

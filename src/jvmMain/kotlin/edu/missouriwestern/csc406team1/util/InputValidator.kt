@@ -68,7 +68,7 @@ object InputValidator {
 
     fun getLoanTypeErrorOrNull(input: String): String? {
         return when {
-            input !in listOf("ls", "ll") -> "Unrecognized loan type"
+            input !in listOf("ls", "ll", "cc") -> "Unrecognized loan type"
             else -> null
         }
     }
@@ -83,6 +83,19 @@ object InputValidator {
 
         return when {
             date.isBefore(LocalDate.now()) -> "Due date must not be in the past"
+            else -> null
+        }
+    }
+
+    fun getLengthErrorOrNull(input: String): String? {
+        val length: Int
+        try {
+            length = input.toInt()
+        } catch (e: NumberFormatException) {
+            return "Length format is invalid"
+        }
+        return when {
+            length <= 0 -> "Length must be above 0 years"
             else -> null
         }
     }

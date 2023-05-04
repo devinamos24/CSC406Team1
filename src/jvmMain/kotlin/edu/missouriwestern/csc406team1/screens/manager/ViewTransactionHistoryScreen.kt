@@ -155,6 +155,7 @@ private fun AccountTransactionButton(
 
         when (transaction.transactionType) {
             "t" -> creditText = "Transaction"
+            "f" -> creditText = "Fee"
             "ch" -> creditText = "Check"
         }
 

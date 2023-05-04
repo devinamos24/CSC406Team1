@@ -10,6 +10,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.WindowScope
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan
 import edu.missouriwestern.csc406team1.util.*
 import edu.missouriwestern.csc406team1.viewmodel.manager.EditCustomerLoanScreenViewModel
 
@@ -50,7 +51,7 @@ fun WindowScope.ManagerEditCustomerLoanScreen(
                 modifier = Modifier.align(Alignment.Center)
             ) {
                 Text("Date Opened: ${DateConverter.convertDateToString(loan.dateOpened)}")
-                if (loan.balance > 0.0) {
+                if (loan is CreditCardLoan || loan.balance > 0.0) {
                     Text("Current Balance Owed: ${loan.balance.formatAsMoney()}")
                     Text("Interest Rate: ${loan.interestRate.times(100)}%")
                     Text("Next Payment Due: ${DateConverter.convertDateToString(loan.datePaymentDue)} Amount: ${loan.currentPaymentDue.formatAsMoney()}")
@@ -59,6 +60,11 @@ fun WindowScope.ManagerEditCustomerLoanScreen(
                         Text(
                             color = MaterialTheme.colorScheme.error,
                             text = "Payment Missed"
+                        )
+                    }
+                    if (loan is CreditCardLoan) {
+                        Text(
+                            "Credit Limit: ${loan.creditLimit.formatAsMoney()}"
                         )
                     }
                 } else {
@@ -73,12 +79,14 @@ fun WindowScope.ManagerEditCustomerLoanScreen(
                     modifier = Modifier.align(Alignment.CenterHorizontally),
                     horizontalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    if (loan.balance > 0.0) {
+                    if (loan.balance > 0) {
                         Button(
                             onClick = editCustomerLoanScreenViewModel::onCredit
                         ) {
                             Text("Credit")
                         }
+                    }
+                    if (loan !is CreditCardLoan && loan.balance > 0.0) {
                         Button(
                             onClick = { releasingLien = true }
                         ) {

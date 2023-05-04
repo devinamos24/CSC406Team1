@@ -15,7 +15,10 @@ import androidx.compose.ui.layout.onGloballyPositioned
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.toSize
+import edu.missouriwestern.csc406team1.database.model.account.Account
 import edu.missouriwestern.csc406team1.database.model.account.CheckingAccount
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan
+import edu.missouriwestern.csc406team1.database.model.loan.Loan
 import edu.missouriwestern.csc406team1.util.CurrencyAmountInputVisualTransformation
 import edu.missouriwestern.csc406team1.util.CustomTextField
 import edu.missouriwestern.csc406team1.util.formatAsMoney
@@ -31,6 +34,7 @@ fun CustomerShoppingScreen(
 
     val customers by shoppingScreenViewModel.customers.collectAsState()
     val accounts by shoppingScreenViewModel.accounts.collectAsState()
+    val loans by shoppingScreenViewModel.loans.collectAsState()
 
     var expanded by remember { mutableStateOf(false) }
     var textFieldSize by remember { mutableStateOf(Size.Zero) }
@@ -40,13 +44,15 @@ fun CustomerShoppingScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val customerAccounts = accounts.filter { it.customerSSN == ssn && it is CheckingAccount && it.isActive }
+    val customerCreditCards = loans.filter { it.customerSSN == ssn && it is CreditCardLoan }
 
     val hasFailed by shoppingScreenViewModel.hasFailed.collectAsState()
     val hasFailedText by shoppingScreenViewModel.hasFailedText.collectAsState()
 
     val selectedAccountId by shoppingScreenViewModel.selectedAccountId.collectAsState()
-    val selectedAccount = accounts.find { it.accountNumber == selectedAccountId }
-    val selectedAccountText = selectedAccount?.getName() ?: ""
+    val isAccount by shoppingScreenViewModel.isAccount.collectAsState()
+    val selectedAccount = if (isAccount) accounts.find { it.accountNumber == selectedAccountId } else loans.find { it.accountNumber == selectedAccountId }
+    val selectedAccountText = if (selectedAccount is Loan) selectedAccount.getName() else if (selectedAccount is Account) selectedAccount.getName() else ""
 
     val amount by shoppingScreenViewModel.amount.collectAsState()
 
@@ -99,7 +105,19 @@ fun CustomerShoppingScreen(
                                     DropdownMenuItem(
                                         text = { Text(text = account.getName()) },
                                         onClick = {
+                                            shoppingScreenViewModel.setIsAccount(true)
                                             shoppingScreenViewModel.onSelectAccount(account.accountNumber)
+                                            expanded = false
+                                        },
+                                        modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
+                                    )
+                                }
+                                customerCreditCards.forEach { creditCard ->
+                                    DropdownMenuItem(
+                                        text = { Text(text = creditCard.getName()) },
+                                        onClick = {
+                                            shoppingScreenViewModel.setIsAccount(false)
+                                            shoppingScreenViewModel.onSelectAccount(creditCard.accountNumber)
                                             expanded = false
                                         },
                                         modifier = Modifier.width(with(LocalDensity.current) { textFieldSize.width.toDp() })
@@ -108,7 +126,11 @@ fun CustomerShoppingScreen(
                             }
                         }
                         if (selectedAccount != null) {
-                            Text("Balance: ${selectedAccount.balance.formatAsMoney()}")
+                            if (selectedAccount is Account) {
+                                Text("Balance: ${selectedAccount.balance.formatAsMoney()}")
+                            } else if (selectedAccount is CreditCardLoan) {
+                                Text("Balance: ${(selectedAccount.creditLimit - selectedAccount.balance).formatAsMoney()}")
+                            }
                         }
                     } else {
                         Text("No Available Accounts")
@@ -122,17 +144,26 @@ fun CustomerShoppingScreen(
                     onValueChange = shoppingScreenViewModel::onAmountChange,
                 )
                 Row {
-                    Button(
-                        onClick = shoppingScreenViewModel::onMakePurchaseATM,
-                        enabled = selectedAccount != null && selectedAccount.isActive && selectedAccount is CheckingAccount && selectedAccount.atmCard != null && amount.errorMessage == null && amount.value.isNotBlank(),
-                    ) {
-                        Text("Purchase with ATM card")
-                    }
-                    Button(
-                        onClick = shoppingScreenViewModel::onMakePurchaseCheck,
-                        enabled = selectedAccount != null && selectedAccount.isActive && selectedAccount is CheckingAccount && amount.errorMessage == null && amount.value.isNotBlank(),
-                    ) {
-                        Text("Purchase with check")
+                    if (selectedAccount is Account) {
+                        Button(
+                            onClick = shoppingScreenViewModel::onMakePurchaseATM,
+                            enabled = selectedAccount.isActive && selectedAccount is CheckingAccount && selectedAccount.atmCard != null && amount.errorMessage == null && amount.value.isNotBlank(),
+                        ) {
+                            Text("Purchase with ATM card")
+                        }
+                        Button(
+                            onClick = shoppingScreenViewModel::onMakePurchaseCheck,
+                            enabled = selectedAccount.isActive && selectedAccount is CheckingAccount && amount.errorMessage == null && amount.value.isNotBlank(),
+                        ) {
+                            Text("Purchase with check")
+                        }
+                    } else if (selectedAccount is CreditCardLoan) {
+                        Button(
+                            onClick = shoppingScreenViewModel::onMakePurchaseCreditCard,
+                            enabled = amount.errorMessage == null && amount.value.isNotBlank()
+                        ) {
+                            Text("Purchase with Credit Card")
+                        }
                     }
                 }
                 if (hasFailed) {

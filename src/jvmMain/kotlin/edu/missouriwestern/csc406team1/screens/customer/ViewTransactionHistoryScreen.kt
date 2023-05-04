@@ -40,7 +40,7 @@ fun CustomerViewTransactionHistoryScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
-    val accountTransactions = transactions.filter { it.accID == id && it.transactionType != "lp"}.sorted()
+    val accountTransactions = transactions.filter { it.accID == id && (it.transactionType != "lp" || it.transactionType != "ccp" || it.transactionType != "ccf") }.sorted()
     val daysOfTransactions = accountTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {

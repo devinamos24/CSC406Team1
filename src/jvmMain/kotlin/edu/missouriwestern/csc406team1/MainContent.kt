@@ -75,6 +75,7 @@ fun WindowScope.MainContent(
                 shoppingScreenViewModel = ShoppingScreenViewModel(
                     customerRepository,
                     accountRepository,
+                    loanRepository,
                     transactionRepository,
                     screen.ssn,
                     navigation::pop

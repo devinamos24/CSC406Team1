@@ -36,6 +36,15 @@ public class GoldDiamondAccount extends CheckingAccount {
         this.minimumBalance = minimumBalance;
     }
 
+    @NotNull
+    @Override
+    public Double getTransactionFee() {
+        if (getBalance() < defaultMinimumBalance) {
+            return 0.75;
+        }
+        return 0.0;
+    }
+
     @Override
     public String[] convertToCSV() {
         String backupID;

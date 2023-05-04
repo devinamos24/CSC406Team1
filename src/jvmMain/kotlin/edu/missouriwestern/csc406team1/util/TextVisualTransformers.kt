@@ -15,6 +15,7 @@ class CurrencyAmountInputVisualTransformation(
     private val symbols = DecimalFormat().decimalFormatSymbols
 
     override fun filter(text: AnnotatedString): TransformedText {
+        val currencySymbol = symbols.currencySymbol
         val thousandsSeparator = symbols.groupingSeparator
         val decimalSeparator = symbols.decimalSeparator
         val zero = symbols.zeroDigit
@@ -41,7 +42,7 @@ class CurrencyAmountInputVisualTransformation(
             }
         }
 
-        val formattedNumber = intPart + decimalSeparator + fractionPart
+        val formattedNumber = currencySymbol + intPart + decimalSeparator + fractionPart
 
         val newText = AnnotatedString(
             text = formattedNumber,

@@ -17,4 +17,8 @@ public class DateConverter {
     public static LocalDate convertStringToDateInterface(String date) {
         return LocalDate.parse(date, specialFormatter);
     }
+
+    public static String convertDateToStringInterface(LocalDate date) {
+        return specialFormatter.format(date);
+    }
 }

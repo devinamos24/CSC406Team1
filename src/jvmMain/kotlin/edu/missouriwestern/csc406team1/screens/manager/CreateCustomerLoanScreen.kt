@@ -17,16 +17,17 @@ import androidx.compose.ui.unit.toSize
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.LoanRepository
 import edu.missouriwestern.csc406team1.database.model.account.*
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan
 import edu.missouriwestern.csc406team1.database.model.loan.Loan
 import edu.missouriwestern.csc406team1.database.model.loan.MortgageLoan
 import edu.missouriwestern.csc406team1.database.model.loan.ShortTermLoan
 import edu.missouriwestern.csc406team1.util.*
-import edu.missouriwestern.csc406team1.util.DateConverter.convertStringToDateInterface
-import edu.missouriwestern.csc406team1.util.InputValidator.getAmountDueErrorOrNull
+import edu.missouriwestern.csc406team1.util.DateConverter.*
 import edu.missouriwestern.csc406team1.util.InputValidator.getBalanceErrorOrNull
-import edu.missouriwestern.csc406team1.util.InputValidator.getDueDateErrorOrNull
 import edu.missouriwestern.csc406team1.util.InputValidator.getInterestRateErrorOrNull
+import edu.missouriwestern.csc406team1.util.InputValidator.getLengthErrorOrNull
 import java.time.LocalDate
+import kotlin.math.pow
 
 //TODO: Finish this screen
 
@@ -42,16 +43,24 @@ fun ManagerCreateCustomerLoanScreen(
 
     var type by remember { mutableStateOf(InputWrapper()) }
     var balance by remember { mutableStateOf(InputWrapper()) }
+    var length by remember { mutableStateOf(InputWrapper()) }
     var interestRate by remember { mutableStateOf(InputWrapper()) }
-    var paymentDueDate by remember { mutableStateOf(InputWrapper()) }
-    var paymentPer by remember { mutableStateOf(InputWrapper()) }
+    val paymentDueDate = LocalDate.now().plusMonths(1)
+    val paymentPer = try {
+        ((balance.value.toDouble()/100) * (interestRate.value.toDouble()/10000/12)) / (1 - (1 + interestRate.value.toDouble()/10000/12).pow(-12*length.value.toInt()))
+    } catch (ignored: Exception) {
+        0.0
+    }
+    var creditLimit by remember { mutableStateOf(InputWrapper()) }
 
     fun inputsValid(): Boolean {
         return type.errorMessage == null && type.value.isNotBlank()
-                && balance.errorMessage == null && balance.value.isNotBlank()
+                && !(type.value != "cc" && (balance.errorMessage != null && balance.value.isBlank()))
                 && interestRate.errorMessage == null && interestRate.value.isNotBlank()
-                && paymentDueDate.errorMessage == null && paymentDueDate.value.isNotBlank()
-                && paymentPer.errorMessage == null && paymentPer.value.isNotBlank()
+//                && paymentDueDate.errorMessage == null && paymentDueDate.value.isNotBlank()
+//                && paymentPer.errorMessage == null && paymentPer.value.isNotBlank()
+                && !(type.value != "cc" && paymentPer == 0.0)
+                && !(type.value == "cc" && (creditLimit.errorMessage != null || creditLimit.value.isBlank()))
     }
 
     var expandedType by remember { mutableStateOf(false) }
@@ -98,6 +107,7 @@ fun ManagerCreateCustomerLoanScreen(
                         when (type.value) {
                             "ls" -> "Short Term"
                             "ll" -> "Long Term"
+                            "cc" -> "Credit Card"
                             else -> ""
                         },
                         onValueChange = {},
@@ -114,12 +124,13 @@ fun ManagerCreateCustomerLoanScreen(
                         expanded = expandedType,
                         onDismissRequest = { expandedType = false }
                     ) {
-                        listOf("ls", "ll").forEach { loanType ->
+                        listOf("ls", "ll", "cc").forEach { loanType ->
                             DropdownMenuItem(
                                 text = { Text(
                                     when (loanType) {
                                         "ls" -> "Short Term"
                                         "ll" -> "Long Term"
+                                        "cc" -> "Credit Card"
                                         else -> ""
                                     })
                                 },
@@ -134,16 +145,27 @@ fun ManagerCreateCustomerLoanScreen(
                 }
 
                 if (type.value.isNotBlank()) {
-                    CustomTextField(
-                        label = "Amount",
-                        inputWrapper = balance,
-                        visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                balance = balance.copy(value = it, errorMessage = getBalanceErrorOrNull(it))
+                    if (type.value != "cc") {
+                        CustomTextField(
+                            label = "Amount",
+                            inputWrapper = balance,
+                            visualTransformation = CurrencyAmountInputVisualTransformation(),
+                            onValueChange = {
+                                if (it.all { character -> character.isDigit() }) {
+                                    balance = balance.copy(value = it, errorMessage = getBalanceErrorOrNull(it))
+                                }
                             }
-                        }
-                    )
+                        )
+                        CustomTextField(
+                            label = "Number Of Years",
+                            inputWrapper = length,
+                            onValueChange = {
+                                if (it.all { character -> character.isDigit() }) {
+                                    length = length.copy(value = it, errorMessage = getLengthErrorOrNull(it))
+                                }
+                            }
+                        )
+                    }
                     CustomTextField(
                         label = "Interest Rate",
                         inputWrapper = interestRate,
@@ -154,34 +176,62 @@ fun ManagerCreateCustomerLoanScreen(
                             }
                         }
                     )
-                    CustomTextField(
-                        label = "Date Payment Due",
-                        inputWrapper = paymentDueDate,
-                        visualTransformation = DateInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() } && it.length < 9) {
-                                paymentDueDate = paymentDueDate.copy(value = it, errorMessage = getDueDateErrorOrNull(it))
+//                    CustomTextField(
+//                        label = "Date Payment Due",
+//                        inputWrapper = paymentDueDate,
+//                        visualTransformation = DateInputVisualTransformation(),
+//                        onValueChange = {
+//                            if (it.all { character -> character.isDigit() } && it.length < 9) {
+//                                paymentDueDate = paymentDueDate.copy(value = it, errorMessage = getDueDateErrorOrNull(it))
+//                            }
+//                        }
+//                    )
+                    if (type.value != "cc") {
+                        TextField(
+                            value = convertDateToString(paymentDueDate),
+                            label = { Text("Date Payment Due") },
+                            onValueChange = {},
+                            enabled = false
+                        )
+//                        CustomTextField(
+//                            label = "Payment Amount",
+//                            inputWrapper = paymentPer,
+//                            visualTransformation = CurrencyAmountInputVisualTransformation(),
+//                            onValueChange = {
+//                                if (it.all { character -> character.isDigit() }) {
+//                                    paymentPer = paymentPer.copy(value = it, errorMessage = getAmountDueErrorOrNull(it))
+//                                }
+//                            }
+//                        )
+                        TextField(
+                            value = paymentPer.formatAsMoney(),
+                            label = { Text("Payment Amount") },
+                            onValueChange = {},
+                            enabled = false,
+                            isError = paymentPer == 0.0
+                        )
+                    }
+                    if (type.value == "cc") {
+                        CustomTextField(
+                            label = "Credit Limit",
+                            inputWrapper = creditLimit,
+                            visualTransformation = CurrencyAmountInputVisualTransformation(),
+                            onValueChange = {
+                                if (it.all { character -> character.isDigit() }) {
+                                    creditLimit = creditLimit.copy(value = it, errorMessage = getBalanceErrorOrNull(it))
+                                }
                             }
-                        }
-                    )
-                    CustomTextField(
-                        label = "Payment Amount",
-                        inputWrapper = paymentPer,
-                        visualTransformation = CurrencyAmountInputVisualTransformation(),
-                        onValueChange = {
-                            if (it.all { character -> character.isDigit() }) {
-                                paymentPer = paymentPer.copy(value = it, errorMessage = getAmountDueErrorOrNull(it))
-                            }
-                        }
-                    )
+                        )
+                    }
                 }
 
                 Button(
                     onClick = {
                         try {
                             val loan: Loan? = when(type.value) {
-                                "ls" -> ShortTermLoan("", ssn, (balance.value.toDouble()/100), interestRate.value.toDouble()/10000, convertStringToDateInterface(paymentDueDate.value), LocalDate.now(), paymentPer.value.toDouble()/100, LocalDate.now(), false)
-                                "ll" -> MortgageLoan("", ssn, (balance.value.toDouble()/100), interestRate.value.toDouble()/10000, convertStringToDateInterface(paymentDueDate.value), LocalDate.now(), paymentPer.value.toDouble()/100, LocalDate.now(), false)
+                                "ls" -> ShortTermLoan("", ssn, (balance.value.toDouble()/100), interestRate.value.toDouble()/10000, paymentDueDate, LocalDate.now(), paymentPer, LocalDate.now(), false)
+                                "ll" -> MortgageLoan("", ssn, (balance.value.toDouble()/100), interestRate.value.toDouble()/10000, paymentDueDate, LocalDate.now(), paymentPer, LocalDate.now(), false)
+                                "cc" -> CreditCardLoan("", ssn, 0.0, interestRate.value.toDouble()/10000, paymentDueDate, LocalDate.now(), 0.0, LocalDate.now(), false, creditLimit.value.toDouble()/100)
                                 else -> null
                             }
 

@@ -10,11 +10,18 @@ public class CreditCardLoan extends Loan{
     @NotNull
     private Double creditLimit;
 
-    public CreditCardLoan(@NotNull String accountNumber, @NotNull String customerSSN, @NotNull Double balance,
-                          @NotNull Double interestRate, @NotNull LocalDate datePaymentDue,
-                          @NotNull LocalDate paymentNotified, @NotNull Double currentPaymentDue,
-                          @NotNull LocalDate dateSinceLastPayment, @NotNull Boolean missedPayment,
-                          @NotNull Double creditLimit) {
+    public CreditCardLoan(
+            @NotNull String accountNumber,
+            @NotNull String customerSSN,
+            @NotNull Double balance,
+            @NotNull Double interestRate,
+            @NotNull LocalDate datePaymentDue,
+            @NotNull LocalDate paymentNotified,
+            @NotNull Double currentPaymentDue,
+            @NotNull LocalDate dateSinceLastPayment,
+            @NotNull Boolean missedPayment,
+            @NotNull Double creditLimit
+    ) {
         super(accountNumber, customerSSN, balance, interestRate, datePaymentDue, paymentNotified, currentPaymentDue,
                 dateSinceLastPayment, missedPayment);
         this.creditLimit = creditLimit;

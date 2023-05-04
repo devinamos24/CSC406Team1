@@ -1,9 +1,9 @@
 package edu.missouriwestern.csc406team1.database.dao;
 
 import edu.missouriwestern.csc406team1.ArrayListFlow;
-import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.Check;
 import edu.missouriwestern.csc406team1.database.model.Purchase;
+import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.util.CSVWriter;
 import edu.missouriwestern.csc406team1.util.DateConverter;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.time.LocalTime;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -69,21 +69,21 @@ public class TransactionDaoImpl implements TransactionDao{
         for (String[] args : collect) {
             try {
 
-                String transactionID = args[0];
-                boolean credit = Boolean.parseBoolean(args[1]);
-                boolean debit = Boolean.parseBoolean(args[2]);
+                String transactionID;
+                boolean credit;
+                boolean debit;
                 String transactionType = args[3];
-                double amount = Double.parseDouble(args[4]);
-                double newTotal = Double.parseDouble(args[5]);
-                String accID = args[6];
-                LocalDate date = LocalDate.parse(args[7]);
-                LocalTime time = LocalTime.parse(args[8]);
-                String purchaseMerchant = args[9].equals("null") ? null : args[9];
-                String purchaseCategory = args[10].equals("null") ? null : args[10];
-                boolean purchaseIsPosted = Boolean.parseBoolean(args[11]);
-                int checkNumber = args[12].equals("null") ? 0 : Integer.parseInt(args[12]);
-                String checkPayee = args[13].equals("null") ? null : args[13];
-                boolean checkStopPayment = Boolean.parseBoolean(args[14]);
+                double amount;
+                double newTotal;
+                String accID;
+                LocalDate date;
+                LocalTime time;
+                String purchaseMerchant;
+                String purchaseCategory;
+                boolean purchaseIsPosted;
+                int checkNumber;
+                String checkPayee;
+                boolean checkStopPayment;
 
                 Transaction transaction;
                 if (Integer.parseInt(args[0]) > highestID) {
@@ -91,14 +91,44 @@ public class TransactionDaoImpl implements TransactionDao{
                 }
                 switch (transactionType.toLowerCase()) {
                     case "p":
+                        transactionID = args[0];
+                        credit = Boolean.parseBoolean(args[1]);
+                        debit = Boolean.parseBoolean(args[2]);
+                        amount = Double.parseDouble(args[4]);
+                        newTotal = Double.parseDouble(args[5]);
+                        accID = args[6];
+                        date = DateConverter.convertStringToDate(args[7]);
+                        time = LocalTime.parse(args[8]);
+                        purchaseMerchant = args[9].equals("null") ? null : args[9];
+                        purchaseCategory = args[10].equals("null") ? null : args[10];
+                        purchaseIsPosted = Boolean.parseBoolean(args[11]);
                         transaction = new Purchase(transactionID, credit, debit, transactionType, amount, newTotal,
                                 accID, date, time, purchaseMerchant, purchaseCategory, purchaseIsPosted);
                         break;
                     case "ch":
+                        transactionID = args[0];
+                        credit = Boolean.parseBoolean(args[1]);
+                        debit = Boolean.parseBoolean(args[2]);
+                        amount = Double.parseDouble(args[4]);
+                        newTotal = Double.parseDouble(args[5]);
+                        accID = args[6];
+                        date = DateConverter.convertStringToDate(args[7]);
+                        time = LocalTime.parse(args[8]);
+                        checkNumber = args[12].equals("null") ? 0 : Integer.parseInt(args[12]);
+                        checkPayee = args[13].equals("null") ? null : args[13];
+                        checkStopPayment = Boolean.parseBoolean(args[14]);
                         transaction = new Check(transactionID, credit, debit, transactionType, amount, newTotal, accID,
                                 date, time, checkNumber, checkPayee, checkStopPayment);
                         break;
                     default:
+                        transactionID = args[0];
+                        credit = Boolean.parseBoolean(args[1]);
+                        debit = Boolean.parseBoolean(args[2]);
+                        amount = Double.parseDouble(args[4]);
+                        newTotal = Double.parseDouble(args[5]);
+                        accID = args[6];
+                        date = DateConverter.convertStringToDate(args[7]);
+                        time = LocalTime.parse(args[8]);
                         transaction = new Transaction(transactionID, credit, debit, transactionType, amount, newTotal,
                                 accID, date, time);
                 }
