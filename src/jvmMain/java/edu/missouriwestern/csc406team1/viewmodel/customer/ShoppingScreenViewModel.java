@@ -1,9 +1,11 @@
 package edu.missouriwestern.csc406team1.viewmodel.customer;
 
+import edu.missouriwestern.csc406team1.ArrayListFlow;
 import edu.missouriwestern.csc406team1.database.AccountRepository;
 import edu.missouriwestern.csc406team1.database.CustomerRepository;
 import edu.missouriwestern.csc406team1.database.LoanRepository;
 import edu.missouriwestern.csc406team1.database.TransactionRepository;
+import edu.missouriwestern.csc406team1.database.model.Check;
 import edu.missouriwestern.csc406team1.database.model.Customer;
 import edu.missouriwestern.csc406team1.database.model.Transaction;
 import edu.missouriwestern.csc406team1.database.model.account.Account;
@@ -33,6 +35,7 @@ public class ShoppingScreenViewModel {
     private final MutableStateFlow<InputWrapper> amount = StateFlowKt.MutableStateFlow(new InputWrapper());
     private final MutableStateFlow<Boolean> isAccount = StateFlowKt.MutableStateFlow(true);
     private final MutableStateFlow<String> selectedAccountId = StateFlowKt.MutableStateFlow("");
+    private final ArrayListFlow<Check> unprocessedChecks = new ArrayListFlow<>();
     private final String ssn;
     private final Function0<Unit> onBack;
 
@@ -164,6 +167,103 @@ public class ShoppingScreenViewModel {
         hasFailed.setValue(true);
     }
 
+    public StateFlow<List<Check>> getUnprocessedChecks() {
+        return unprocessedChecks.getFlow();
+    }
+
+    private int currentCheckNum = 1;
+    public void onWriteCheck() {
+        CheckingAccount account;
+        double money;
+        try {
+            account = (CheckingAccount) accountRepository.getAccount(selectedAccountId.getValue());
+            money = Double.parseDouble(amount.getValue().component1()) / 100;
+        } catch (Exception e) {
+            hasFailedText.setValue("Debiting account failed, try again");
+            hasFailed.setValue(true);
+            return;
+        }
+
+        Check check = new Check("", false, true, "ch", money, account.getBalance()-money, account.getAccountNumber(), LocalDate.now(), LocalTime.now(), currentCheckNum, null, false);
+        currentCheckNum++;
+        unprocessedChecks.add(check);
+        transactionRepository.addTransaction(check);
+    }
+
+    public void onProcessChecks() {
+        int failedChecks = 0;
+        for (Check check : unprocessedChecks) {
+            if (check.isStopPayment()) {
+                unprocessedChecks.remove(check);
+                failedChecks++;
+                hasFailedText.setValue(failedChecks + " check(s) failed to process");
+                hasFailed.setValue(true);
+                continue;
+            }
+            CheckingAccount account;
+            double money;
+            try {
+                account = (CheckingAccount) accountRepository.getAccount(check.getAccID());
+                money = check.getAmount();
+            } catch (Exception e) {
+                unprocessedChecks.remove(check);
+                failedChecks++;
+                hasFailedText.setValue(failedChecks + " check(s) failed to process");
+                hasFailed.setValue(true);
+                return;
+            }
+            double fee = account.getTransactionFee();
+            money += fee;
+            if (account.getBalance() >= money) {
+                account.setBalance(account.getBalance() - money);
+                if (accountRepository.update(account)) {
+                    check.setPayee("Walmart");
+                    transactionRepository.update(check);
+                    if (fee > 0.0) {
+                        transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                    }
+                    unprocessedChecks.remove(check);
+                    continue;
+                }
+            } else {
+                if (account.getBackupAccount() != null && account.getBalance() + account.getBackupAccount().getBalance() >= money) {
+                    account.getBackupAccount().setBalance(account.getBackupAccount().getBalance() - (money - account.getBalance()));
+                    double oldBalance = account.getBalance();
+                    account.setBalance(0.0);
+                    if (accountRepository.update(account) && accountRepository.update(account.getBackupAccount())) {
+                        transactionRepository.addTransaction(new Transaction("", false, true, "d", oldBalance, account.getBalance() + fee, account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                        transactionRepository.addTransaction(new Transaction("", false, true, "d", money - oldBalance, account.getBackupAccount().getBalance(), account.getBackupAccount().getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                        if (fee > 0.0) {
+                            transactionRepository.addTransaction(new Transaction("", false, true, "f", fee, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                        }
+                    } else {
+                        failedChecks++;
+                        hasFailedText.setValue(failedChecks + " check(s) failed to process");
+                        hasFailed.setValue(true);
+                        unprocessedChecks.remove(check);
+                        continue;
+                    }
+                } else {
+                    account.setBalance(account.getBalance() - 25.0);
+                    account.setOverdraftsThisMonth(account.getOverdraftsThisMonth() + 1);
+                    if (accountRepository.update(account)) {
+                        transactionRepository.addTransaction(new Transaction("", false, true, "f", 25.0, account.getBalance(), account.getAccountNumber(), LocalDate.now(), LocalTime.now()));
+                    }
+                    failedChecks++;
+                    hasFailedText.setValue(failedChecks + " check(s) failed to process");
+                    hasFailed.setValue(true);
+                }
+                unprocessedChecks.remove(check);
+                continue;
+            }
+            unprocessedChecks.remove(check);
+            failedChecks++;
+            hasFailedText.setValue(failedChecks + " check(s) failed to process");
+            hasFailed.setValue(true);
+        }
+
+    }
+
     /**
      * Withdraws money from the specified account.
      */
@@ -173,7 +273,7 @@ public class ShoppingScreenViewModel {
         try {
             account = (CheckingAccount) accountRepository.getAccount(selectedAccountId.getValue());
             money = Double.parseDouble(amount.getValue().component1()) / 100;
-        } catch (NumberFormatException e) {
+        } catch (Exception e) {
             hasFailedText.setValue("Debiting account failed, try again");
             hasFailed.setValue(true);
             return;

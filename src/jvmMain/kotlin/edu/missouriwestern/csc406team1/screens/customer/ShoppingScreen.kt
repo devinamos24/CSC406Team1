@@ -56,6 +56,8 @@ fun CustomerShoppingScreen(
 
     val amount by shoppingScreenViewModel.amount.collectAsState()
 
+    val unprocessedChecks by shoppingScreenViewModel.unprocessedChecks.collectAsState()
+
     val icon = if (expanded)
         Icons.Filled.ArrowDropUp
     else
@@ -152,10 +154,10 @@ fun CustomerShoppingScreen(
                             Text("Purchase with ATM card")
                         }
                         Button(
-                            onClick = shoppingScreenViewModel::onMakePurchaseCheck,
+                            onClick = shoppingScreenViewModel::onWriteCheck,
                             enabled = selectedAccount.isActive && selectedAccount is CheckingAccount && amount.errorMessage == null && amount.value.isNotBlank(),
                         ) {
-                            Text("Purchase with check")
+                            Text("Write Check")
                         }
                     } else if (selectedAccount is CreditCardLoan) {
                         Button(
@@ -163,6 +165,13 @@ fun CustomerShoppingScreen(
                             enabled = amount.errorMessage == null && amount.value.isNotBlank()
                         ) {
                             Text("Purchase with Credit Card")
+                        }
+                    }
+                    if (unprocessedChecks.isNotEmpty()) {
+                        Button(
+                            onClick = shoppingScreenViewModel::onProcessChecks
+                        ) {
+                            Text("Process Checks")
                         }
                     }
                 }

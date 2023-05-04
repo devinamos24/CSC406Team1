@@ -10,6 +10,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import edu.missouriwestern.csc406team1.database.model.loan.CreditCardLoan
 import edu.missouriwestern.csc406team1.util.DateConverter.convertDateToString
 import edu.missouriwestern.csc406team1.util.formatAsMoney
 import edu.missouriwestern.csc406team1.util.getName
@@ -45,7 +46,7 @@ fun CustomerLoanDetailsScreen(
                 )
             }
         }
-        if (customer != null && loan != null && loan.balance > 0) {
+        if (customer != null && loan != null && (loan is CreditCardLoan || loan.balance > 0)) {
             Column(
                 modifier = Modifier.align(Alignment.Center)
             ) {
@@ -59,6 +60,9 @@ fun CustomerLoanDetailsScreen(
                         color = MaterialTheme.colorScheme.error,
                         text = "Payment Missed"
                     )
+                }
+                if (loan is CreditCardLoan) {
+                    Text("Credit Limit: ${loan.creditLimit.formatAsMoney()}")
                 }
                 Row (
                     modifier = Modifier.align(Alignment.CenterHorizontally),

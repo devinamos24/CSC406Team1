@@ -1,6 +1,7 @@
 package edu.missouriwestern.csc406team1.screens.manager
 
 import androidx.compose.foundation.VerticalScrollbar
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -18,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import edu.missouriwestern.csc406team1.database.AccountRepository
 import edu.missouriwestern.csc406team1.database.CustomerRepository
 import edu.missouriwestern.csc406team1.database.TransactionRepository
+import edu.missouriwestern.csc406team1.database.model.Check
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.*
 import java.time.format.DateTimeFormatter
@@ -82,14 +84,31 @@ fun ManagerViewTransactionHistoryScreen(
                                 AccountDateHeader(date = date)
                             }
                             accountTransactions.forEach { transaction ->
-                                if (formatter.format(transaction.date) == date) {
-                                    item {
-                                        AccountTransactionButton(
-                                            transaction = transaction,
-                                        )
-                                        Spacer(
-                                            modifier = Modifier.height(16.dp)
-                                        )
+                                if (transaction is Check && transaction.payee == null) {
+                                    if (formatter.format(transaction.date) == date) {
+                                        item {
+                                            AccountTransactionButton(
+                                                transaction = transaction,
+                                                onClick = {
+                                                    transaction.isStopPayment = true
+                                                    transactionRepository.update(transaction)
+                                                }
+                                            )
+                                            Spacer(
+                                                modifier = Modifier.height(16.dp)
+                                            )
+                                        }
+                                    }
+                                } else {
+                                    if (formatter.format(transaction.date) == date) {
+                                        item {
+                                            AccountTransactionButton(
+                                                transaction = transaction,
+                                            )
+                                            Spacer(
+                                                modifier = Modifier.height(16.dp)
+                                            )
+                                        }
                                     }
                                 }
                             }
@@ -143,11 +162,13 @@ private fun AccountDateHeader(
 private fun AccountTransactionButton(
     modifier: Modifier = Modifier,
     transaction: Transaction,
+    onClick: () -> Unit = {}
 ) {
     Box(
         modifier = modifier.height(48.dp)
             .fillMaxWidth()
             .padding(start = 10.dp)
+            .clickable(onClick = onClick)
     ) {
         var creditText = if (transaction.isCredit) "Credit" else "Debit"
         val modifierSymbol = if (transaction.isCredit) "" else "-"

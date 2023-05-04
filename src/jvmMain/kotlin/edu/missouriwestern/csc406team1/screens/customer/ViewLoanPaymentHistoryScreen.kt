@@ -40,7 +40,7 @@ fun CustomerViewLoanPaymentHistoryScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val loan = loans.find { it.accountNumber == id }
-    val loanTransactions = transactions.filter { it.accID == id && it.transactionType == "lp" }.sorted()
+    val loanTransactions = transactions.filter { it.accID == id && (it.transactionType == "lp" || it.transactionType == "ccp" || it.transactionType == "ccf") }.sorted()
     val daysOfTransactions = loanTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {
@@ -149,9 +149,15 @@ private fun LoanTransactionButton(
             .fillMaxWidth()
             .padding(start = 10.dp)
     ) {
-        val creditText = "Loan Payment"
-        val modifierSymbol = "-"
-        val color = Color.Green
+        var creditText = if (transaction.isCredit) "Credit" else "Debit"
+        val modifierSymbol = if (transaction.isCredit) "-" else ""
+        val color = if (transaction.isCredit) Color.Green else Color.Unspecified
+
+        when (transaction.transactionType) {
+            "lp" -> creditText = "Loan Payment"
+            "ccp" -> creditText = "Purchase"
+            "ccf" -> creditText = "Fee"
+        }
 
         Column(
             modifier = Modifier.align(Alignment.CenterEnd),

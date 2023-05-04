@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import edu.missouriwestern.csc406team1.database.model.Check
 import edu.missouriwestern.csc406team1.database.model.Transaction
 import edu.missouriwestern.csc406team1.util.DateConverter
 import edu.missouriwestern.csc406team1.util.TimeConverter
@@ -40,7 +41,7 @@ fun CustomerViewTransactionHistoryScreen(
 
     val customer = customers.find { it.ssn == ssn }
     val account = accounts.find { it.accountNumber == id }
-    val accountTransactions = transactions.filter { it.accID == id && (it.transactionType != "lp" || it.transactionType != "ccp" || it.transactionType != "ccf") }.sorted()
+    val accountTransactions = transactions.filter { it.accID == id && (it.transactionType != "lp" || it.transactionType != "ccp" || it.transactionType != "ccf") && !(it is Check && it.payee == null) }.sorted()
     val daysOfTransactions = accountTransactions.sorted().map { formatter.format(it.date)!! }.toSet()
 
     Box(modifier = Modifier.fillMaxSize().padding(8.dp)) {

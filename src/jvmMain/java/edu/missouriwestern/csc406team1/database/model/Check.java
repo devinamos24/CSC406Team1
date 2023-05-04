@@ -23,6 +23,13 @@ public class Check extends Transaction implements Comparable<Transaction>, CSV {
         this.stopPayment = stopPayment;
     }
 
+    private Check(Check check) {
+        super(check.getTransactionID(), check.isCredit(), check.isDebit(), check.getTransactionType(), check.getAmount(), check.getNewTotal(), check.getAccID(), check.getDate(), check.getTime());
+        this.checkNumber = check.getCheckNumber();
+        this.payee = check.getPayee();
+        this.stopPayment = check.stopPayment;
+    }
+
     // Getters
     public int getCheckNumber() {
         return checkNumber;
@@ -48,6 +55,12 @@ public class Check extends Transaction implements Comparable<Transaction>, CSV {
     public void setStopPayment(boolean stopPayment) {
         this.stopPayment = stopPayment;
     }
+
+    @Override
+    public Check copy() {
+        return new Check(this);
+    }
+
     @Override
     public String[] convertToCSV() {
         String[] base = super.convertToCSV();
